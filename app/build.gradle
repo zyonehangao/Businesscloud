@@ -9,22 +9,44 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
 
-        applicationId "com.haotian.shoubei.shoubeicashiapp"
+        applicationId "com.cloud.shangwu.businesscloud"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner rootProject.ext.android["androidJUnitRunner"]
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters  'arm64-v8a', 'armeabi', 'armeabi-v7a', 'mips', 'mips64', 'x86', 'x86_64'
 
         }
     }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+
+        disable 'CheckResult'
+    }
+
+    dexOptions {
+        dexInProcess true
+        preDexLibraries true
+        javaMaxHeapSize "4g"
+        // incremental true
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,13 +55,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["anko"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
+//    leakcanary
+    debugImplementation rootProject.ext.dependencies["leakcanary-debug"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-release"]
 //    http
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["retrofit"]
@@ -52,4 +77,14 @@ dependencies {
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
     implementation rootProject.ext.dependencies["rxpermissions"]
+
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["converter-gson"]
+    implementation rootProject.ext.dependencies["eventbus"]
+    implementation rootProject.ext.dependencies["swipeback"]
+    implementation rootProject.ext.dependencies["retrofitKotlinMoshi"]
+    implementation rootProject.ext.dependencies["okhttp3LoggerInterceptor"]
+    implementation rootProject.ext.dependencies["logger"]
+    implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
 }

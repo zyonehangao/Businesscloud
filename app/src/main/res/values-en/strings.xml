@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">BUsinessCloud</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="home">Home</string>
+    <string name="knowledge_system">Knowledge</string>
+    <string name="navigation">Navigation</string>
+    <string name="project">Project</string>
+    <string name="wechat">WeChat</string>
+
+    <string name="exit_tip">Press again to exit the WanAndroid</string>
+    <string name="share_article_url">%1$sShare【%2$s】：%3$s</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
+    <string name="network_unavailable_tip">Network connection is not available, please check the network settings!</string>
+
+    <!-- Login -->
+    <string name="username">Please enter cell phone number</string>
+    <string name="password">Password (6-20 bit letters, numbers or characters)</string>
+    <string name="invitationcode">Please input invitation code（Choose to fill in）</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="no_account">No account yet? Create one</string>
+    <string name="username_not_empty">Username cannot be empty.</string>
+    <string name="password_not_empty">Password cannot be empty.</string>
+    <string name="have_account">Already have a account? Login</string>
+    <string name="enter_password_again">Enter Password Again</string>
+    <string name="confirm_password_not_empty">Confirm Password cannot be empty.</string>
+    <string name="password_cannot_match">Password cannot match</string>
+    <string name="login_success">Login Success</string>
+    <string name="login_fail">Login Fail</string>
+    <string name="register_success">Register Success</string>
+    <string name="register_fail">Register Fail</string>
+    <string name="confirm_logout">Confirm Logout？</string>
+    <string name="logout_success">Logout Success</string>
+    <string name="logout_ing">Logout...</string>
+    <string name="login_tint">Please Login</string>
+    <string name="login_ing">Login...</string>
+    <string name="register_ing">Register...</string>
+</resources>
