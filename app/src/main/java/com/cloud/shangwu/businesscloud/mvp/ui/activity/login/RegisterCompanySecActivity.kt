@@ -5,21 +5,22 @@ import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
-import com.cloud.shangwu.businesscloud.mvp.contract.RegisterContract
+import com.cloud.shangwu.businesscloud.event.LoginEvent
+import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.mvp.contract.RegisterCompanyContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
-import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPresenter
+import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registercompanysec.*
 import kotlinx.android.synthetic.main.title_register.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Administrator on 2018/11/11.
  */
-class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterContract.View {
-
+class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContract.View {
 
     /**
      * local username
@@ -38,8 +39,8 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterContract.View 
 
     private var mutableList : ArrayList<String> ?= null
 
-    private val mPresenter: RegisterPresenter by lazy {
-        RegisterPresenter()
+    private val mPresenter: RegisterCompanyPresenter by lazy {
+        RegisterCompanyPresenter()
     }
 
     private val mDialog by lazy {
@@ -55,27 +56,29 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterContract.View 
     }
 
     override fun showError(errorMsg: String) {
-
+        showToast(errorMsg)
     }
 
 
     override fun registerSuccess(data: LoginData) {
-
+        showToast(getString(R.string.register_success))
+        finish()
     }
 
     override fun registerFail() {
-
+        showToast(getString(R.string.register_fail))
+        finish()
     }
 
-    override fun attachLayoutRes(): Int {
-        return R.layout.activity_registercompanysec;
-    }
+    override fun attachLayoutRes(): Int= R.layout.activity_registercompanysec;
 
     override fun initData() {
-        mutableList=intent.getStringArrayListExtra("message");
+//        mutableList=intent.getStringArrayListExtra("message")
+//        showToast((mutableList as java.util.ArrayList<String>?)!![0])
     }
 
     override fun initView() {
+        mPresenter.attachView(this)
         rl_busnissgoal.setOnClickListener(onClickListener);
         rl_companyint.setOnClickListener(onClickListener);
         rl_position.setOnClickListener(onClickListener);
@@ -111,7 +114,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterContract.View 
      * Register
      */
     private fun register() {
-        mPresenter.register(et_username.text.toString(), et_password.text.toString(), et_password.text.toString(),"","","","","","","","","","","","","","","")
+//        mPresenter.registerCompany(et_username.text.toString(), et_password.text.toString(), et_password.text.toString())
 
     }
 }

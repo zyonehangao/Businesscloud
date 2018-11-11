@@ -53,6 +53,26 @@ interface ApiService {
 
 
     /**
+     * 企业注册
+     * @param username
+     * @param password
+     * @param repassword
+     * @param area
+     * @param email
+     */
+    @POST("/pass/save")
+    @FormUrlEncoded
+    fun registerCompany(@Field("username") username: String,
+                 @Field("password") password: String,
+                 @Field("repassword") repassword: String,
+                 @Field("area") area: String,
+                 @Field("pid") pid: Int,
+                 @Field("type") type: Int,
+                 @Field("email") email: String
+    ): Observable<HttpResult<LoginData>>
+
+
+    /**
      *发送邮件
      * @param username
      * @param password
