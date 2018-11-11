@@ -7,10 +7,10 @@ import com.cloud.shangwu.businesscloud.constant.HttpConstant
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.http.interceptor.CacheInterceptor
 import com.cloud.shangwu.businesscloud.http.interceptor.HeaderInterceptor
+import com.cloud.shangwu.businesscloud.http.interceptor.HttpLoggingInterceptor
 import com.cloud.shangwu.businesscloud.http.interceptor.SaveCookieInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -48,13 +48,13 @@ object RetrofitHelper {
      */
     private fun getOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient().newBuilder()
-        val httpLoggingInterceptor = okhttp3.logging.HttpLoggingInterceptor()
-        if (BuildConfig.DEBUG) {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        } else {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
-        }
-
+//        val httpLoggingInterceptor = okhttp3.logging.HttpLoggingInterceptor()
+//        if (BuildConfig.DEBUG) {
+//            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+//        } else {
+//            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
+//        }
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
         //设置 请求的缓存的大小跟位置
         val cacheFile = File(App.context.cacheDir, "cache")
         val cache = Cache(cacheFile, HttpConstant.MAX_CACHE_SIZE)
