@@ -9,14 +9,16 @@ data class HttpResult<T>(@Json(name = "data") val data: T,
 
 // 登录数据
 data class LoginData(
-        @Json(name = "chapterTops") val chapterTops: MutableList<String>,
-        @Json(name = "collectIds") val collectIds: MutableList<String>,
-        @Json(name = "email") val email: String,
-        @Json(name = "icon") val icon: String,
-        @Json(name = "id") val id: Int,
-        @Json(name = "password") val password: String,
-        @Json(name = "token") val token: String,
-        @Json(name = "type") val type: Int,
-        @Json(name = "username") val username: String
+        @Json(name = "chapterTops") var chapterTops: MutableList<String>,
+        @Json(name = "collectIds") var collectIds: MutableList<String>,
+        @Json(name = "email") var email: String,
+        @Json(name = "icon") var icon: String,
+        @Json(name = "id") var id: Int,
+        @Json(name = "password") var password: String,
+        @Json(name = "token") var token: String,
+        @Json(name = "type") var type: Int,
+        @Json(name = "username") var username: String
 
 )
+
+

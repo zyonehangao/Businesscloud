@@ -8,7 +8,7 @@ object Constant {
 
 
 
-    const val BASE_URL = "http://13.231.212.214/business"
+    const val BASE_URL = "http://13.231.212.214/business/"
 
     const val LOGIN_KEY = "login"
     const val USERNAME_KEY = "username"

@@ -3,10 +3,7 @@ package com.cloud.shangwu.businesscloud.api
 import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     // git 测试
@@ -18,7 +15,7 @@ interface ApiService {
     @POST("/pass/login")
     @FormUrlEncoded
     fun login(@Field("username") username: String,
-                        @Field("password") password: String): Observable<HttpResult<LoginData>>
+              @Field("password") password: String): Observable<HttpResult<LoginData>>
 
 
     /**
