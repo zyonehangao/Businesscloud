@@ -50,9 +50,9 @@
     <string name="logo_com">请上传公司logo</string>
     <string name="register_now">立即注册</string>
     <string name="upload_your_head">上传个人图像</string>
-    <string name="forgetpsd">上传个人图像</string>
-    <string name="import_user_name">qingshur  </string>
-    <string name="input_emaill">qingshur  </string>
+
+    <string name="import_user_names">qingshur  </string>
+    <string name="input_emails">qingshur  </string>
     <string name="position_com">请输入您的职位</string>
     <string name="companyint_com">请输入公司介绍</string>
     <string name="busnissscope_com">请输入经营范围</string>
@@ -63,4 +63,13 @@
     <string name="toast_error_email" >邮箱</string>
     <string name="toast_error_psw" >密码</string>
     <string name="toast_error_name" >公司名称</string>
+    <string name="forgetpsds">忘记密码</string>
+    <string name="import_user_name"></string>
+    <string name="newpassword">新密码（6-20位字母、数字或字符）</string>
+    <string name="input_emaill">请输入邮箱</string>
+    <string name="complete">完成</string>
+    <string name="please_enter_password">请在输入一次密码</string>
+    <string name="enter_phone_number_email">请输入用户名、邮箱、手机号</string>
+    <string name="choice_location">请选择所在地区</string>
+
 </resources>

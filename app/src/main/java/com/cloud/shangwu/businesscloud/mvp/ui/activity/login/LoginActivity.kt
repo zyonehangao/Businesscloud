@@ -12,6 +12,7 @@ import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.LoginPresenter
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.ForgetPassword
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
@@ -70,6 +71,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         et_username.setText(user)
         btn_login.setOnClickListener(onClickListener)
         tv_sign_up.setOnClickListener(onClickListener)
+        tv_forgetpsd.setOnClickListener(onClickListener)
     }
 
     override fun start() {
@@ -100,9 +102,12 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             }
             R.id.tv_sign_up -> {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                startActivity(intent)
-//                finish()
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                startActivitys(intent)
+                finish()
+            }
+            R.id.tv_forgetpsd ->{
+                val intent = Intent(this@LoginActivity, ForgetPassword::class.java)
+                startActivitys(intent)
             }
         }
     }

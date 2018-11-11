@@ -1,6 +1,7 @@
 package com.cloud.shangwu.businesscloud.base
 
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.PixelFormat
@@ -185,11 +186,16 @@ abstract class BaseActivity : AppCompatActivity() {
         start()
     }
 
+    /**
+     * init ToolBar
+     */
     protected fun initToolbar(toolbar: Toolbar, homeAsUpEnabled: Boolean, title: String) {
         toolbar?.title = title
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
     }
+
+
 
     /**
      * Network Change
@@ -259,4 +265,8 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    protected fun startActivitys(intent: Intent) {
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
 }

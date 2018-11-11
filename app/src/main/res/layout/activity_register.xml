@@ -54,7 +54,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/dp_24"
                 android:layout_marginTop="@dimen/dp_105"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/business_login" />
 
             <RadioGroup
                 android:layout_width="match_parent"

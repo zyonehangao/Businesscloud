@@ -13,8 +13,8 @@ import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_registerpersonal.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 
 class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View {
@@ -77,11 +77,21 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
 
     override fun initView() {
         mPresenter.attachView(this)
+        toolbar.run {
+            title = ""
+            toolbar_nam.run {
+                text=getString(R.string.register_personal)
+            }
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
         btn_register.setOnClickListener(onClickListener)
-        tv_sign_in.setOnClickListener(onClickListener)
+        btn_register.setOnClickListener(onClickListener)
+        ll_choice_location.setOnClickListener(onClickListener)
     }
 
     override fun start() {
+
     }
 
     /**
@@ -92,12 +102,15 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
             R.id.btn_register -> {
                 register()
             }
-            R.id.tv_sign_in -> {
+            R.id.btn_register -> {
                 Intent(this@RegisterPersonalActivity, LoginActivity::class.java).apply {
                     startActivity(this)
                 }
                 finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+            R.id.ll_choice_location->{
+
             }
         }
     }

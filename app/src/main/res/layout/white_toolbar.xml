@@ -13,13 +13,18 @@
         android:id="@+id/tl_title"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:navigationContentDescription=""
+        app:title=""
+        app:navigationIcon="@drawable/arrow_login2"
         >
         <ImageView
             android:id="@+id/iv_black"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/arrow_login" />
         <TextView
+            android:id="@+id/toolbar_withe_name"
             android:layout_width="wrap_content"
             android:textColor="@color/Black"
             android:text="toolbar"

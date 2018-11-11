@@ -13,8 +13,8 @@ import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPresenter
 import com.cloud.shangwu.businesscloud.ui.activity.LoginActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_registercompany.*
-import kotlinx.android.synthetic.main.title_register.*
 import org.greenrobot.eventbus.EventBus
 
 /**
