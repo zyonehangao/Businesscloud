@@ -45,6 +45,7 @@
         <activity android:name=".ui.activity.RegisterPersonalActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanyActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.RegisterActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"></activity>
     </application>
 
 </manifest>

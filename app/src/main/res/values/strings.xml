@@ -53,4 +53,14 @@
     <string name="forgetpsd">上传个人图像</string>
     <string name="import_user_name">qingshur  </string>
     <string name="input_emaill">qingshur  </string>
+    <string name="position_com">请输入您的职位</string>
+    <string name="companyint_com">请输入公司介绍</string>
+    <string name="busnissscope_com">请输入经营范围</string>
+    <string name="busnissgoal_com">请选择企业目标</string>
+    <string name="toast_error" >请输入正确的</string>
+    <string name="toast_error_id" >id</string>
+    <string name="toast_error_area" >地区</string>
+    <string name="toast_error_email" >邮箱</string>
+    <string name="toast_error_psw" >密码</string>
+    <string name="toast_error_name" >公司名称</string>
 </resources>

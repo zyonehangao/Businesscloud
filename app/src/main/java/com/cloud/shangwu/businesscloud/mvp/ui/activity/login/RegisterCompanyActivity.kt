@@ -3,7 +3,6 @@ package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 import android.content.Intent
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
-import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
@@ -15,7 +14,7 @@ import com.cloud.shangwu.businesscloud.ui.activity.LoginActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_registercompany.*
-import kotlinx.android.synthetic.main.activity_registerpersonal.*
+import kotlinx.android.synthetic.main.title_register.*
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -36,6 +35,9 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterContract.View{
     /**
      * Presenter
      */
+
+    private val mutableList : ArrayList<String> ?= null
+
     private val mPresenter by lazy {
         RegisterPresenter()
     }
@@ -76,9 +78,8 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterContract.View{
 
     override fun initView() {
         mPresenter.attachView(this)
-//        btn_register.setOnClickListener(onClickListener)
-//        tv_sign_in.setOnClickListener(onClickListener)
-
+        back.setOnClickListener(onClickListener);
+        btn_login.setOnClickListener(onClickListener)
     }
 
     override fun start() {
@@ -94,55 +95,95 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterContract.View{
      */
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
-            R.id.btn_register -> {
-                register()
-            }
-            R.id.tv_sign_in -> {
-                Intent(this@RegisterCompanyActivity, LoginActivity::class.java).apply {
-                    startActivity(this)
+            R.id.btn_login -> {
+                if (getMessage()){
+                    Intent(this@RegisterCompanyActivity, RegisterCompanySecActivity::class.java).apply {
+                        intent.putStringArrayListExtra("message",mutableList)
+//                        intent.putExtra("message",mutableList)
+                        startActivity(this)
+                    }
+                    finish()
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 }
+
+            }
+            R.id.back -> {
                 finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
     }
 
-    /**
-     * Register
-     */
-    private fun register() {
-        if (validate()) {
-            mPresenter.register(et_username.text.toString(),
-                    et_password.text.toString(),
-                    et_password2.text.toString())
+    private fun getMessage() : Boolean{
+        var valid = true
+
+//        val booleanList : ArrayList<Boolean> ?= null
+        var id = et_id.text.trim().toString()
+        var pwd=et_password.text.trim().toString()
+        var name=et_username.text.trim().toString()
+        var email=et_email.text.trim().toString()
+        var area=et_area.text.trim().toString()
+        var intcode=et_invcode.text.trim().toString()
+
+        if (!validate(id as String)){
+            showError(getString(R.string.toast_error)+getString(R.string.toast_error_id))
+            valid=false
+        }else if(!validate(pwd as String)){
+            showError(getString(R.string.toast_error)+getString(R.string.toast_error_psw))
+            valid=false
+        }else if (!validate(name as String)){
+            showError(getString(R.string.toast_error)+getString(R.string.toast_error_name))
+            valid=false
+        }else if (!validate(email as String)){
+            showError(getString(R.string.toast_error)+getString(R.string.toast_error_email))
+            valid=false
+        }else if (!validate(area as String)){
+            showError(getString(R.string.toast_error)+getString(R.string.toast_error_area))
+            valid=false
         }
+        if (mutableList != null) {
+            mutableList.add(id)
+            mutableList.add(pwd as String)
+            mutableList.add(name as String)
+            mutableList.add(email as String)
+            mutableList.add(area as String)
+            mutableList.add(intcode as String)
+        }
+        return valid
+//        if (mutableList != null) {
+//            mutableList.add(id as String)
+//            mutableList.add(pwd as String)
+//            mutableList.add(name as String)
+//            mutableList.add(email as String)
+//            mutableList.add(area as String)
+//        }
+//
+//        if (mutableList != null) {
+//            for (i in mutableList.indices) {
+//                if (booleanList != null) {
+//                    var isvalidate=validate(mutableList.get(1))
+//                    booleanList.add(isvalidate)
+//                }
+//            }
+//        }
+//
+//        if (booleanList != null) {
+//            booleanList.contains(false)
+//        }
+
     }
 
     /**
-     * check data
+     * Check UserName and PassWord
      */
-    private fun validate(): Boolean {
+
+    private fun validate(str: String): Boolean {
         var valid = true
-        val username: String = et_username.text.toString()
-        val password: String = et_password.text.toString()
-        val password2: String = et_password2.text.toString()
-        if (username.isEmpty()) {
-            et_username.error = getString(R.string.username_not_empty)
-            valid = false
-        }
-        if (password.isEmpty()) {
-            et_password.error = getString(R.string.password_not_empty)
-            valid = false
-        }
-        if (password2.isEmpty()) {
-            et_password2.error = getString(R.string.confirm_password_not_empty)
-            valid = false
-        }
-        if (password != password2) {
-            et_password2.error = getString(R.string.password_cannot_match)
+        if (str.isEmpty()) {
             valid = false
         }
         return valid
+
     }
 
 

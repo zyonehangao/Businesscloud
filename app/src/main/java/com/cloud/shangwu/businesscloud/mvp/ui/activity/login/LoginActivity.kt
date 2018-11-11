@@ -101,7 +101,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             R.id.tv_sign_up -> {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
-                finish()
+//                finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
