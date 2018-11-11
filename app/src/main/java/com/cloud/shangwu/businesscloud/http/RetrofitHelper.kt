@@ -31,7 +31,7 @@ object RetrofitHelper {
             synchronized(RetrofitHelper::class.java) {
                 if (retrofit == null) {
                     retrofit = Retrofit.Builder()
-                            .baseUrl("")  // baseUrl
+                            .baseUrl(Constant.BASE_URL)  // baseUrl
                             .client(getOkHttpClient())
                             //.addConverterFactory(GsonConverterFactory.create())
                             .addConverterFactory(MoshiConverterFactory.create())
