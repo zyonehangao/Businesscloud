@@ -13,8 +13,8 @@ import io.reactivex.Observable
  */
 class RegisterCompanyModel : BaseModel() {
 
-    fun register(username: String, password: String, repassword: String,area: String, pid: Int, type: Int,email: String): Observable<HttpResult<LoginData>> {
-        return RetrofitHelper.service.registerCompany(username, password, repassword,area,pid,type,email)
+    fun register(username: String, password: String,area: String, pid: Int, type: Int,email: String): Observable<HttpResult<LoginData>> {
+        return RetrofitHelper.service.registerCompany(username, password, area,pid,type,email)
                 .compose(SchedulerUtils.ioToMain())
     }
 

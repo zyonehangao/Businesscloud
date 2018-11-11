@@ -72,13 +72,13 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(){
         if (!validate(id)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_id))
             valid=false
-        }else if(!validate(pwd)||Validator.isPassword(pwd)){
+        }else if(!validate(pwd)||!Validator.isPassword(pwd)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_psw))
             valid=false
         }else if (!validate(name)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_name))
             valid=false
-        }else if (!validate(email)||Validator.isEmail(email)){
+        }else if (!validate(email)||!Validator.isEmail(email)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_email))
             valid=false
         }else if (!validate(area)){

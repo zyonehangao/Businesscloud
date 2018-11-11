@@ -12,9 +12,9 @@ import com.cloud.shangwu.businesscloud.mvp.model.RegisterCompanyModel
  */
 class RegisterCompanyPresenter : BasePresenter<RegisterCompanyContract.View>(), RegisterCompanyContract.Presenter {
 
-    override fun registerCompany(username: String, password: String, repassword: String,area: String, pid: Int, type: Int,email: String) {
+    override fun registerCompany(username: String, password: String,area: String, pid: Int, type: Int,email: String) {
         mView?.showLoading()
-        val disposable = registerModel.register(username, password, repassword,area,pid,type,email)
+        val disposable = registerModel.register(username, password, area,pid,type,email)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {

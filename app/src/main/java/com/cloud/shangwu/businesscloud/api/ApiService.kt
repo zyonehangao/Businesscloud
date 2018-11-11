@@ -61,7 +61,6 @@ interface ApiService {
     @FormUrlEncoded
     fun registerCompany(@Field("username") username: String,
                  @Field("password") password: String,
-                 @Field("repassword") repassword: String,
                  @Field("area") area: String,
                  @Field("pid") pid: Int,
                  @Field("type") type: Int,

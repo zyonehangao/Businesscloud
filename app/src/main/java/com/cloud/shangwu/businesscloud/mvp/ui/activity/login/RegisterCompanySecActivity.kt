@@ -85,10 +85,10 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
         logo.setOnClickListener(onClickListener);
         btn_register.setOnClickListener(onClickListener);
         back.setOnClickListener(onClickListener)
-        toolbar.run {
-            title=""
-
-        }
+//        toolbar.run {
+//            title=""
+//
+//        }
     }
 
     override fun start() {
@@ -107,6 +107,22 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
+            R.id.rl_busnissgoal -> {
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+            R.id.rl_companyint -> {
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+            R.id.rl_position -> {
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+            R.id.logo -> {
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
         }
     }
 
@@ -114,7 +130,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
      * Register
      */
     private fun register() {
-//        mPresenter.registerCompany(et_username.text.toString(), et_password.text.toString(), et_password.text.toString())
+        mPresenter.registerCompany("zhangsan","123456","china",123,1,"abc@163.com")
 
     }
 }
