@@ -30,7 +30,7 @@ class ClearEditText @JvmOverloads constructor(context: Context, attrs: Attribute
         mClearDrawable = compoundDrawables[2]
         if (mClearDrawable == null) {
             mClearDrawable = resources.getDrawable(
-                    R.mipmap.ic_action_clear)
+                    R.drawable.error1)
         }
 
         mClearDrawable!!.setBounds(0, 0, mClearDrawable!!.intrinsicWidth,

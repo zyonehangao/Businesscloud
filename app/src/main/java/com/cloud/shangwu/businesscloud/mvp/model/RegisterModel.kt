@@ -12,8 +12,8 @@ import io.reactivex.Observable
  */
 class RegisterModel : BaseModel() {
 
-    fun registerWanAndroid(username: String, password: String, repassword: String): Observable<HttpResult<LoginData>> {
-        return RetrofitHelper.service.registerWanAndroid(username, password, repassword)
+    fun register(username: String, password: String, repassword: String): Observable<HttpResult<LoginData>> {
+        return RetrofitHelper.service.register(username, password, repassword)
                 .compose(SchedulerUtils.ioToMain())
     }
 

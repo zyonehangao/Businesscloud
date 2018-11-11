@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseActivity
+import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
@@ -20,7 +21,7 @@ import org.greenrobot.eventbus.EventBus
 /**
  * Created by Administrator on 2018/11/10.
  */
-class RegisterCompanyActivity : BaseActivity(), RegisterContract.View{
+class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterContract.View{
 
     /**
      * local username
@@ -111,7 +112,7 @@ class RegisterCompanyActivity : BaseActivity(), RegisterContract.View{
      */
     private fun register() {
         if (validate()) {
-            mPresenter.registerWanAndroid(et_username.text.toString(),
+            mPresenter.register(et_username.text.toString(),
                     et_password.text.toString(),
                     et_password2.text.toString())
         }

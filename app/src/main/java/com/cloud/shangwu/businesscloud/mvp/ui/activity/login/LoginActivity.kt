@@ -16,6 +16,7 @@ import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.white_toolbar.*
 import org.greenrobot.eventbus.EventBus
 
 class LoginActivity : BaseActivity(), LoginContract.View {
@@ -112,7 +113,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     private fun login() {
 
         if (validate()) {
-            mPresenter.loginWanAndroid(et_username.text.toString(), et_password.text.toString())
+            mPresenter.login(et_username.text.toString(), et_password.text.toString())
         }
 
     }

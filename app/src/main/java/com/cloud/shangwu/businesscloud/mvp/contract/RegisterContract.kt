@@ -18,7 +18,7 @@ interface RegisterContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun registerWanAndroid(username: String, password: String, repassword: String)
+        fun register(username: String, password: String, repassword: String)
 
     }
 

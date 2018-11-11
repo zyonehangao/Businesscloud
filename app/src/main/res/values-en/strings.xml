@@ -51,4 +51,8 @@
     <string name="area">Please enter your area</string>
     <string name="logo_com">请上传公司logo</string>
     <string name="register_now">立即注册</string>
+    <string name="upload_your_head">upload_your_head</string>
+    <string name="forgetpsd">上传个人图像</string>
+    <string name="import_user_name">qingshur  </string>
+    <string name="input_emaill">qingshur  </string>
 </resources>

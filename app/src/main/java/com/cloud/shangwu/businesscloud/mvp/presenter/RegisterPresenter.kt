@@ -16,9 +16,9 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
         RegisterModel()
     }
 
-    override fun registerWanAndroid(username: String, password: String, repassword: String) {
+    override fun register(username: String, password: String, repassword: String) {
         mView?.showLoading()
-        val disposable = registerModel.registerWanAndroid(username, password, repassword)
+        val disposable = registerModel.register(username, password, repassword)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {

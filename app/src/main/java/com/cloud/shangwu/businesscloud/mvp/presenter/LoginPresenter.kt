@@ -15,9 +15,9 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
         LoginModel()
     }
 
-    override fun loginWanAndroid(username: String, password: String) {
+    override fun login(username: String, password: String) {
         mView?.showLoading()
-        val disposable = loginModel.loginWanAndroid(username, password)
+        val disposable = loginModel.login(username, password)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {

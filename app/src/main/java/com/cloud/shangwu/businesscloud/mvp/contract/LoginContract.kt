@@ -19,7 +19,7 @@ interface LoginContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun loginWanAndroid(username: String, password: String)
+        fun login(username: String, password: String)
 
     }
 

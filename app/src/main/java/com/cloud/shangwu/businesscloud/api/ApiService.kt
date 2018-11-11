@@ -16,7 +16,7 @@ interface ApiService {
      */
     @POST("user/login")
     @FormUrlEncoded
-    fun loginWanAndroid(@Field("username") username: String,
+    fun login(@Field("username") username: String,
                         @Field("password") password: String): Observable<HttpResult<LoginData>>
 
 
@@ -28,7 +28,7 @@ interface ApiService {
      */
     @POST("user/register")
     @FormUrlEncoded
-    fun registerWanAndroid(@Field("username") username: String,
+    fun register(@Field("username") username: String,
                            @Field("password") password: String,
                            @Field("repassword") repassword: String): Observable<HttpResult<LoginData>>
 }

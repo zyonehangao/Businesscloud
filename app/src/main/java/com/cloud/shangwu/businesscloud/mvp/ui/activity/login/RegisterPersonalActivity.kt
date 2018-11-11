@@ -7,6 +7,7 @@ import com.cloud.shangwu.businesscloud.mvp.contract.RegisterContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPresenter
 import com.cloud.shangwu.businesscloud.base.BaseActivity
+import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_registerpersonal.*
 import org.greenrobot.eventbus.EventBus
 
-class RegisterPersonalActivity : BaseActivity(), RegisterContract.View {
+class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View {
 
     /**
      * local username
@@ -106,7 +107,7 @@ class RegisterPersonalActivity : BaseActivity(), RegisterContract.View {
      */
     private fun register() {
         if (validate()) {
-            mPresenter.registerWanAndroid(et_username.text.toString(),
+            mPresenter.register(et_username.text.toString(),
                     et_password.text.toString(),
                     et_password2.text.toString())
         }
