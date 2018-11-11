@@ -40,4 +40,15 @@
     <string name="login_tint">Please Login</string>
     <string name="login_ing">Login...</string>
     <string name="register_ing">Register...</string>
+    <string name="login_now">log in immediately</string>
+    <string name="register_personal">Personal registration</string>
+    <string name="register_company">Registered</string>
+    <string name="user_agreement">View user agreement</string>
+    <string name="next">next</string>
+    <string name="input_id">Please enter the business id</string>
+    <string name="input_username">Please enter the company name</string>
+    <string name="email">请输入邮箱</string>
+    <string name="area">Please enter your area</string>
+    <string name="logo_com">请上传公司logo</string>
+    <string name="register_now">立即注册</string>
 </resources>

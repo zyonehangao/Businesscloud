@@ -7,87 +7,101 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/dp_24"
-        android:paddingRight="@dimen/dp_24"
-        android:paddingTop="@dimen/dp_60">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/dp_24"
-            android:src="@mipmap/ic_launcher" />
-
-        <android.support.design.widget.TextInputLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:layout_marginTop="@dimen/dp_8"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_height="@dimen/dp_64">
 
-            <EditText
-                android:id="@+id/et_username"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/error1"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_30"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_30"
+                android:textSize="@dimen/sp_17"
+                android:textColor="@color/Black"
+                android:text="@string/register"/>
+            <TextView
+                android:id="@+id/tv_loginnow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_30"
+                android:textColor="@color/Cyan"
+                android:text="@string/login_now"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="494dp"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_24"
+            android:paddingRight="@dimen/dp_24">
+
+            <ImageView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_105"
+                android:src="@mipmap/ic_launcher" />
+
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+                android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:layout_marginTop="@dimen/dp_8"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+                <RadioButton
+                    android:id="@+id/cb_personal"
+                    android:layout_width="@dimen/dp_292"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_register_check"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/personal"
+                    android:paddingLeft="@dimen/dp_100"
+                    android:text="@string/register_personal"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16" />
 
-            <EditText
-                android:id="@+id/et_password"
+                <RadioButton
+                    android:id="@+id/cb_company"
+                    android:layout_width="@dimen/dp_292"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_49"
+                    android:background="@drawable/btn_register_uncheck"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/business_login"
+                    android:paddingLeft="@dimen/dp_100"
+                    android:text="@string/register_company"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/sp_16" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_useragree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_100"
+                android:gravity="center"
+                android:text="@string/user_agreement"
+                android:textColor="@color/grey_search"
+                android:textSize="@dimen/sp_12" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:layout_marginTop="@dimen/dp_8"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            <EditText
-                android:id="@+id/et_password2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/enter_password_again"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:id="@+id/btn_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_24"
-            android:background="@drawable/btn_login_bg"
-            android:gravity="center"
-            android:padding="@dimen/dp_12"
-            android:text="@string/register"
-            android:textColor="@color/White" />
-
-        <TextView
-            android:id="@+id/tv_sign_in"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_24"
-            android:gravity="center"
-            android:text="@string/have_account"
-            android:textSize="@dimen/sp_16" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

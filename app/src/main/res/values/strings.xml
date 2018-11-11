@@ -38,4 +38,15 @@
     <string name="login_tint">请先登录</string>
     <string name="login_ing">登录中...</string>
     <string name="register_ing">注册中...</string>
+    <string name="login_now">立即登录</string>
+    <string name="register_personal">个人注册</string>
+    <string name="register_company">企业注册</string>
+    <string name="user_agreement">查看《用户协议》</string>
+    <string name="next">下一步</string>
+    <string name="input_id">请输入企业id</string>
+    <string name="input_username">请输入企业名称</string>
+    <string name="email">请输入邮箱</string>
+    <string name="area">请输入所在区域</string>
+    <string name="logo_com">请上传公司logo</string>
+    <string name="register_now">立即注册</string>
 </resources>
