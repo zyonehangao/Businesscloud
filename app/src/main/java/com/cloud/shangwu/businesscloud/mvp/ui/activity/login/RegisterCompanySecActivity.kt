@@ -13,6 +13,7 @@ import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registercompanysec.*
 import kotlinx.android.synthetic.main.title_register.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by Administrator on 2018/11/11.
@@ -81,6 +82,10 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterContract.View 
         logo.setOnClickListener(onClickListener);
         btn_register.setOnClickListener(onClickListener);
         back.setOnClickListener(onClickListener)
+        toolbar.run {
+            title=""
+
+        }
     }
 
     override fun start() {
@@ -106,6 +111,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterContract.View 
      * Register
      */
     private fun register() {
-        mPresenter.register(et_username.text.toString(), et_password.text.toString(), et_password.text.toString())
+        mPresenter.register(et_username.text.toString(), et_password.text.toString(), et_password.text.toString(),"","","","","","","","","","","","","","","")
+
     }
 }

@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <include layout="@layout/toolbar"></include>
@@ -69,7 +70,7 @@
                     android:id="@+id/et_password2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/input_email"
+                    android:hint="@string/input_emaill"
                     android:inputType="textEmailAddress"
                     android:textColorHint="@color/text_color"
                     android:textSize="@dimen/sp_16" />
@@ -128,7 +129,7 @@
                 android:background="@drawable/btn_login_bg"
                 android:gravity="center"
                 android:padding="@dimen/dp_12"
-                android:text="@string/register"
+                android:text="@string/next"
                 android:textColor="@color/White" />
 
         </LinearLayout>

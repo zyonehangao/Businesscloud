@@ -11,6 +11,7 @@ import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.UserRegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_registerpersonal.*
@@ -77,8 +78,9 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
 
     override fun initView() {
         mPresenter.attachView(this)
+
         toolbar.run {
-            title = ""
+            title=""
             toolbar_nam.run {
                 text=getString(R.string.register_personal)
             }
@@ -100,7 +102,9 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.btn_register -> {
-                register()
+                Intent(this@RegisterPersonalActivity,UserRegisterActivity::class.java).run {
+                    startActivitys(this)
+                }
             }
             R.id.btn_register -> {
                 Intent(this@RegisterPersonalActivity, LoginActivity::class.java).apply {
@@ -122,7 +126,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
         if (validate()) {
             mPresenter.register(et_username.text.toString(),
                     et_password.text.toString(),
-                    et_password2.text.toString())
+                    et_password2.text.toString(),"","","","","","","","","","","","","","","")
         }
     }
 

@@ -16,9 +16,43 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
         RegisterModel()
     }
 
-    override fun register(username: String, password: String, repassword: String) {
+    override fun register(username: String,
+                          type: String,
+                          telephone: String,
+                          password: String,
+                          area: String,
+                          email: String,
+                          position: String,
+                          portrait: String,
+                          personalCode: String,
+                          label: String,
+                          invitedCode: String,
+                          intro: String,
+                          impact: String,
+                          hobbys: String,
+                          goal: String,
+                          companyName: String,
+                          clan: String,
+                          businessScope: String) {
         mView?.showLoading()
-        val disposable = registerModel.register(username, password, repassword)
+        val disposable = registerModel.register(username,
+                type,
+                telephone,
+                password,
+                area,
+                email,
+                position,
+                portrait,
+                personalCode,
+                label,
+                invitedCode,
+                intro,
+                impact,
+                hobbys,
+                goal,
+                companyName,
+                clan,
+                businessScope)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {

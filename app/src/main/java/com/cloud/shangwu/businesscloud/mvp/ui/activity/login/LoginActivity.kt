@@ -103,7 +103,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             R.id.tv_sign_up -> {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivitys(intent)
-                finish()
+
             }
             R.id.tv_forgetpsd ->{
                 val intent = Intent(this@LoginActivity, ForgetPassword::class.java)

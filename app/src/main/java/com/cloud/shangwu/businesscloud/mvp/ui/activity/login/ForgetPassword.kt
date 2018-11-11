@@ -48,7 +48,7 @@ class ForgetPassword : BaseSwipeBackActivity(), ForgetPasswordContract.View {
         toolbar.run {
             title=""
             toolbar_nam.run {
-                text=getString(R.string.forgetpsd)
+                text=getString(R.string.forgetpsds)
             }
             setSupportActionBar(this)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)

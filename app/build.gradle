@@ -87,4 +87,7 @@ dependencies {
     implementation rootProject.ext.dependencies["okhttp3LoggerInterceptor"]
     implementation rootProject.ext.dependencies["logger"]
     implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
+    //九宫格
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
 }

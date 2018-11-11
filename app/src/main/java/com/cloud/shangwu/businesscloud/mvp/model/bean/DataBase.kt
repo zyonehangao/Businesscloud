@@ -18,4 +18,5 @@ data class LoginData(
         @Json(name = "token") val token: String,
         @Json(name = "type") val type: Int,
         @Json(name = "username") val username: String
+
 )
