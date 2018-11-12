@@ -1,6 +1,7 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
 
+import android.content.Intent
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
@@ -120,6 +121,9 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.logo -> {
+                Intent(this@RegisterCompanySecActivity, LableActivity::class.java).apply {
+                    startActivity(this)
+                }
                 finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
@@ -132,5 +136,10 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
     private fun register() {
         mPresenter.registerCompany("zhangsan","123456","china",123,1,"abc@163.com")
 
+    }
+
+    override fun onDestroy() {
+        mDialog.dismiss()
+        super.onDestroy()
     }
 }
