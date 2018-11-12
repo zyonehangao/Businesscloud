@@ -38,18 +38,19 @@
                     android:layout_marginRight="@dimen/dp_15">
 
                     <ImageView
-                        android:id="@+id/logo"
+                        android:id="@+id/iv_logo"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:src="@drawable/business_login" />
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_toRightOf="@id/logo"
+                        android:layout_toRightOf="@id/iv_logo"
                         android:src="@drawable/returnicon4" />
 
                 </RelativeLayout>

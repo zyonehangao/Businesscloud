@@ -11,6 +11,7 @@ import com.cloud.shangwu.businesscloud.http.function.RetryWithDelay
  */
 class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
 
+
     private val loginModel: LoginModel by lazy {
         LoginModel()
     }
@@ -19,15 +20,14 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
         mView?.showLoading()
         val disposable = loginModel.login(username, password)
                 .retryWhen(RetryWithDelay())
-                .subscribe({ results ->
+                .subscribe({ res ->
                     mView?.apply {
-                        if (results.errorCode != 0) {
-                            showError(results.errorMsg)
+                        if (res.errorCode == 0) {
+                            showError(res.errorMsg)
                             loginFail()
                         } else {
-                            loginSuccess(results.data)
+                            loginSuccess(res.data)
                         }
-                        hideLoading()
                     }
                 }, { t ->
                     mView?.apply {

@@ -11,6 +11,9 @@ import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
+import com.cloud.shangwu.businesscloud.mvp.presenter.LoginPresenter
+import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.UserRegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
@@ -18,7 +21,22 @@ import kotlinx.android.synthetic.main.activity_registerpersonal.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 
-class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View {
+class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View {
+
+    override fun registerOK(data: LoginData) {
+        showToast(getString(R.string.register_success))
+        isLogin = true
+        user = data.username
+        pwd = data.password
+
+        EventBus.getDefault().post(LoginEvent(true))
+        finish()
+    }
+
+
+    private val mPresenter: RegisterPersonalPresenter by lazy {
+        RegisterPersonalPresenter()
+    }
 
     /**
      * local username
@@ -33,9 +51,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
     /**
      * Presenter
      */
-    private val mPresenter by lazy {
-        RegisterPresenter()
-    }
+
 
     private val mDialog by lazy {
         DialogUtil.getWaitDialog(this, getString(R.string.register_ing))
@@ -53,15 +69,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
         showToast(errorMsg)
     }
 
-    override fun registerSuccess(data: LoginData) {
-        showToast(getString(R.string.register_success))
-        isLogin = true
-        user = data.username
-        pwd = data.password
 
-        EventBus.getDefault().post(LoginEvent(true))
-        finish()
-    }
 
     override fun registerFail() {
         isLogin = false
@@ -74,6 +82,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
     override fun enableNetworkTip(): Boolean = false
 
     override fun initData() {
+
     }
 
     override fun initView() {
@@ -106,13 +115,13 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
                     startActivitys(this)
                 }
             }
-            R.id.btn_register -> {
-                Intent(this@RegisterPersonalActivity, LoginActivity::class.java).apply {
-                    startActivity(this)
-                }
-                finish()
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            }
+//            R.id.btn_register -> {
+//                Intent(this@RegisterPersonalActivity, LoginActivity::class.java).apply {
+//                    startActivity(this)
+//                }
+//                finish()
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+//            }
             R.id.ll_choice_location->{
 
             }
@@ -124,9 +133,9 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterContract.View 
      */
     private fun register() {
         if (validate()) {
-            mPresenter.register(et_username.text.toString(),
+            mPresenter.userRegister(et_username.text.toString(),
                     et_password.text.toString(),
-                    et_password2.text.toString(),"","","","","","","","","","","","","","","")
+                    et_password2.text.toString(),"","","","")
         }
     }
 

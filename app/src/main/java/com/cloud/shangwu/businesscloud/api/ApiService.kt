@@ -48,6 +48,25 @@ interface ApiService {
                            @Field("businessScope") businessScope: String
     ): Observable<HttpResult<LoginData>>
 
+    /**
+     * 个人注册
+     * @param username
+     * @param password
+     * @param repassword
+     * @param area
+     * @param email
+     */
+    @POST("/pass/save")
+    @FormUrlEncoded
+    fun userRegister(@Field("username") username: String,
+                           @Field("type") type: String,
+                           @Field("telephone") telephone: String,
+                           @Field("password") password: String,
+                           @Field("area") area: String,
+                           @Field("email") email: String,
+                           @Field("position") position: String
+    ): Observable<HttpResult<LoginData>>
+
 
     /**
      * 企业注册
