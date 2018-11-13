@@ -8,8 +8,10 @@ import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.mvp.contract.LabelContract
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterCompanyContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
+import com.cloud.shangwu.businesscloud.mvp.presenter.LabelPresenter
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
@@ -21,7 +23,14 @@ import org.greenrobot.eventbus.EventBus
 /**
  * Created by Administrator on 2018/11/11.
  */
-class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContract.View {
+class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContract.View ,LabelContract.View{
+    override fun labelSuccess(data: LoginData) {
+
+    }
+
+    override fun labelFail() {
+
+    }
 
     /**
      * local username
@@ -42,6 +51,12 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
 
     private val mPresenter: RegisterCompanyPresenter by lazy {
         RegisterCompanyPresenter()
+
+    }
+
+    private val mLabelPresenter: LabelPresenter by lazy {
+        LabelPresenter()
+
     }
 
     private val mDialog by lazy {
@@ -80,6 +95,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
 
     override fun initView() {
         mPresenter.attachView(this)
+        mLabelPresenter.attachView(this)
         rl_busnissgoal.setOnClickListener(onClickListener);
         rl_companyint.setOnClickListener(onClickListener);
         rl_position.setOnClickListener(onClickListener);
@@ -121,13 +137,18 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.logo -> {
-                Intent(this@RegisterCompanySecActivity, LableActivity::class.java).apply {
+//                getLable(1)
+                Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
                     startActivity(this)
                 }
                 finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
+    }
+
+    private fun getLable(int: Int) {
+        mLabelPresenter.label(int)
     }
 
     /**

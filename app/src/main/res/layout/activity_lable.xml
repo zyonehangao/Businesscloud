@@ -3,23 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.donkingliang.labels.LabelsView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/labels"
+    <!--<com.donkingliang.labels.LabelsView-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/labels"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:background="@color/light_red"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:labelBackground="@drawable/label_bg"-->
+        <!--app:labelTextColor="@drawable/label_text_color"-->
+        <!--app:labelTextSize="14sp"-->
+        <!--app:labelTextPaddingBottom="5dp"-->
+        <!--app:labelTextPaddingLeft="10dp"-->
+        <!--app:labelTextPaddingRight="10dp"-->
+        <!--app:labelTextPaddingTop="5dp"-->
+        <!--app:lineMargin="10dp"-->
+        <!--app:wordMargin="10dp"-->
+        <!--app:selectType="MULTI"-->
+        <!--app:maxSelect="0" >-->
+    <!--</com.donkingliang.labels.LabelsView>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recy"
+        android:padding="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
-        android:background="@color/light_red"
-        android:layout_height="wrap_content"
-        app:labelBackground="@drawable/label_bg"
-        app:labelTextColor="@drawable/label_text_color"
-        app:labelTextSize="14sp"
-        app:labelTextPaddingBottom="5dp"
-        app:labelTextPaddingLeft="10dp"
-        app:labelTextPaddingRight="10dp"
-        app:labelTextPaddingTop="5dp"
-        app:lineMargin="10dp"
-        app:wordMargin="10dp"
-        app:selectType="MULTI"
-        app:maxSelect="0" >
-    </com.donkingliang.labels.LabelsView>
+        android:layout_height="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>
