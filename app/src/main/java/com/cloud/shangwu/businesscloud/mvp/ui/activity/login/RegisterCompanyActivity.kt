@@ -40,7 +40,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(){
             R.id.btn_login -> {
                 if (getMessage()){
                     Intent(this@RegisterCompanyActivity, RegisterCompanySecActivity::class.java).apply {
-                        intent.putStringArrayListExtra("message",mutableList)
+//                        intent.putStringArrayListExtra("message",mutableList)
 //                        intent.putExtra("message",mutableList)
                         startActivity(this)
                     }

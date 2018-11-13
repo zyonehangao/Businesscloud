@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_16"
                 android:textColorHint="@color/text_color"
-                android:text="@string/email" />
+                android:hint="@string/email" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_16"
-                android:text="@string/invitationcode"
+                android:hint="@string/invitationcode"
                 android:textColorHint="@color/text_color"
                 android:inputType="textPassword" />
 
@@ -118,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_16"
-                android:text="@string/area"
+                android:hint="@string/area"
                 android:textColorHint="@color/text_color" />
 
         </android.support.design.widget.TextInputLayout>

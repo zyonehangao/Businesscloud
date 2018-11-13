@@ -76,9 +76,9 @@ interface ApiService {
      * @param area
      * @param email
      */
-    @POST("/pass/save")
+    @POST("/business/pass/save")
     @FormUrlEncoded
-    fun registerCompany(@Field("username") username: String,
+    fun registerCompany(@Field("companyName") companyName: String,
                  @Field("password") password: String,
                  @Field("area") area: String,
                  @Field("pid") pid: Int,

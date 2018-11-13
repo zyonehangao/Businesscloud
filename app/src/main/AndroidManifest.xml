@@ -49,6 +49,7 @@
         <activity android:name=".mvp.ui.activity.login.RegisterActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.ForgetPassword"></activity>
         <activity android:name=".mvp.ui.activity.login.UserRegisterActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.LableActivity"></activity>
     </application>
 
 </manifest>

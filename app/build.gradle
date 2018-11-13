@@ -92,4 +92,7 @@ dependencies {
 //    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
 //    implementation 'pub.devrel:easypermissions:1.0.1'
     compile "com.jph.takephoto:takephoto_library:4.0.3"
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
+    compile 'com.github.donkingliang:LabelsView:1.4.1'
 }
