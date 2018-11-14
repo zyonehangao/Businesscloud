@@ -88,7 +88,9 @@ interface ApiService {
                  @Field("area") area: String,
                  @Field("pid") pid: Int,
                  @Field("type") type: Int,
-                 @Field("email") email: String
+                 @Field("email") email: String,
+                 @Field("position") position: String,
+                 @Field("username") username: String
     ): Observable<HttpResult<LoginData>>
 
 
@@ -158,10 +160,8 @@ interface ApiService {
      * @param type
      *
      */
-    @GET("/label/list/{type}")
-    @FormUrlEncoded
-    fun label(
-            @Field("type") type: Int
+    @GET("/business/label/list/{type}")
+    fun label(@Path("type") type: Int
     ): Observable<HttpResult<LoginData>>
 
 

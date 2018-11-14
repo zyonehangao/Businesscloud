@@ -18,7 +18,7 @@ interface RegisterCompanyContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun registerCompany(username: String, password: String,area: String, pid: Int, type: Int,email: String)
+        fun registerCompany(companyname: String, password: String,area: String, pid: Int, type: Int,email: String,position: String,username: String)
 
     }
 

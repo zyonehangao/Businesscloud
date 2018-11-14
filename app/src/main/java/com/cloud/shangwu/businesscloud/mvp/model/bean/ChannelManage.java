@@ -14,37 +14,35 @@ import com.cloud.shangwu.businesscloud.mvp.presenter.dao.ChannelDao;
 public class ChannelManage {
 	public static ChannelManage channelManage;
 	/**
-	 * Ĭ�ϵ��û�ѡ��Ƶ���б�
+	 *
 	 * */
 	public static List<ChannelItem> defaultUserChannels;
-	/**
-	 * Ĭ�ϵ�����Ƶ���б�
-	 * */
+
 	public static List<ChannelItem> defaultOtherChannels;
 	private ChannelDao channelDao;
-	/** �ж����ݿ����Ƿ�����û����� */
+
 	private boolean userExist = false;
 	static {
 		defaultUserChannels = new ArrayList<ChannelItem>();
 		defaultOtherChannels = new ArrayList<ChannelItem>();
-		defaultUserChannels.add(new ChannelItem(1, "�Ƽ�", 1, 1));
-		defaultUserChannels.add(new ChannelItem(2, "�ȵ�", 2, 1));
-		defaultUserChannels.add(new ChannelItem(3, "����", 3, 1));
-		defaultUserChannels.add(new ChannelItem(4, "ʱ��", 4, 1));
-		defaultUserChannels.add(new ChannelItem(5, "�Ƽ�", 5, 1));
-		defaultUserChannels.add(new ChannelItem(6, "����", 6, 1));
-		defaultUserChannels.add(new ChannelItem(7, "����", 7, 1));
-		defaultOtherChannels.add(new ChannelItem(8, "�ƾ�", 1, 0));
-		defaultOtherChannels.add(new ChannelItem(9, "����", 2, 0));
-		defaultOtherChannels.add(new ChannelItem(10, "����", 3, 0));
-		defaultOtherChannels.add(new ChannelItem(11, "���", 4, 0));
-		defaultOtherChannels.add(new ChannelItem(12, "���", 5, 0));
-		defaultOtherChannels.add(new ChannelItem(13, "Ů��", 6, 0));
-		defaultOtherChannels.add(new ChannelItem(14, "����", 7, 0));
-		defaultOtherChannels.add(new ChannelItem(15, "����", 8, 0));
-		defaultOtherChannels.add(new ChannelItem(16, "��Ů", 9, 0));
-		defaultOtherChannels.add(new ChannelItem(17, "��Ϸ", 10, 0));
-		defaultOtherChannels.add(new ChannelItem(18, "����", 11, 0));
+		defaultUserChannels.add(new ChannelItem(1, "我", 1, 1));
+		defaultUserChannels.add(new ChannelItem(2, "我爱", 2, 1));
+		defaultUserChannels.add(new ChannelItem(3, "我爱中", 3, 1));
+		defaultUserChannels.add(new ChannelItem(4, "我爱中国", 4, 1));
+		defaultUserChannels.add(new ChannelItem(5, "我", 5, 1));
+		defaultUserChannels.add(new ChannelItem(6, "我爱", 6, 1));
+		defaultUserChannels.add(new ChannelItem(7, "我爱中", 7, 1));
+		defaultOtherChannels.add(new ChannelItem(8, "我爱中国", 1, 0));
+		defaultOtherChannels.add(new ChannelItem(9, "我", 2, 0));
+		defaultOtherChannels.add(new ChannelItem(10, "我爱", 3, 0));
+		defaultOtherChannels.add(new ChannelItem(11, "我爱中", 4, 0));
+		defaultOtherChannels.add(new ChannelItem(12, "我爱中国", 5, 0));
+		defaultOtherChannels.add(new ChannelItem(13, "我", 6, 0));
+		defaultOtherChannels.add(new ChannelItem(14, "我爱", 7, 0));
+		defaultOtherChannels.add(new ChannelItem(15, "我爱中", 8, 0));
+		defaultOtherChannels.add(new ChannelItem(16, "我爱中国", 9, 0));
+		defaultOtherChannels.add(new ChannelItem(17, "我", 10, 0));
+		defaultOtherChannels.add(new ChannelItem(18, "我爱", 11, 0));
 	}
 
 	private ChannelManage(SQLHelper paramDBHelper) throws SQLException {
@@ -54,27 +52,18 @@ public class ChannelManage {
 		return;
 	}
 
-	/**
-	 * ��ʼ��Ƶ��������
-	 * @param paramDBHelper
-	 * @throws SQLException
-	 */
+
 	public static ChannelManage getManage(SQLHelper dbHelper)throws SQLException {
 		if (channelManage == null)
 			channelManage = new ChannelManage(dbHelper);
 		return channelManage;
 	}
 
-	/**
-	 * ������е�Ƶ��
-	 */
+
 	public void deleteAllChannel() {
 		channelDao.clearFeedTable();
 	}
-	/**
-	 * ��ȡ������Ƶ��
-	 * @return ���ݿ�����û����� ? ���ݿ��ڵ��û�ѡ��Ƶ�� : Ĭ���û�ѡ��Ƶ�� ;
-	 */
+
 	public List<ChannelItem> getUserChannel() {
 		Object cacheList = channelDao.listCache(SQLHelper.SELECTED + "= ?",new String[] { "1" });
 		if (cacheList != null && !((List) cacheList).isEmpty()) {
@@ -96,10 +85,7 @@ public class ChannelManage {
 		return defaultUserChannels;
 	}
 	
-	/**
-	 * ��ȡ������Ƶ��
-	 * @return ���ݿ�����û����� ? ���ݿ��ڵ�����Ƶ�� : Ĭ������Ƶ�� ;
-	 */
+
 	public List<ChannelItem> getOtherChannel() {
 		Object cacheList = channelDao.listCache(SQLHelper.SELECTED + "= ?" ,new String[] { "0" });
 		List<ChannelItem> list = new ArrayList<ChannelItem>();
@@ -123,10 +109,7 @@ public class ChannelManage {
 		return (List<ChannelItem>) cacheList;
 	}
 	
-	/**
-	 * �����û�Ƶ�������ݿ�
-	 * @param userList
-	 */
+
 	public void saveUserChannel(List<ChannelItem> userList) {
 		for (int i = 0; i < userList.size(); i++) {
 			ChannelItem channelItem = (ChannelItem) userList.get(i);
@@ -136,10 +119,7 @@ public class ChannelManage {
 		}
 	}
 	
-	/**
-	 * ��������Ƶ�������ݿ�
-	 * @param otherList
-	 */
+
 	public void saveOtherChannel(List<ChannelItem> otherList) {
 		for (int i = 0; i < otherList.size(); i++) {
 			ChannelItem channelItem = (ChannelItem) otherList.get(i);
@@ -149,9 +129,7 @@ public class ChannelManage {
 		}
 	}
 	
-	/**
-	 * ��ʼ�����ݿ��ڵ�Ƶ������
-	 */
+
 	private void initDefaultChannel(){
 		Log.d("deleteAll", "deleteAll");
 		deleteAllChannel();

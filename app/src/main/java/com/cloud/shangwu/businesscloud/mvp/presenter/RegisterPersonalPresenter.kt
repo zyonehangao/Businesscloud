@@ -1,6 +1,7 @@
 package com.cloud.shangwu.businesscloud.mvp.presenter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Color
 import android.os.Handler
 import android.os.Message
@@ -8,6 +9,7 @@ import android.widget.Toast
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.cloud.shangwu.businesscloud.R.string.username
+import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.base.BasePresenter
 import com.cloud.shangwu.businesscloud.http.exception.ExceptionHandle
 import com.cloud.shangwu.businesscloud.http.function.RetryWithDelay
@@ -15,6 +17,7 @@ import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.model.UserRegisterModel
 import com.cloud.shangwu.businesscloud.mvp.model.bean.*
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.JsonData
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterCompanyActivity
 import com.cloud.shangwu.businesscloud.ui.activity.RegisterPersonalActivity
 import com.cloud.shangwu.businesscloud.utils.GetJsonDataUtil
 import com.google.gson.Gson
@@ -61,14 +64,19 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
     // 弹出选择器
     override fun showPickerView() {
 
-        val pvOptions = OptionsPickerBuilder(mView as RegisterPersonalActivity, OnOptionsSelectListener { options1, options2, options3, v ->
+        val pvOptions = OptionsPickerBuilder(mView as BaseActivity, OnOptionsSelectListener { options1, options2, options3, v ->
             //返回的分别是三个级别的选中位置
             var tx = options1Items[options1].pickerViewText+" - "
                     options2Items[options1][options2]+" - "
                     options3Items[options1][options2][options3]
 
-            Toast.makeText(mView as RegisterPersonalActivity, tx, Toast.LENGTH_SHORT).show()
-            (mView as RegisterPersonalActivity).showPicker(tx)
+            Toast.makeText(mView as BaseActivity, tx, Toast.LENGTH_SHORT).show()
+            if (mView is RegisterPersonalActivity) {
+                (mView as RegisterPersonalActivity).showPicker(tx)
+            }else{
+                (mView as RegisterCompanyActivity).showPicker(tx)
+            }
+
         })
 
                 .setTitleText("城市选择")
@@ -97,7 +105,7 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
     }
 
     override fun getJsonData() {
-        val Json = GetJsonDataUtil().getJson(mView as RegisterPersonalActivity, "province.json")//获取assets目录下的json文件数据
+        val Json = GetJsonDataUtil().getJson(mView as BaseActivity, "province.json")//获取assets目录下的json文件数据
         var jsonBean = parseData(Json)//用Gson 转成实体
         options1Items = jsonBean
         for (i in jsonBean.indices) {//遍历省份
@@ -160,7 +168,7 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
             when (msg.what) {
                 MSG_LOAD_DATA -> if (thread == null) {//如果已创建就不再重新创建子线程了
 
-                    Toast.makeText(mView as RegisterPersonalActivity, "Begin Parse Data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mView as BaseActivity, "Begin Parse Data", Toast.LENGTH_SHORT).show()
                     thread = Thread(Runnable {
                         // 子线程中解析省市区数据
                         getJsonData()
@@ -169,11 +177,11 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
                 }
 
                 MSG_LOAD_SUCCESS -> {
-                    Toast.makeText(mView as RegisterPersonalActivity, "数据加载成功", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mView as BaseActivity, "数据加载成功", Toast.LENGTH_SHORT).show()
                     isLoaded = true
                 }
 
-                MSG_LOAD_FAILED -> Toast.makeText(mView as RegisterPersonalActivity, "Parse Failed", Toast.LENGTH_SHORT).show()
+                MSG_LOAD_FAILED -> Toast.makeText(mView as BaseActivity, "Parse Failed", Toast.LENGTH_SHORT).show()
             }
         }
     }

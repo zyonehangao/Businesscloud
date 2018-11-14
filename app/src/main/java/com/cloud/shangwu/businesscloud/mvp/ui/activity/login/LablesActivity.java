@@ -1,7 +1,6 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.activity.login;
 
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.graphics.Bitmap;
 import android.view.View;
