@@ -56,8 +56,8 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {
-                        if (results.errorCode != 0) {
-                            showError(results.errorMsg)
+                        if (results.code != 0) {
+                            showError(results.message)
                             registerFail()
                         } else {
                             registerSuccess(results.data)

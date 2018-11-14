@@ -18,7 +18,7 @@
     <dimen name="item_content_padding">10dp</dimen>
     <dimen name="item_img_width">120dp</dimen>
     <dimen name="item_img_height">90dp</dimen>
-
+    <dimen name="grid_expected_size">120dp</dimen>
     <dimen name="textSize_small_10">10sp</dimen>
     <dimen name="textSize_small">12sp</dimen>
     <dimen name="textSize_content">14sp</dimen>

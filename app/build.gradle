@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    buildToolsVersion '28.0.2'
     defaultConfig {
 
         applicationId "com.cloud.shangwu.businesscloud"
@@ -60,6 +60,9 @@ dependencies {
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["design"]
+    //Ui
+    implementation rootProject.ext.dependencies["PickerView"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
 //    implementation rootProject.ext.dependencies["anko"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 //    leakcanary
@@ -77,7 +80,6 @@ dependencies {
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
     implementation rootProject.ext.dependencies["rxpermissions"]
-
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["retrofit"]
     implementation rootProject.ext.dependencies["converter-gson"]
@@ -88,11 +90,7 @@ dependencies {
     implementation rootProject.ext.dependencies["logger"]
     implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
     //九宫格
-//    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
-//    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
-//    implementation 'pub.devrel:easypermissions:1.0.1'
-    compile "com.jph.takephoto:takephoto_library:4.0.3"
-    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
-    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
-    compile 'com.github.donkingliang:LabelsView:1.4.1'
+    implementation "com.zhihu.android:matisse:0.5.2-beta4"
+    implementation "com.github.donkingliang:LabelsView:1.4.1"
 }
+

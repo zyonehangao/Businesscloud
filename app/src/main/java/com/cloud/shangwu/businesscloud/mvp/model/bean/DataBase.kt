@@ -1,11 +1,13 @@
 package com.cloud.shangwu.businesscloud.mvp.model.bean
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 
 data class HttpResult<T>(@Json(name = "data") val data: T,
-                        @Json(name = "errorCode") val errorCode: Int,
-                        @Json(name = "errorMsg") val errorMsg: String)
+                         @Json(name = "code") val code: Int,
+                         @Json(name = "message") val message: String)
 
 // 登录数据
 data class LoginData(
@@ -20,5 +22,33 @@ data class LoginData(
         @Json(name = "username") var username: String
 
 )
+
+data class ChooseHobbiesBen(
+        val children: List<Children>,
+        val content: String,
+        val createTime: Any,
+        val hid: Int,
+        val higher: Int,
+        val label: Any,
+        val status: Any) : MultiItemEntity {
+    override fun getItemType(): Int = higher
+
+    data class Children(
+            val children: List<Any>,
+            val content: String,
+            val createTime: Any,
+            val hid: Int,
+            val higher: Int,
+            val label: Any,
+            val status: Any
+    ) : MultiItemEntity {
+        override fun getItemType(): Int = higher
+        companion object {
+            val Text = 1
+            val Heard = 0
+        }
+    }
+    }
+
 
 

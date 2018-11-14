@@ -1,9 +1,14 @@
 package com.cloud.shangwu.businesscloud.api
 
+import com.cloud.shangwu.businesscloud.mvp.model.bean.ChooseHobbiesBen
 import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.http.*
+import java.io.File
 
 interface ApiService {
     // git 测试
@@ -12,7 +17,7 @@ interface ApiService {
      * @param username
      * @param password
      */
-    @POST("/pass/login")
+    @POST("/business/pass/login")
     @FormUrlEncoded
     fun login(@Field("username") username: String,
               @Field("password") password: String): Observable<HttpResult<LoginData>>
@@ -124,6 +129,30 @@ interface ApiService {
             @Field("newPassword") newPassword: String
                  ): Observable<HttpResult<LoginData>>
 
+    /**上传图片
+     *
+     * @param password
+     *
+     */
+    @POST("/business/upload")
+    @Multipart
+//    fun upload(@Body RequestBody body): Observable<HttpResult<LoginData>>
+     fun upload(@PartMap  file:MultipartBody.Part ): Observable<HttpResult<LoginData>>
+
+    /**上传图片
+     *
+     * @param password
+     *
+     */
+    @POST("/business/upload")
+    @Multipart
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+//    fun upload1(@Body file:RequestBody): Observable<HttpResult<LoginData>>
+//     fun upload1(@PartMap  file:MultipartBody.Part ): Observable<HttpResult<LoginData>>
+    fun uploadImage(@Part("file") description:RequestBody ,
+                    @Part file:MultipartBody.Part ):
+        Observable<HttpResult<LoginData>>
+
     /**
      *获取标签
      * @param type
@@ -134,4 +163,18 @@ interface ApiService {
     fun label(
             @Field("type") type: Int
     ): Observable<HttpResult<LoginData>>
+
+
+
+    /**
+     *获取标签
+     * @param type
+     *
+     */
+    @GET("/business/hobby/list/all")
+
+    fun chooseAll(): Observable<HttpResult<ChooseHobbiesBen.Children>>
+
+
+
 }

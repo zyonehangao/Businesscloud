@@ -22,8 +22,8 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
                 .retryWhen(RetryWithDelay())
                 .subscribe({ res ->
                     mView?.apply {
-                        if (res.errorCode == 0) {
-                            showError(res.errorMsg)
+                        if (res.code == 0) {
+                            showError(res.message)
                             loginFail()
                         } else {
                             loginSuccess(res.data)

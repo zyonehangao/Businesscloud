@@ -18,8 +18,8 @@ class RegisterCompanyPresenter : BasePresenter<RegisterCompanyContract.View>(), 
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {
-                        if (results.errorCode != 0) {
-                            showError(results.errorMsg)
+                        if (results.code != 200) {
+                            showError(results.message)
                             registerFail()
                         } else {
                             registerSuccess(results.data)

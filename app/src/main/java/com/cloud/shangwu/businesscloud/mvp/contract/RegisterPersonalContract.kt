@@ -9,9 +9,12 @@ interface RegisterPersonalContract {
     interface  View :IView{
         fun  registerOK(data: LoginData)
         fun  registerFail()
+
+        fun  showPicker(tx:String )
     }
 
     interface Persenter :IPresenter<View>{
+
         fun userRegister(usernme:String
                            ,password:String
                            ,email:String
@@ -19,6 +22,10 @@ interface RegisterPersonalContract {
                            portrait :String,
                            hobbys :String,
                            label :String)
+
+        fun getJsonData()
+        fun start()
+        fun showPickerView()
     }
 
 }

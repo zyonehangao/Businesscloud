@@ -22,8 +22,8 @@ class LabelPresenter : BasePresenter<LabelContract.View>(), LabelContract.Presen
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {
-                        if (results.errorCode != 0) {
-                            showError(results.errorMsg)
+                        if (results.code != 0) {
+                            showError(results.message)
                             labelFail()
                         } else {
                             labelSuccess(results.data)

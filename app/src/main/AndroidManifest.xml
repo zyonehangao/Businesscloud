@@ -44,6 +44,17 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+        <provider
+
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.cloud.shangwu.businesscloud.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_public"></meta-data>
+        </provider>
+
         <activity android:name=".ui.activity.RegisterPersonalActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanyActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"></activity>
@@ -52,6 +63,8 @@
         <activity android:name=".mvp.ui.activity.login.UserRegisterActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.LableActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.LablesActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.LabelsPleaseActivity"></activity>
     </application>
 
 </manifest>

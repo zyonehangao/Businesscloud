@@ -98,10 +98,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
-                android:focusable="true"
                 android:id="@+id/ll_choice_location"
                 android:orientation="horizontal"
-                android:focusableInTouchMode="true">
+          >
 
                 <TextView
                     android:id="@+id/tv_location"

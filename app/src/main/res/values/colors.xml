@@ -62,7 +62,7 @@
     <color name="Grey50">#FAFAFA</color>
     <color name="Grey100">#F5F5F5</color>
     <color name="Grey200">#EEEEEE</color>
-    <color name="Grey300">#dfdfe2</color>
+    <color name="Grey300">#f0f3f5</color>
     <color name="Grey400">#bdbdbd</color>
     <color name="Grey500">#9e9e9e</color>
     <color name="Grey600">#999999</color>
@@ -70,6 +70,7 @@
     <color name="Grey800">#333333</color>
     <color name="Grey900">#222222</color>
     <color name="invalids">#222222</color>
+    <color name="multiple_image_select_primaryDark">#212121</color>
 
 
     <color name="black">#000000</color>

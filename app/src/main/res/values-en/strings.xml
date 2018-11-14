@@ -72,6 +72,13 @@
     <string name="toast_error_name" >公司名称</string>
     <string name="forgetpsds">忘记密码</string>
     <string name="input_emaill">请输入邮箱</string>
+    <string name="album_view">选择图片</string>
+    <string name="image_view">单击选择</string>
+    <string name="add">确定</string>
+    <string name="selected">已选</string>
+    <string name="limit_exceeded">最多能选 %d 张</string>
+    <string name="error_gif">error_gif</string>
+    <string name="permission_request_denied">Permission request denied</string>
 
 
     <string name="action_settings">Settings</string>
@@ -82,5 +89,9 @@
     <string name="subscribe_more_category">更多频道</string>
     <string name="subscribe_manager_category_info">单击增删频道</string>
     <string name="subscribe_manager_category_info_2">单击增删频道，长按拖拽排序</string>
+    <string name="choose_hobbies">请选择爱好</string>
+    <string name="labels_please">请职业标签</string>
+    <string name="hobby">兴趣爱好</string>
+    <string name="leisure">休闲类</string>
 
 </resources>

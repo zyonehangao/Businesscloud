@@ -27,7 +27,7 @@
     <string name="have_account">已有账户？去登录</string>
     <string name="enter_password_again">再输入一次密码</string>
     <string name="confirm_password_not_empty">确认密码不能为空</string>
-    <string name="password_cannot_match">两词密码不相同</string>
+    <string name="password_cannot_match">两次密码不相同</string>
     <string name="login_success">登录成功</string>
     <string name="login_fail">登录失败</string>
     <string name="register_success">注册成功</string>
@@ -57,12 +57,12 @@
     <string name="companyint_com">请输入公司介绍</string>
     <string name="busnissscope_com">请输入经营范围</string>
     <string name="busnissgoal_com">请选择企业目标</string>
-    <string name="toast_error" >请输入正确的</string>
-    <string name="toast_error_id" >id</string>
-    <string name="toast_error_area" >地区</string>
-    <string name="toast_error_email" >邮箱</string>
-    <string name="toast_error_psw" >密码</string>
-    <string name="toast_error_name" >公司名称</string>
+    <string name="toast_error">请输入正确的</string>
+    <string name="toast_error_id">id</string>
+    <string name="toast_error_area">地区</string>
+    <string name="toast_error_email">邮箱</string>
+    <string name="toast_error_psw">密码</string>
+    <string name="toast_error_name">公司名称</string>
     <string name="forgetpsds">忘记密码</string>
     <string name="import_user_name"></string>
     <string name="newpassword">新密码（6-20位字母、数字或字符）</string>
@@ -72,6 +72,13 @@
     <string name="enter_phone_number_email">请输入用户名、邮箱、手机号</string>
     <string name="choice_location">请选择所在地区</string>
 
+    <string name="album_view">选择图片</string>
+    <string name="image_view">单击选择</string>
+    <string name="add">确定</string>
+    <string name="selected">已选</string>
+    <string name="limit_exceeded">最多能选 %d 张</string>
+    <string name="error_gif">error_gif</string>
+    <string name="permission_request_denied">Permission request denied</string>
 
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
@@ -81,5 +88,9 @@
     <string name="subscribe_more_category">更多频道</string>
     <string name="subscribe_manager_category_info">单击增删频道</string>
     <string name="subscribe_manager_category_info_2">单击增删频道，长按拖拽排序</string>
+    <string name="choose_hobbies">请选择爱好</string>
+    <string name="hobby">兴趣爱好</string>
+    <string name="labels_please">请职业标签</string>
+    <string name="leisure">休闲类</string>
 
 </resources>

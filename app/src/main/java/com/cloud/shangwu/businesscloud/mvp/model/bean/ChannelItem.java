@@ -1,11 +1,13 @@
 package com.cloud.shangwu.businesscloud.mvp.model.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.Serializable;
 
 /** 
  * ITEM�Ķ�Ӧ���򻯶�������
  *  */
-public class ChannelItem implements Serializable {
+public class ChannelItem implements Serializable,MultiItemEntity {
 	/**
 	 * 
 	 */
@@ -72,5 +74,10 @@ public class ChannelItem implements Serializable {
 	public String toString() {
 		return "ChannelItem [id=" + this.id + ", name=" + this.name
 				+ ", selected=" + this.selected + "]";
+	}
+
+	@Override
+	public int getItemType() {
+		return 0;
 	}
 }

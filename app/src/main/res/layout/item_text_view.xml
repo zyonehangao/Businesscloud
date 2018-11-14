@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/type_name"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_16"
+            android:layout_width="wrap_content"
+            android:text="运动健身"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/type_size"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_16"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:text="0/22"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_gravity="center"
+
+            android:layout_width="wrap_content"
+            android:src="@drawable/returnicon4"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

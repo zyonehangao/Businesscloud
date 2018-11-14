@@ -1,5 +1,7 @@
 package com.cloud.shangwu.businesscloud.utils;
 
+import com.google.gson.Gson;
+
 import java.util.regex.Pattern;
 
 /**
@@ -9,6 +11,7 @@ import java.util.regex.Pattern;
  *
  */
 public class Validator {
+
     /**
      * 正则表达式：验证用户名
      */

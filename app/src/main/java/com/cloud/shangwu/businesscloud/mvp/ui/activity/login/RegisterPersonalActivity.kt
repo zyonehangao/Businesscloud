@@ -22,6 +22,14 @@ import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 
 class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View {
+    override fun showPicker(tx: String) {
+        tv_location?.run {
+            text=tx
+            setTextColor(resources.getColor(R.color.Black))
+        }
+
+    }
+
 
     override fun registerOK(data: LoginData) {
         showToast(getString(R.string.register_success))
@@ -70,7 +78,6 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
     }
 
 
-
     override fun registerFail() {
         isLogin = false
     }
@@ -89,20 +96,20 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         mPresenter.attachView(this)
 
         toolbar.run {
-            title=""
+            title = ""
             toolbar_nam.run {
-                text=getString(R.string.register_personal)
+                text = getString(R.string.register_personal)
             }
             setSupportActionBar(this)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         btn_register.setOnClickListener(onClickListener)
-        btn_register.setOnClickListener(onClickListener)
         ll_choice_location.setOnClickListener(onClickListener)
     }
 
     override fun start() {
-
+//        mPresenter.start()
+        mPresenter.getJsonData()
     }
 
     /**
@@ -111,19 +118,12 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.btn_register -> {
-                Intent(this@RegisterPersonalActivity,UserRegisterActivity::class.java).run {
+                Intent(this@RegisterPersonalActivity, UserRegisterActivity::class.java).run {
                     startActivitys(this)
                 }
             }
-//            R.id.btn_register -> {
-//                Intent(this@RegisterPersonalActivity, LoginActivity::class.java).apply {
-//                    startActivity(this)
-//                }
-//                finish()
-//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-//            }
-            R.id.ll_choice_location->{
-
+            R.id.ll_choice_location -> {
+                mPresenter.showPickerView()
             }
         }
     }
@@ -135,7 +135,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         if (validate()) {
             mPresenter.userRegister(et_username.text.toString(),
                     et_password.text.toString(),
-                    et_password2.text.toString(),"","","","")
+                    et_password2.text.toString(), "", "", "", "")
         }
     }
 
@@ -165,5 +165,8 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         }
         return valid
     }
+
+
+
 
 }
