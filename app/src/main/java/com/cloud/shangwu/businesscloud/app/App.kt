@@ -12,6 +12,9 @@ import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import java.util.*
 import kotlin.properties.Delegates
+import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper
+
+
 
 /**
  * Created by chengxiaofen on 2018/4/21.
@@ -19,6 +22,9 @@ import kotlin.properties.Delegates
 class App : Application() {
 
     private var refWatcher: RefWatcher? = null
+
+
+    private var sqlHelper: SQLHelper? = null
 
     companion object {
         private val TAG = "App"
@@ -121,6 +127,25 @@ class App : Application() {
             Log.d(TAG, "onDestroy: " + activity.componentName.className)
         }
     }
+
+
+
+
+    /** 获取数据库Helper  */
+     fun getSQLHelper(): SQLHelper {
+        if (sqlHelper == null)
+            sqlHelper = SQLHelper(instance)
+        return sqlHelper as SQLHelper
+    }
+
+    /** 摧毁应用进程时候调用  */
+    override fun onTerminate() {
+        if (sqlHelper != null)
+            sqlHelper!!.close()
+        super.onTerminate()
+    }
+
+    fun clearAppCache() {}
 
 
 }

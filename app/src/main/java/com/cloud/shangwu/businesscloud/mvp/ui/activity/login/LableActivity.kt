@@ -1,5 +1,6 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
+import android.app.Dialog
 import android.util.Log
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
@@ -21,11 +22,16 @@ class LableActivity:BaseSwipeBackActivity() {
     }
 
     override fun initView() {
-        labels.setLabels(array)
-        //标签的点击监听
-        labels.setOnLabelClickListener(LabelsView.OnLabelClickListener { label, data, position ->
-            showToast(data.toString())
-        })
+//        labels.setLabels(array)
+//        //标签的点击监听
+//        labels.setOnLabelClickListener(LabelsView.OnLabelClickListener { label, data, position ->
+//
+//        })
+        showDialog()
+    }
+
+    private fun showDialog() {
+
     }
 
     override fun start() {

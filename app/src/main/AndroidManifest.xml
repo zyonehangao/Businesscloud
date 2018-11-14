@@ -16,6 +16,7 @@
     <!-- 读取手机状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- SD 卡读写权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -50,6 +51,7 @@
         <activity android:name=".mvp.ui.activity.login.ForgetPassword"></activity>
         <activity android:name=".mvp.ui.activity.login.UserRegisterActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.LableActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.LablesActivity"></activity>
     </application>
 
 </manifest>

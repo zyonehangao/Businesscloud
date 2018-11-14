@@ -124,5 +124,14 @@ interface ApiService {
             @Field("newPassword") newPassword: String
                  ): Observable<HttpResult<LoginData>>
 
-
+    /**
+     *获取标签
+     * @param type
+     *
+     */
+    @GET("/label/list/{type}")
+    @FormUrlEncoded
+    fun label(
+            @Field("type") type: Int
+    ): Observable<HttpResult<LoginData>>
 }
