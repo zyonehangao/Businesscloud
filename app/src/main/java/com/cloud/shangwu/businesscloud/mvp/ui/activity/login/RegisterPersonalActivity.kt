@@ -108,7 +108,6 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
     }
 
     override fun start() {
-//        mPresenter.start()
         mPresenter.getJsonData()
     }
 
@@ -118,6 +117,9 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.btn_register -> {
+//                if (validate()){
+//
+//                }
                 Intent(this@RegisterPersonalActivity, UserRegisterActivity::class.java).run {
                     startActivitys(this)
                 }
@@ -147,7 +149,8 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         val username: String = et_username.text.toString()
         val password: String = et_password.text.toString()
         val password2: String = et_password2.text.toString()
-        if (username.isEmpty()) {
+        val tv_location: String = tv_location.text.toString()
+        if (username.isNotEmpty()) {
             et_username.error = getString(R.string.username_not_empty)
             valid = false
         }
@@ -156,11 +159,12 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
             valid = false
         }
         if (password2.isEmpty()) {
-            et_password2.error = getString(R.string.confirm_password_not_empty)
+            et_password.error = getString(R.string.input_emaill)
             valid = false
         }
-        if (password != password2) {
-            et_password2.error = getString(R.string.password_cannot_match)
+
+        if (tv_location.isEmpty()) {
+            et_password2.error = getString(R.string.choice_location)
             valid = false
         }
         return valid

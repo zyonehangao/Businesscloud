@@ -63,8 +63,8 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
 
         val pvOptions = OptionsPickerBuilder(mView as RegisterPersonalActivity, OnOptionsSelectListener { options1, options2, options3, v ->
             //返回的分别是三个级别的选中位置
-            var tx = options1Items[options1].pickerViewText+" - "
-                    options2Items[options1][options2]+" - "
+            var tx = options1Items[options1].pickerViewText
+                    options2Items[options1][options2]
                     options3Items[options1][options2][options3]
 
             Toast.makeText(mView as RegisterPersonalActivity, tx, Toast.LENGTH_SHORT).show()
