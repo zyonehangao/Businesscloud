@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBUtil {
+
 	private static DBUtil mInstance;
 	private Context mContext;
 	private SQLHelper mSQLHelp;

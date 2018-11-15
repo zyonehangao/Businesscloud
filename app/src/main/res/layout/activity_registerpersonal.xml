@@ -85,6 +85,7 @@
                 android:focusableInTouchMode="true">
 
                 <com.cloud.shangwu.businesscloud.widget.ClearEditText
+                    android:id="@+id/invitationcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/invitationcode"
@@ -99,6 +100,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:id="@+id/ll_choice_location"
+                android:padding="@dimen/dp_5"
                 android:orientation="horizontal"
           >
 
@@ -113,6 +115,7 @@
                     android:textColorHint="@color/text_color"
                     android:textSize="@dimen/sp_16" />
                 <ImageView
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:layout_width="@dimen/dp_24"
                     android:src="@drawable/dingwei"
                     android:layout_gravity="center"

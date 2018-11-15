@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.cloud.shangwu.businesscloud.R
@@ -17,6 +19,7 @@ import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.widget.helper.GifSizeFilter
 import com.cloud.shangwu.businesscloud.widget.helper.Glide4Engine
 import com.google.gson.Gson
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.filter.Filter
@@ -69,6 +72,8 @@ class UserRegisterActivity : BaseActivity(), UserRegisterContract.View {
     override fun attachLayoutRes(): Int = R.layout.activity_user_register
 
     override fun initData() {
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE)
 
         btn_register.setOnClickListener {
 
@@ -113,7 +118,10 @@ class UserRegisterActivity : BaseActivity(), UserRegisterContract.View {
     override fun start() {
         //爱好
         rl_choose_hobbies.setOnClickListener {
-            JumpUtil.Next(this@UserRegisterActivity,ChooseHobbiesActivity::class.java)
+            var bundle= Bundle()
+            bundle.putString("","")
+            JumpUtil.Next(this@UserRegisterActivity,
+                    ChooseHobbiesActivity::class.java,bundle)
         }
         //职业
         rl_labels_please.setOnClickListener{

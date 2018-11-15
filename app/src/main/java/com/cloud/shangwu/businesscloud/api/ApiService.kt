@@ -1,6 +1,7 @@
 package com.cloud.shangwu.businesscloud.api
 
-import com.cloud.shangwu.businesscloud.mvp.model.bean.ChooseHobbiesBen
+import com.cloud.shangwu.businesscloud.mvp.model.bean.BaseResult
+import com.cloud.shangwu.businesscloud.mvp.model.bean.ChooseHobbiseData
 import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import io.reactivex.Observable
@@ -162,18 +163,21 @@ interface ApiService {
      */
     @GET("/business/label/list/{type}")
     fun label(@Path("type") type: Int
+    @GET("/label/list/{type}")
+    fun label(
+            @Path("type") type: Int
     ): Observable<HttpResult<LoginData>>
 
 
 
     /**
-     *获取标签
+     * 获取爱好
      * @param type
      *
      */
     @GET("/business/hobby/list/all")
 
-    fun chooseAll(): Observable<HttpResult<ChooseHobbiesBen.Children>>
+    fun chooseAll(): Observable<ChooseHobbiseData>
 
 
 

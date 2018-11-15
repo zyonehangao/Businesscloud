@@ -53,7 +53,7 @@ ext {
             "fragmentation"           : "me.yokeyword:fragmentation:${version["fragmentation"]}",
             "ByeBurger"               : "com.github.githubwing:ByeBurger:${version["ByeBurger"]}",
             "DropDownMenu"            : "com.github.dongjunkun:DropDownMenu:${version["DropDownMenu"]}",
-            "BaseRecyclerViewAdapterHelper"     : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
+       "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.31",
 
             //leakcanary
             "leakcanary-debug"         : "com.squareup.leakcanary:leakcanary-android:${version["leakcanary"]}",
@@ -63,7 +63,7 @@ ext {
             "SmartRefreshLayout"      : "com.scwang.smartrefresh:SmartRefreshLayout:${version["smartrefreshVersion"]}",
             "SmartRefreshHeader"      : "com.scwang.smartrefresh:SmartRefreshHeader:${version["smartrefreshVersion"]}",
             "shapeLoadingView"        : "com.github.zzz40500:android-shapeLoadingView:1.0.3.2",
-            "PickerView"              : "com.contrarywind:Android-PickerView:4.1.0",
+            "PickerView"              : "com.contrarywind:Android-PickerView:4.1.6",
             "bga-qrcode-zxing"        : "cn.bingoogolapple:bga-qrcode-zxing:1.2.5",
             "recyclerview-swipe"      : "com.yanzhenjie:recyclerview-swipe:1.1.4",
             "FlycoTabLayout_Lib"      : "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar",

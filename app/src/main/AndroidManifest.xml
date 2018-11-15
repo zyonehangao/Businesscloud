@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cloud.shangwu.businesscloud">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -8,18 +9,19 @@
     <!-- 获取GSM网络信息状态，如当前的网络连接是否有效 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 允许访问Wi-Fi网络状态信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 允许获取Wi-Fi网络状态改变信息 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- 访问网络 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 读取手机状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- SD 卡读写权限 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -28,7 +30,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.activity.LoginActivity"
           >
@@ -52,19 +55,19 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths_public"></meta-data>
+                android:resource="@xml/file_paths_public"/>
         </provider>
 
-        <activity android:name=".ui.activity.RegisterPersonalActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.RegisterCompanyActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.RegisterActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.ForgetPassword"></activity>
-        <activity android:name=".mvp.ui.activity.login.UserRegisterActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.LableActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.LablesActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.LabelsPleaseActivity"></activity>
+        <activity android:name=".ui.activity.RegisterPersonalActivity"/>
+        <activity android:name=".mvp.ui.activity.login.RegisterCompanyActivity"/>
+        <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"/>
+        <activity android:name=".mvp.ui.activity.login.RegisterActivity"/>
+        <activity android:name=".mvp.ui.activity.login.ForgetPassword"/>
+        <activity android:name=".mvp.ui.activity.login.UserRegisterActivity"/>
+        <activity android:name=".mvp.ui.activity.login.LableActivity"/>
+        <activity android:name=".mvp.ui.activity.login.LablesActivity"/>
+        <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"/>
+        <activity android:name=".mvp.ui.activity.login.LabelsPleaseActivity"/>
     </application>
 
 </manifest>
