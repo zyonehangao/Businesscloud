@@ -157,12 +157,11 @@ interface ApiService {
         Observable<HttpResult<LoginData>>
 
     /**
-     *获取标签
+     *获取标签接口
      * @param type
      *
      */
-    @GET("/business/label/list/{type}")
-    fun label(@Path("type") type: Int
+
     @GET("/label/list/{type}")
     fun label(
             @Path("type") type: Int
