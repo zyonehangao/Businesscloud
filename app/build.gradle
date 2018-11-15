@@ -53,9 +53,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["support-v4"]
@@ -63,19 +62,18 @@ dependencies {
     //Ui
     implementation rootProject.ext.dependencies["PickerView"]
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-//    implementation rootProject.ext.dependencies["anko"]
+    //    implementation rootProject.ext.dependencies["anko"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-//    leakcanary
+    //    leakcanary
     debugImplementation rootProject.ext.dependencies["leakcanary-debug"]
     releaseImplementation rootProject.ext.dependencies["leakcanary-release"]
-//    http
+    //    http
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["retrofit"]
     implementation rootProject.ext.dependencies["converter-gson"]
     implementation rootProject.ext.dependencies["adapter-rxjava2"]
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide_compiler"]
-
     //rx
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
@@ -90,7 +88,7 @@ dependencies {
     implementation rootProject.ext.dependencies["logger"]
     implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
     //九宫格
-    implementation "com.zhihu.android:matisse:0.5.2-beta4"
-    implementation "com.github.donkingliang:LabelsView:1.4.1"
+    implementation 'com.github.donkingliang:LabelsView:1.4.1'
+    implementation 'com.yanzhenjie:album:2.1.2'
 }
 
