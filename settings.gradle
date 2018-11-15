@@ -1,1 +1,1 @@
-include ':app', ':sample', ':matisse'
+include ':app', ':matisse'

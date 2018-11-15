@@ -50,7 +50,7 @@
     <string name="logo_com">请上传公司logo</string>
     <string name="register_now">立即注册</string>
     <string name="upload_your_head">请上传个人图像</string>
-
+    <string name="canceled">取消</string>
     <string name="import_user_names">qingshur  </string>
     <string name="input_emails">qingshur  </string>
     <string name="position_com">请输入您的职位</string>

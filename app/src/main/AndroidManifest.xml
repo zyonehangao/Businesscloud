@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -63,11 +63,10 @@
         <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"/>
         <activity android:name=".mvp.ui.activity.login.RegisterActivity"/>
         <activity android:name=".mvp.ui.activity.login.ForgetPassword"/>
-        <activity android:name=".mvp.ui.activity.login.UserRegisterActivity"/>
+        <activity android:name=".mvp.ui.activity.login.UsersRegisterActivity"/>
         <activity android:name=".mvp.ui.activity.login.LableActivity"/>
         <activity android:name=".mvp.ui.activity.login.LablesActivity"/>
         <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"/>
-        <activity android:name=".mvp.ui.activity.login.LabelsPleaseActivity"/>
     </application>
 
 </manifest>
