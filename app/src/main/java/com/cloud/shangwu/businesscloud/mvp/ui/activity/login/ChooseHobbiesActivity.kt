@@ -1,6 +1,7 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.ext.showToast
@@ -44,7 +45,8 @@ class ChooseHobbiesActivity : BaseSwipeBackActivity(), ChooseHobbiesContract.Vie
     override fun attachLayoutRes(): Int = R.layout.activity_choose_hobbies
 
     override fun initData() {
-
+        val string = intent.extras.getString("1");
+        Log.i("string",string)
     }
 
 

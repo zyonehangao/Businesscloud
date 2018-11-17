@@ -8,6 +8,10 @@ data class HttpResult<T>(@Json(name = "data") var data: T,
                          @Json(name = "code") var code: Int,
                          @Json(name = "message") var message: String)
 
+data class DataBaseResult<T>(@Json(name = "data") var data: String,
+                         @Json(name = "code") var code: Int,
+                         @Json(name = "message") var message: String)
+
 data class BaseResult<T>(@Json(name = "data") var data: MutableList<T>,
                          @Json(name = "code") var code: Int,
                          @Json(name = "message") var message: String)

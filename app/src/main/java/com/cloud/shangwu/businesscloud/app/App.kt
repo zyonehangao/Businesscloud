@@ -13,7 +13,9 @@ import com.squareup.leakcanary.RefWatcher
 import java.util.*
 import kotlin.properties.Delegates
 import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper
-
+import com.cloud.shangwu.businesscloud.widget.helper.MediaLoader
+import com.yanzhenjie.album.Album
+import com.yanzhenjie.album.AlbumConfig
 
 
 /**
@@ -49,6 +51,11 @@ class App : Application() {
         DisplayManager.init(this)
         registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
         initTheme()
+        Album.initialize(AlbumConfig.newBuilder(this)
+                .setAlbumLoader(MediaLoader())
+                .setLocale(Locale.getDefault())
+                .build()
+        )
     }
 
 

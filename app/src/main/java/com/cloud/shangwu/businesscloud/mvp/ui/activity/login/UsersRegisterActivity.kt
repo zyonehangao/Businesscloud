@@ -25,6 +25,10 @@ import com.yanzhenjie.album.AlbumFile
 import com.yanzhenjie.album.api.widget.Widget
 import kotlinx.android.synthetic.main.activity_user_register.*
 import java.util.ArrayList
+import java.io.File
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import id.zelory.compressor.Compressor
 
 
 class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
@@ -38,7 +42,7 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
     }
 
     override fun JsonDateOk(path: String) {
-        ImageLoader.load(this@UsersRegisterActivity,Constant.BASE_URL+path,iv_logo)
+        ImageLoader.load(this@UsersRegisterActivity, Constant.BASE_URL +"business/image?image= "+ path, iv_logo)
     }
 
     override fun JsonDateErr() {
@@ -79,6 +83,7 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
             JumpUtil.Next(this@UsersRegisterActivity, LablesActivity::class.java)
         }
         iv_logo.setOnClickListener {
+
             Album.image(this)
                     .multipleChoice()
                     .camera(true)
@@ -95,18 +100,36 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
                         mAlbumFiles = result
                         Log.i("mAlbumFiles", mAlbumFiles!![0].path)
                         val fileByPath = FileUtils.getFileByPath(mAlbumFiles!![0].path)
-                        fileByPath?.let {
-                            App.instance
-                            mPresenter.upload(it)
+
+                        fileByPath?.apply {
+                            getPath(fileByPath)
+
                         }
-//                        mAdapter.notifyDataSetChanged(mAlbumFiles)
-//                        mTvMessage.setVisibility(if (result.size > 0) View.VISIBLE else View.GONE)
+
                     }
                     .onCancel { Toast.makeText(this@UsersRegisterActivity, R.string.canceled, Toast.LENGTH_LONG).show() }
                     .start()
 
         }
 
+    }
+
+    private fun getPath(photos: File) {
+        Log.i("图片大小", "原+${photos.length()}")
+        Compressor(this)
+                .compressToFileAsFlowable(photos)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ file ->
+                    file?.let {
+                        App.instance
+                        getPath(file)
+                        mPresenter.upload(it)
+                    }
+                }, { throwable ->
+                    throwable.printStackTrace()
+                    showError(throwable.message!!)
+                })
     }
 
     override fun initView() {
@@ -119,7 +142,7 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
         //爱好
         rl_choose_hobbies.setOnClickListener {
             var bundle = Bundle()
-            bundle.putString("1", "1")
+            bundle.putString("1", "10000")
             JumpUtil.Next(this@UsersRegisterActivity,
                     ChooseHobbiesActivity::class.java, bundle)
         }
@@ -129,19 +152,4 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data == null) return
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == Activity.RESULT_OK) {
-//            Log.e("OnActivityResult ", Matisse.obtainPathResult(data).toString())
-//
-//            val fileByPath = FileUtils.getFileByPath(Matisse.obtainPathResult(data)[0])
-//            fileByPath?.let {
-//                App.instance
-//                mPresenter.upload(it)
-//            }
-
-        }
-    }
 }

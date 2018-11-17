@@ -137,7 +137,7 @@ interface ApiService {
      */
     @POST("/business/upload")
     @Multipart
-    fun uploadFile(@Part file: MultipartBody.Part): Observable<HttpResult<LoginData>>
+    fun uploadFile(@Part file: MultipartBody.Part): Observable<HttpResult<String>>
 //     fun upload(@Part("file") file: RequestBody,
 //                @Part image: MultipartBody.Part ): Observable<HttpResult<LoginData>>
 
