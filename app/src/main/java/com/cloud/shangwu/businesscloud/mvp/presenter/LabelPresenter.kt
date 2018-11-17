@@ -46,7 +46,7 @@ class LabelPresenter : BasePresenter<LabelContract.View>(), LabelContract.Presen
     }
 
     override fun label(type: Int) {
-        mView?.showLoading()
+
         val disposable = labelModel.label(type)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->

@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.cloud.shangwu.businesscloud.R
+import com.cloud.shangwu.businesscloud.R.string.register
 import com.cloud.shangwu.businesscloud.app.App
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
@@ -19,12 +21,23 @@ import com.cloud.shangwu.businesscloud.mvp.presenter.LabelPresenter
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.FileUtils
+import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
+import com.yanzhenjie.album.Album
+import com.yanzhenjie.album.AlbumFile
+import com.yanzhenjie.album.api.widget.Widget
+import id.zelory.compressor.Compressor
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
+
 import kotlinx.android.synthetic.main.activity_registercompanysec.*
 import kotlinx.android.synthetic.main.activity_user_register.*
+
 import kotlinx.android.synthetic.main.title_register.*
-import kotlinx.android.synthetic.main.toolbar.*
-import org.greenrobot.eventbus.EventBus
+import java.io.File
+import java.util.ArrayList
+
 
 /**
  * Created by Administrator on 2018/11/11.
@@ -69,9 +82,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
      */
     private var token: String by Preference(Constant.TOKEN_KEY, "")
 
-    private val mutableList = arrayListOf<String>()
-
-    private val REQUEST_CODE_CHOOSE = 23
+    private var mAlbumFiles: ArrayList<AlbumFile>? = null
 
     private val mPresenter: RegisterCompanyPresenter by lazy {
         RegisterCompanyPresenter()
@@ -84,7 +95,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
     }
 
     private val mDialog by lazy {
-        DialogUtil.getWaitDialog(this, getString(R.string.login_ing))
+        DialogUtil.getWaitDialog(this, getString(R.string.register_ing))
     }
 
     override fun showLoading() {
@@ -121,19 +132,44 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
     override fun initView() {
         mPresenter.attachView(this)
         mLabelPresenter.attachView(this)
-        rl_busnissgoal.setOnClickListener(onClickListener);
-        rl_companyint.setOnClickListener(onClickListener);
-        rl_position.setOnClickListener(onClickListener);
-//        logo.setOnClickListener(onClickListener);
-//        btn_register.setOnClickListener(onClickListener);
+        rl_busnissgoal.setOnClickListener(onClickListener)
+        rl_companyint.setOnClickListener(onClickListener)
+        rl_position.setOnClickListener(onClickListener)
         back.setOnClickListener(onClickListener)
+
         logo.setOnClickListener {
+
+            Album.image(this)
+                    .multipleChoice()
+                    .camera(true)
+                    .columnCount(4)
+                    .selectCount(1)
+                    .checkedList(mAlbumFiles)
+                    .widget(
+                            Widget.newDarkBuilder(this)
+                                    .title("相册")
+                                    .build()
+                    )
+                    .onResult { result ->
+
+                        mAlbumFiles = result
+                        Log.i("mAlbumFiles", mAlbumFiles!![0].path)
+                        val fileByPath = FileUtils.getFileByPath(mAlbumFiles!![0].path)
+
+                        fileByPath?.apply {
+                            getPath(fileByPath)
+
+                        }
+
+                    }
+                    .onCancel { Toast.makeText(this@RegisterCompanySecActivity, R.string.canceled, Toast.LENGTH_LONG).show() }
+                    .start()
+
         }
-//        toolbar.run {
-//            title=""
-//
-//        }
+
     }
+
+
 
     override fun start() {
 
@@ -156,15 +192,18 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
                     startActivity(this)
                 }
-                finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.rl_companyint -> {
-                finish()
+                Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
+                    startActivity(this)
+                }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.rl_position -> {
-                finish()
+                Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
+                    startActivity(this)
+                }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
@@ -173,6 +212,23 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
     private fun getLable(int: Int) {
         mLabelPresenter.label(int)
     }
+    private fun getPath(photos: File) {
+            Log.i("图片大小", "原+${photos.length()}")
+            Compressor(this)
+                    .compressToFileAsFlowable(photos)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ file ->
+                        file?.let {
+                            App.instance
+                            getPath(file)
+                            mPresenter.upload(it)
+                        }
+                    }, { throwable ->
+                        throwable.printStackTrace()
+                        showError(throwable.message!!)
+                    })
+        }
 
     /**
      * Register
@@ -187,12 +243,5 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
         super.onDestroy()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data == null) return
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == Activity.RESULT_OK) {
 
-
-        }
-    }
 }

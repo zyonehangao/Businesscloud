@@ -87,7 +87,6 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
                     var bundle=Bundle()
                     bundle.putStringArrayList("message",mutableList)
                     JumpUtil.Next(this@RegisterCompanyActivity,RegisterCompanySecActivity::class.java,bundle)
-                    finish()
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 }
 

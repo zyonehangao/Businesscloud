@@ -4,9 +4,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:textColor="@color/subscribe_item_text_color"
+    android:textColor="@color/labitem_text_color"
     android:textSize="@dimen/sp_14"
-    android:background="@drawable/label_check"
-    android:layout_margin="@dimen/dp_8"
-    android:padding="@dimen/dp_5"
+    android:background="@drawable/subscribe_item_bg"
+    android:layout_margin="@dimen/dp_12"
+    android:padding="@dimen/dp_9"
     xmlns:android="http://schemas.android.com/apk/res/android" />

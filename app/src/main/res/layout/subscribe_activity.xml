@@ -1,98 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/subscribe_activity_bg" >
+    android:background="@color/subscribe_activity_bg">
 
     <include
         android:id="@+id/title_bar"
-        layout="@layout/title_bar" />
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/title_bar" >
+        android:layout_below="@id/title_bar"
+        >
 
         <LinearLayout
             android:id="@+id/subscribe_main_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/subscribe_bg"
-            android:orientation="vertical"
-            android:paddingBottom="14.0dip" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10.0dip"
-                android:layout_marginTop="14.0dip"
                 android:gravity="bottom"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_28"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/my_category_text"
-                    style="@style/subscribe_my_tip_text"
-                    android:text="@string/subscribe_my_category" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/your_tap_career"
+                    android:textColor="@color/Grey800"
+                    android:textSize="@dimen/sp_17"
+                    android:text="@string/your_tap_career" />
 
                 <TextView
                     android:id="@+id/my_category_tip_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12.0dip"
-                    android:text="@string/subscribe_manager_category_info_2"
                     android:textColor="@color/subscribe_tip_text"
                     android:textSize="11.0sp" />
             </LinearLayout>
 
-            <View
-                android:id="@+id/seperate_line"
-                style="@style/subscribe_seperate_line" />
-
-            <com.cloud.shangwu.businesscloud.widget.DragGrid
-                android:id="@+id/userGridView"
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout"
+                zhy:max_select="-1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dip"
-                android:layout_marginRight="14dip"
-                android:gravity="center"
-                android:horizontalSpacing="14dip"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="4"
-                android:scrollbars="vertical"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="14.0px" />
-
+                android:padding="@dimen/dp_20">
+            </com.zhy.view.flowlayout.TagFlowLayout>
+            
             <View
-                android:id="@+id/seperate_line2"
-                style="@style/subscribe_seperate_line" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_divider"></View>
+
 
             <TextView
-                android:id="@+id/more_category_text"
-                style="@style/subscribe_more_tip_text"
-                android:layout_marginBottom="14.0dip"
-                android:layout_marginLeft="10.0dip"
-                android:text="@string/subscribe_more_category" />
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_tag"
+                android:textColor="@color/Grey800"
+                android:textSize="@dimen/sp_17"
+                android:text="@string/add_tag" />
 
-            <com.cloud.shangwu.businesscloud.widget.OtherGridView
-                android:id="@+id/otherGridView"
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout_more"
+                zhy:max_select="-1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dip"
-                android:layout_marginRight="14dip"
+                android:padding="@dimen/dp_20">
+            </com.zhy.view.flowlayout.TagFlowLayout>
+
+            <TextView
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:id="@+id/commit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/btn_login_bg"
                 android:gravity="center"
-                android:horizontalSpacing="14dip"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="4"
-                android:scrollbars="vertical"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="14.0px" />
+                android:textSize="@dimen/sp_17"
+                android:padding="@dimen/dp_12"
+                android:text="@string/lab_commit"
+                android:textColor="@color/White" />
         </LinearLayout>
     </ScrollView>
-
-    <include
-        android:id="@+id/category_layout"
-        layout="@layout/subscribe_category_item"
-        android:visibility="gone" />
-
 </RelativeLayout>

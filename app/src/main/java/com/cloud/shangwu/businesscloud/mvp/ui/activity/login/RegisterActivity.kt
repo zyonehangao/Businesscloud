@@ -55,7 +55,6 @@ class RegisterActivity : BaseActivity() {
                 Intent(this@RegisterActivity, LoginActivity::class.java).apply {
                     startActivity(this)
                 }
-                finish()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.tv_useragree ->{

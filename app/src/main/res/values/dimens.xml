@@ -79,5 +79,6 @@
     <dimen name="dp_52">52dp</dimen>
     <dimen name="sp_15">15sp</dimen>
     <dimen name="dp_345">345dp</dimen>
+    <dimen name="dp_9">9dp</dimen>
 
 </resources>
