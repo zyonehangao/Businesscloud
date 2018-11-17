@@ -67,6 +67,8 @@
         <activity android:name=".mvp.ui.activity.login.LableActivity"/>
         <activity android:name=".mvp.ui.activity.login.LablesActivity"/>
         <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"/>
+        <activity android:name=".mvp.ui.activity.login.IntCompanyActivity"/>
+        <activity android:name=".mvp.ui.activity.login.BusnissActivity"/>
     </application>
 
 </manifest>

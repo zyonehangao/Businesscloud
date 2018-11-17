@@ -8,7 +8,10 @@ import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
+import com.cloud.shangwu.businesscloud.mvp.model.bean.ComRegise
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
+import com.cloud.shangwu.businesscloud.mvp.model.bean.UserRegise
+
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
 import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Validator
@@ -20,6 +23,7 @@ import kotlinx.android.synthetic.main.title_register.*
  * Created by Administrator on 2018/11/10.
  */
 class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View {
+
     override fun showLoading() {
 
     }
@@ -85,7 +89,16 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 //                    val intent:Intent=Intent().apply { this.putStringArrayListExtra("message",mutableList)}
 //                    startActivity(intent)
                     var bundle=Bundle()
-                    bundle.putStringArrayList("message",mutableList)
+
+                    bundle.putSerializable("ComRegise", ComRegise(
+                           tv_location.text.toString(),
+                            et_username.text.toString(),
+                            et_email.text.toString(),
+                            "","","",
+                            et_invcode.text.toString(),
+                            et_password.text.toString(),"",-1,
+                            et_id.text.toString()
+                    ))
                     JumpUtil.Next(this@RegisterCompanyActivity,RegisterCompanySecActivity::class.java,bundle)
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 }
@@ -128,16 +141,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 //            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_email))
 //            valid=false
 //        }
-        if (mutableList != null) {
-            mutableList.add(id)
-            mutableList.add(pwd)
-            mutableList.add(name)
-            mutableList.add(email)
-//            mutableList.add(area)
-            mutableList.add(intcode)
-        }
-        var first = mutableList.first()
-        showToast(first)
+
         return valid
     }
 

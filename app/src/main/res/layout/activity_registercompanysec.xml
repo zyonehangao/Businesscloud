@@ -74,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_52">
                 <TextView
+                    android:id="@+id/tv_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/companyint_com"
@@ -94,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_52">
                 <TextView
+                    android:id="@+id/tv_busniss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/busnissscope_com"

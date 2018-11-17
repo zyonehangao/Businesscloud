@@ -4,6 +4,7 @@ package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -16,6 +17,7 @@ import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.LabelContract
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterCompanyContract
+import com.cloud.shangwu.businesscloud.mvp.model.bean.ComRegise
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.LabelPresenter
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
@@ -32,7 +34,7 @@ import io.reactivex.schedulers.Schedulers
 
 
 import kotlinx.android.synthetic.main.activity_registercompanysec.*
-import kotlinx.android.synthetic.main.activity_user_register.*
+
 
 import kotlinx.android.synthetic.main.title_register.*
 import java.io.File
@@ -43,6 +45,10 @@ import java.util.ArrayList
  * Created by Administrator on 2018/11/11.
  */
 class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContract.View ,LabelContract.View{
+
+    var comRegise: ComRegise?=null
+    private  val INTCOMPANY=100
+    private  val BUSNISS=200
     override fun JsonDateOk(json: String) {
 
     }
@@ -124,9 +130,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
     override fun attachLayoutRes(): Int= R.layout.activity_registercompanysec;
 
     override fun initData() {
-        val listExtra = intent.getStringArrayListExtra("message")
-//        mutableList.add(listExtra.toString())
-        showToast(listExtra[0])
+        comRegise = intent.extras.getSerializable("ComRegise") as ComRegise
     }
 
     override fun initView() {
@@ -136,7 +140,8 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
         rl_companyint.setOnClickListener(onClickListener)
         rl_position.setOnClickListener(onClickListener)
         back.setOnClickListener(onClickListener)
-
+        btn_register.setOnClickListener(onClickListener)
+        ll_busnisscope.setOnClickListener(onClickListener)
         logo.setOnClickListener {
 
             Album.image(this)
@@ -188,29 +193,42 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.rl_busnissgoal -> {
-                getLable(-1)
+//                getLable("aaa",10,-1)
                 Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
                     startActivity(this)
                 }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
             }
             R.id.rl_companyint -> {
-                Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
-                    startActivity(this)
+                Intent(this@RegisterCompanySecActivity, IntCompanyActivity::class.java).apply {
+                    startActivityForResult(this,INTCOMPANY)
+//                    startActivity(this)
+                }
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+            R.id.ll_busnisscope -> {
+                Intent(this@RegisterCompanySecActivity, BusnissActivity::class.java).apply {
+                    startActivityForResult(this,BUSNISS)
+//                    startActivity(this)
                 }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.rl_position -> {
-                Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
-                    startActivity(this)
-                }
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+//                Intent(this@RegisterCompanySecActivity, ChooseHobbiesActivity::class.java).apply {
+//                    startActivity(this)
+//                }
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                var bundle = Bundle()
+                bundle.putString("1", "10000")
+                JumpUtil.Next(this@RegisterCompanySecActivity,
+                        ChooseHobbiesActivity::class.java, bundle)
             }
         }
     }
 
-    private fun getLable(int: Int) {
-        mLabelPresenter.label(int)
+    private fun getLable(content :String,countryId  :Int,type: Int) {
+        mLabelPresenter.label(content,countryId,type)
     }
     private fun getPath(photos: File) {
             Log.i("图片大小", "原+${photos.length()}")
@@ -234,13 +252,32 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
      * Register
      */
     private fun register() {
-        mPresenter.registerCompany("zhangsan","123456","china",0,1,"abc@163.com","a","haha")
+        mPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area,0,
+                comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username)
+
+//        mPresenter.registerCompany(comRegise.companyName,comRegise.password,comRegise.area,0,
+//                comRegise.type,comRegise.email,comRegise.position,comRegise.username)
 
     }
 
     override fun onDestroy() {
         mDialog.dismiss()
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data==null){
+            return
+        }
+        if (INTCOMPANY==requestCode){
+            val bundle= data?.getBundleExtra("company")?.get("intcompany")
+//            tv_company.setText(bundle as String)
+        }
+        if (BUSNISS==requestCode){
+            val bundle= data?.getBundleExtra("busniss")?.get("busniss")
+//            tv_busniss.setText(bundle as String)
+        }
     }
 
 

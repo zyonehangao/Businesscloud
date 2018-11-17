@@ -161,11 +161,12 @@ interface ApiService {
      *
      */
 
-    @GET("/label/list/{type}")
+    @GET("/business/country/{countryId}/label/search/{type}")
     fun label(
-            @Path("type") type: Int
+            @Field("content") content: String,
+            @Field("countryId") countryId: Int,
+            @Field("type") type: Int
     ): Observable<HttpResult<LoginData>>
-
 
 
     /**
@@ -174,7 +175,6 @@ interface ApiService {
      *
      */
     @GET("/business/hobby/list/all")
-
     fun chooseAll(): Observable<ChooseHobbiseData>
 
 

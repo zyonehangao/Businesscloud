@@ -12,8 +12,8 @@ import io.reactivex.Observable
  */
 class LabelModel : BaseModel() {
 
-    fun label(type: Int): Observable<HttpResult<LoginData>> {
-        return RetrofitHelper.service.label(type).compose(SchedulerUtils.ioToMain())
+    fun label(content :String,countryId  :Int,type: Int): Observable<HttpResult<LoginData>> {
+        return RetrofitHelper.service.label(content,countryId,type).compose(SchedulerUtils.ioToMain())
     }
 
 }

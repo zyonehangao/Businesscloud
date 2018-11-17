@@ -92,5 +92,9 @@
     <string name="add_tag">点击下方标签可直接添加</string>
     <string name="lab_commit">提交</string>
     <string name="busnissgoal">企业目标</string>
+    <string name="input_companyint">请输入公司介绍</string>
+    <string name="ini_company">公司简介</string>
+    <string name="busnissscope">经营范围</string>
+    <string name="iuput_busnissscope">请输入经营范围</string>
 
 </resources>

@@ -33,6 +33,9 @@ data class LoginData(
 )
 data class UserRegise(var username: String,var  password: String,var  email: String, var invitecode: String, var position: String):Serializable
 
+data class ComRegise(var area : String, var companyName: String, var email : String, var businessScope: String,
+                     var goal : String, var intro: String, var invitedCode : String, var  password : String, var  position: String, var type : Int, var username : String):Serializable
+
 
 
 

@@ -24,7 +24,7 @@ interface LabelContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun label(type: Int)
+        fun label(content :String,countryId  :Int,type: Int)
         fun upload(file: File)
 
     }

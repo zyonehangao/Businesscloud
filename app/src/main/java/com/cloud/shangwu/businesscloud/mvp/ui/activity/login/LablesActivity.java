@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,6 +58,8 @@ public class LablesActivity extends BaseSwipeBackActivity  {
 
     private TagAdapter<String> madapter;
     private TagAdapter<String> madapterMore;
+
+    private Boolean islabelClicked=false;
     /** 初始化数据*/
     public void initData() {
 
@@ -61,7 +67,7 @@ public class LablesActivity extends BaseSwipeBackActivity  {
         list1.add("C++");
         list1.add("Python");
         list1.add("Swift");
-        list1.add("你好，这是一个TAG。你好，这是一个TAG。你好，这是一个TAG。你好，这是一个TAG。");
+        list1.add("你好，这是一个TAG");
         list1.add("PHP");
         list1.add("JavaScript");
         list1.add("Html");
@@ -91,6 +97,13 @@ public class LablesActivity extends BaseSwipeBackActivity  {
         View view = findViewById(R.id.title_bar);
         TextView title = view.findViewById(R.id.toolbar_nam);
         title.setText(getResources().getString(R.string.busnissgoal));
+        ImageView iv_back=view.findViewById(R.id.iv_black);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
 
         madapter=new TagAdapter<String>(list1) {
@@ -111,10 +124,6 @@ public class LablesActivity extends BaseSwipeBackActivity  {
         public View getView(FlowLayout parent, int position, String s) {
             TextView tv = (TextView) mInflater.inflate(R.layout.lab_more_item,
                     mFlowLayout, false);
-            tv.setSelected(true);
-            if (list1.contains(list2.get(position))){
-
-            }
             tv.setText(list2.get(position));
             return tv;
         }};
@@ -125,14 +134,16 @@ public class LablesActivity extends BaseSwipeBackActivity  {
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-
                 int indexOf = list2.lastIndexOf(list1.get(position));
                 View childAt = mFlowLayoutmore.getChildAt(indexOf);
-                childAt.setClickable(true);
+                if (list2.contains(list1.get(position))){
+                    childAt.setClickable(true);
+                }
                 list1.remove(position);
                 madapter.notifyDataChanged();
                 madapterMore.notifyDataChanged();
                 return false;
+
             }
         });
 
@@ -214,60 +225,68 @@ public class LablesActivity extends BaseSwipeBackActivity  {
 //                break;
 //        }
 //    }
-//    /**
-//     * 点击ITEM移动动画
-//     * @param moveView
-//     * @param startLocation
-//     * @param endLocation
-//     * @param moveChannel
-//     * @param clickGridView
-//     */
-//    private void MoveAnim(View moveView, int[] startLocation,int[] endLocation, final ChannelItem moveChannel,
-//                          final GridView clickGridView) {
-//        int[] initLocation = new int[2];
-//        //获取传递过来的VIEW的坐标
-//        moveView.getLocationInWindow(initLocation);
-//        //得到要移动的VIEW,并放入对应的容器中
-//        final ViewGroup moveViewGroup = getMoveViewGroup();
-//        final View mMoveView = getMoveView(moveViewGroup, moveView, initLocation);
-//        //创建移动动画
-//        TranslateAnimation moveAnimation = new TranslateAnimation(
-//                startLocation[0], endLocation[0], startLocation[1],
-//                endLocation[1]);
-//        moveAnimation.setDuration(300L);//动画时间
-//        //动画配置
-//        AnimationSet moveAnimationSet = new AnimationSet(true);
-//        moveAnimationSet.setFillAfter(false);//动画效果执行完毕后，View对象不保留在终止的位置
-//        moveAnimationSet.addAnimation(moveAnimation);
-//        mMoveView.startAnimation(moveAnimationSet);
-//        moveAnimationSet.setAnimationListener(new AnimationListener() {
-//
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//                isMove = true;
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                moveViewGroup.removeView(mMoveView);
-//                // instanceof 方法判断2边实例是不是一样，判断点击的是DragGrid还是OtherGridView
-//                if (clickGridView instanceof DragGrid) {
+    /**
+     * 点击ITEM移动动画
+     * @param moveView
+     * @param startLocation
+     * @param endLocation
+     * @param moveChannel
+     * @param clickGridView
+     */
+    private void MoveAnim(View moveView, int[] startLocation,int[] endLocation, final String moveChannel,
+                          final FlowLayout clickGridView) {
+        int[] initLocation = new int[2];
+        //获取传递过来的VIEW的坐标
+        moveView.getLocationInWindow(initLocation);
+        //得到要移动的VIEW,并放入对应的容器中
+        final ViewGroup moveViewGroup = getMoveViewGroup();
+        final View mMoveView = getMoveView(moveViewGroup, moveView, initLocation);
+        //创建移动动画
+        TranslateAnimation moveAnimation = new TranslateAnimation(
+                startLocation[0], endLocation[0], startLocation[1],
+                endLocation[1]);
+        moveAnimation.setDuration(300L);//动画时间
+        //动画配置
+        AnimationSet moveAnimationSet = new AnimationSet(true);
+        moveAnimationSet.setFillAfter(false);//动画效果执行完毕后，View对象不保留在终止的位置
+        moveAnimationSet.addAnimation(moveAnimation);
+        mMoveView.startAnimation(moveAnimationSet);
+        moveAnimationSet.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isMove = true;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                moveViewGroup.removeView(mMoveView);
+                // instanceof 方法判断2边实例是不是一样，判断点击的是DragGrid还是OtherGridView
+                if (islabelClicked) {
 //                    otherAdapter.setVisible(true);
-//                    otherAdapter.notifyDataSetChanged();
+                    list1.remove(list1.indexOf(moveChannel));
+                    madapter.notifyDataChanged();
+                    madapterMore.notifyDataChanged();
+                    mFlowLayoutmore.getChildAt(list2.indexOf(moveChannel)).setClickable(true);
+//                    madapter.notifyDataSetChanged();
 //                    userAdapter.remove();
-//                }else{
+                }else{
+                    list1.add(moveChannel);
+                    madapter.notifyDataChanged();
+                    madapterMore.notifyDataChanged();
+                    mFlowLayoutmore.getChildAt(list2.indexOf(moveChannel)).setClickable(false);
 //                    userAdapter.setVisible(true);
 //                    userAdapter.notifyDataSetChanged();
 //                    otherAdapter.remove();
-//                }
-//                isMove = false;
-//            }
-//        });
-//    }
+                }
+                isMove = false;
+            }
+        });
+    }
 
     /**
      * 获取移动的VIEW，放入对应ViewGroup布局容器
@@ -303,13 +322,13 @@ public class LablesActivity extends BaseSwipeBackActivity  {
      * @param view
      * @return
      */
-    private ImageView getView(View view) {
+    private TextView getView(View view) {
         view.destroyDrawingCache();
-        view.setDrawingCacheEnabled(true);
-        Bitmap cache = Bitmap.createBitmap(view.getDrawingCache());
-        view.setDrawingCacheEnabled(false);
-        ImageView iv = new ImageView(this);
-        iv.setImageBitmap(cache);
+//        view.setDrawingCacheEnabled(true);
+//        Bitmap cache = Bitmap.createBitmap(view.getDrawingCache());
+//        view.setDrawingCacheEnabled(false);
+        TextView iv = new TextView(this);
+//        iv.setImageBitmap(cache);
         return iv;
     }
 
