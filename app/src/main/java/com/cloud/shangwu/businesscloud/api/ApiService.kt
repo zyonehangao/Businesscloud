@@ -163,9 +163,9 @@ interface ApiService {
 
     @GET("/business/country/{countryId}/label/search/{type}")
     fun label(
-            @Field("content") content: String,
-            @Field("countryId") countryId: Int,
-            @Field("type") type: Int
+            @Query("content") content: String,
+            @Path("countryId") countryId: Int,
+            @Path("type") type: Int
     ): Observable<HttpResult<LoginData>>
 
 

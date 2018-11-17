@@ -193,7 +193,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.rl_busnissgoal -> {
-//                getLable("aaa",10,-1)
+                getLable("aaa",10,3)
                 Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
                     startActivity(this)
                 }
