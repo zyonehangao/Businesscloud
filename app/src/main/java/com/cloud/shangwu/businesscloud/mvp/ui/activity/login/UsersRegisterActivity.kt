@@ -15,6 +15,7 @@ import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.mvp.contract.UserRegisterContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
+import com.cloud.shangwu.businesscloud.mvp.model.bean.UserRegise
 import com.cloud.shangwu.businesscloud.mvp.presenter.UserRegisterPresenter
 import com.cloud.shangwu.businesscloud.utils.FileUtils
 import com.cloud.shangwu.businesscloud.utils.ImageLoader
@@ -33,6 +34,7 @@ import id.zelory.compressor.Compressor
 
 class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
     private var mAlbumFiles: ArrayList<AlbumFile>? = null
+    var userRegise:UserRegise?=null
     override fun uploadOk(json: String) {
 
     }
@@ -71,7 +73,6 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
 
     }
 
-    private val REQUEST_CODE_CHOOSE = 23
 
 
     override fun attachLayoutRes(): Int = R.layout.activity_user_register
@@ -135,7 +136,8 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
     override fun initView() {
 
         mPresenter.attachView(this)
-
+        userRegise = intent.extras.getSerializable("UserRegise") as UserRegise
+        Log.i("userRegise",userRegise?.email);
     }
 
     override fun start() {

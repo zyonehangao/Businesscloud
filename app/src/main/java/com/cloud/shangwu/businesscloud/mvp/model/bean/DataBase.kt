@@ -1,7 +1,9 @@
 package com.cloud.shangwu.businesscloud.mvp.model.bean
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.cloud.shangwu.businesscloud.R.id.label
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 
 data class HttpResult<T>(@Json(name = "data") var data: T,
@@ -29,60 +31,7 @@ data class LoginData(
         @Json(name = "username") var username: String
 
 )
-//data class ChooseHobbiseData(
-//    val code: Int,
-//    val `data`: List<Data>,
-//    val message: String
-//)
-//
-//data class Data(
-//    val children: List<Children>,
-//    val content: String,
-//    val createTime: Any,
-//    val hid: Int,
-//    val higher: Int,
-//    val label: Any,
-//    val status: Any
-//)
-//
-//data class Children(
-//    val children: List<Any>,
-//    val content: String,
-//    val createTime: Any,
-//    val hid: Int,
-//    val higher: Int,
-//    val label: Any,
-//    val status: Any
-//)
-
-//data class Data(
-//        @Json(name = "children") var children: List<Children>,
-//        @Json(name = "content") var content: String,
-//        @Json(name = "createTime") var createTime: Any,
-//        @Json(name = "hid") var hid: Int,
-//        @Json(name = "higher") var higher: Int,
-//        @Json(name = "label") var label: Any,
-//        @Json(name = "status") var status: Any
-//) : MultiItemEntity {
-//    override fun getItemType(): Int = higher
-//
-//    data class Children(
-//            @Json(name = "children") var children: List<Any>,
-//            @Json(name = "content") var content: String,
-//            @Json(name = "createTime") var createTime: Any,
-//            @Json(name = "hid") var hid: Int,
-//            @Json(name = "higher") var higher: Int,
-//            @Json(name = "label") var label: Any,
-//            @Json(name = "status") var status: Any
-//    ) : MultiItemEntity {
-//        override fun getItemType(): Int = higher
-//
-//        companion object {
-//            var Text = 1
-//            var Heard = 0
-//        }
-//    }
-//}
+data class UserRegise(var username: String,var  password: String,var  email: String, var invitecode: String, var position: String):Serializable
 
 
 

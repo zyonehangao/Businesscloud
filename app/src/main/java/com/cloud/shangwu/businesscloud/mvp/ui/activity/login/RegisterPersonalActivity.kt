@@ -1,25 +1,24 @@
 package com.cloud.shangwu.businesscloud.ui.activity
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
-import com.cloud.shangwu.businesscloud.mvp.contract.RegisterContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
-import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPresenter
-import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
-import com.cloud.shangwu.businesscloud.mvp.presenter.LoginPresenter
+import com.cloud.shangwu.businesscloud.mvp.model.bean.UserRegise
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.UsersRegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
+import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_registerpersonal.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
+
 
 class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View {
     override fun showPicker(tx: String) {
@@ -117,12 +116,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.btn_register -> {
-//                if (validate()){
-
-//                }
-                Intent(this@RegisterPersonalActivity, UsersRegisterActivity::class.java).run {
-                    startActivitys(this)
-                }
+                register()
             }
             R.id.ll_choice_location -> {
                 mPresenter.showPickerView()
@@ -135,9 +129,15 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
      */
     private fun register() {
         if (validate()) {
-            mPresenter.userRegister(et_username.text.toString(),
+           val bundle= Bundle()
+            bundle.putSerializable("UserRegise",UserRegise(
+                    et_username.text.toString(),
                     et_password.text.toString(),
-                    et_password2.text.toString(), "", "", "", "")
+                    et_password2.text.toString(),
+                    invitationcode.text.toString(),
+                    tv_location.text.toString()
+                    ))
+            JumpUtil.Next(this@RegisterPersonalActivity,UsersRegisterActivity::class.java,bundle)
         }
     }
 
@@ -148,9 +148,10 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         var valid = true
         val username: String = et_username.text.toString()
         val password: String = et_password.text.toString()
-        val password2: String = et_password2.text.toString()
+        val email: String = et_password2.text.toString()
+        val invitationcode: String = invitationcode.text.toString()
         val tv_location: String = tv_location.text.toString()
-        if (username.isNotEmpty()) {
+        if (username.isEmpty()) {
             et_username.error = getString(R.string.username_not_empty)
             valid = false
         }
@@ -158,7 +159,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
             et_password.error = getString(R.string.password_not_empty)
             valid = false
         }
-        if (password2.isEmpty()) {
+        if (email.isEmpty()) {
             et_password.error = getString(R.string.input_emaill)
             valid = false
         }
