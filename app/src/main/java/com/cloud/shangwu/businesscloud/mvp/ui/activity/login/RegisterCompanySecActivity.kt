@@ -20,12 +20,6 @@ import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.FileUtils
 import com.cloud.shangwu.businesscloud.utils.Preference
-import com.cloud.shangwu.businesscloud.widget.helper.GifSizeFilter
-import com.cloud.shangwu.businesscloud.widget.helper.Glide4Engine
-import com.zhihu.matisse.Matisse
-import com.zhihu.matisse.MimeType
-import com.zhihu.matisse.filter.Filter
-import com.zhihu.matisse.internal.entity.CaptureStrategy
 import kotlinx.android.synthetic.main.activity_registercompanysec.*
 import kotlinx.android.synthetic.main.activity_user_register.*
 import kotlinx.android.synthetic.main.title_register.*
@@ -134,32 +128,6 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
 //        btn_register.setOnClickListener(onClickListener);
         back.setOnClickListener(onClickListener)
         logo.setOnClickListener {
-            Matisse.from(this@RegisterCompanySecActivity)
-                    .choose(MimeType.ofImage(), false)
-                    .countable(true)
-                    .capture(true)
-                    .captureStrategy(
-                            CaptureStrategy(false, "com.cloud.shangwu.businesscloud.fileprovider", "test"))
-                    .maxSelectable(1)
-                    .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                    .gridExpectedSize(
-                            resources.getDimensionPixelSize(R.dimen.grid_expected_size))
-                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                    .thumbnailScale(0.85f)
-                    //                                            .imageEngine(new GlideEngine())  // for glide-V3
-                    .imageEngine(Glide4Engine())    // for glide-V4
-                    .setOnSelectedListener { uriList, pathList ->
-                        // DO SOMETHING IMMEDIATELY HERE
-                        Log.e("onSelected", "onSelected: pathList=$pathList")
-                    }
-                    .originalEnable(true)
-                    .maxOriginalSize(10)
-                    .autoHideToolbarOnSingleTap(true)
-                    .setOnCheckedListener { isChecked ->
-                        // DO SOMETHING IMMEDIATELY HERE
-                        Log.e("isChecked", "onCheck: isChecked=$isChecked")
-                    }
-                    .forResult(REQUEST_CODE_CHOOSE)
         }
 //        toolbar.run {
 //            title=""
@@ -223,13 +191,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == Activity.RESULT_OK) {
-            Log.e("OnActivityResult ", Matisse.obtainPathResult(data).toString())
 
-            val fileByPath = FileUtils.getFileByPath(Matisse.obtainPathResult(data)[0])
-            fileByPath?.let {
-                App.instance
-                mLabelPresenter.upload(fileByPath)
-            }
 
         }
     }

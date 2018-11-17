@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.cloud.shangwu.businesscloud.app.App.Companion.context
 
 /**
  * Created by chengxiaofen on 2018/8/21.
@@ -36,14 +37,14 @@ object JumpUtil {
      * @param targetClazz
      * @param bundle
      */
-    fun Next(context: Context, targetClazz: Class<out Activity>, bundle: Bundle?) {
+    fun Next(activity: Activity, targetClazz: Class<out Activity>, bundle: Bundle?) {
         val mIntent = Intent(context, targetClazz)
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (bundle != null) {
             mIntent.putExtras(bundle)
         }
         context.startActivity(mIntent)
-        (context as Activity).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
     }
 

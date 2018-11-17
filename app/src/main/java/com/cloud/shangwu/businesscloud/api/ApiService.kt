@@ -1,15 +1,13 @@
 package com.cloud.shangwu.businesscloud.api
 
-import com.cloud.shangwu.businesscloud.mvp.model.bean.BaseResult
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ChooseHobbiseData
 import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
+import okhttp3.ResponseBody
 import retrofit2.http.*
-import java.io.File
 
 interface ApiService {
     // git 测试
@@ -139,8 +137,9 @@ interface ApiService {
      */
     @POST("/business/upload")
     @Multipart
-//    fun upload(@Body RequestBody body): Observable<HttpResult<LoginData>>
-     fun upload(@PartMap  file:MultipartBody.Part ): Observable<HttpResult<LoginData>>
+    fun uploadFile(@Part file: MultipartBody.Part): Observable<HttpResult<LoginData>>
+//     fun upload(@Part("file") file: RequestBody,
+//                @Part image: MultipartBody.Part ): Observable<HttpResult<LoginData>>
 
     /**上传图片
      *
@@ -154,7 +153,7 @@ interface ApiService {
 //     fun upload1(@PartMap  file:MultipartBody.Part ): Observable<HttpResult<LoginData>>
     fun uploadImage(@Part("file") description:RequestBody ,
                     @Part file:MultipartBody.Part ):
-        Observable<HttpResult<LoginData>>
+            Observable<HttpResult<LoginData>>
 
     /**
      *获取标签接口

@@ -14,7 +14,7 @@ import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.presenter.LoginPresenter
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
-import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.UserRegisterActivity
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.UsersRegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_registerpersonal.*
@@ -118,9 +118,9 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         when (view.id) {
             R.id.btn_register -> {
 //                if (validate()){
-//
+
 //                }
-                Intent(this@RegisterPersonalActivity, UserRegisterActivity::class.java).run {
+                Intent(this@RegisterPersonalActivity, UsersRegisterActivity::class.java).run {
                     startActivitys(this)
                 }
             }

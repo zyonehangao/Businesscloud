@@ -6,7 +6,6 @@ import com.cloud.shangwu.businesscloud.http.RetrofitHelper
 import com.cloud.shangwu.businesscloud.http.exception.ExceptionHandle
 import com.cloud.shangwu.businesscloud.http.function.RetryWithDelay
 import com.cloud.shangwu.businesscloud.mvp.contract.LabelContract
-import com.cloud.shangwu.businesscloud.mvp.contract.RegisterContract
 import com.cloud.shangwu.businesscloud.mvp.model.LabelModel
 import com.cloud.shangwu.businesscloud.mvp.rx.SchedulerUtils
 import okhttp3.MediaType
@@ -26,20 +25,20 @@ class LabelPresenter : BasePresenter<LabelContract.View>(), LabelContract.Presen
         val description = RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString)
         RetrofitHelper.service.uploadImage(description, body)
                 .compose(SchedulerUtils.ioToMain()).subscribe({ results ->
-            mView?.let {
-                if (results.code != Constant.OK) {
-                    it.showError(results.message)
-                    it.JsonDateErr()
-                } else {
-                    it.JsonDateOk("")
-                }
-            }
-        }, { t ->
-            mView?.apply {
-                hideLoading()
-                showError(ExceptionHandle.handleException(t))
-            }
-        })
+                    mView?.let {
+                        if (results.code != Constant.OK) {
+                            it.showError(results.message)
+                            it.JsonDateErr()
+                        } else {
+                            it.JsonDateOk("")
+                        }
+                    }
+                }, { t ->
+                    mView?.apply {
+                        hideLoading()
+                        showError(ExceptionHandle.handleException(t))
+                    }
+                })
     }
 
     private val labelModel by lazy {
