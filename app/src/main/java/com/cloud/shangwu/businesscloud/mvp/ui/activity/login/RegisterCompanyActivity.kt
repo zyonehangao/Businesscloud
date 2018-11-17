@@ -128,19 +128,19 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 //        var area=et_area.text.trim().toString()
         var intcode=et_invcode.text.trim().toString()
 
-//        if (!validate(id)){
-//            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_id))
-//            valid=false
-//        }else if(!validate(pwd)||!Validator.isPassword(pwd)){
-//            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_psw))
-//            valid=false
-//        }else if (!validate(name)){
-//            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_name))
-//            valid=false
-//        }else if (!validate(email)||!Validator.isEmail(email)){
-//            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_email))
-//            valid=false
-//        }
+        if (!validate(id)){
+            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_id))
+            valid=false
+        }else if(!validate(pwd)||!Validator.isPassword(pwd)){
+            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_psw))
+            valid=false
+        }else if (!validate(name)){
+            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_name))
+            valid=false
+        }else if (!validate(email)||!Validator.isEmail(email)){
+            showToast(getString(R.string.toast_error)+getString(R.string.toast_error_email))
+            valid=false
+        }
 
         return valid
     }

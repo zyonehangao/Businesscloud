@@ -45,9 +45,9 @@ class LabelPresenter : BasePresenter<LabelContract.View>(), LabelContract.Presen
         LabelModel()
     }
 
-    override fun label(content :String,countryId  :Int,type: Int) {
+    override fun label(countryId  :Int,type: Int,content :String) {
 
-        val disposable = labelModel.label(content,countryId,type)
+        val disposable = labelModel.label(countryId,type,content)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {

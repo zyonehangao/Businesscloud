@@ -193,7 +193,7 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.rl_busnissgoal -> {
-                getLable("aaa",10,3)
+                getLable(10,3,"aaa")
                 Intent(this@RegisterCompanySecActivity, LablesActivity::class.java).apply {
                     startActivity(this)
                 }
@@ -227,8 +227,8 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
         }
     }
 
-    private fun getLable(content :String,countryId  :Int,type: Int) {
-        mLabelPresenter.label(content,countryId,type)
+    private fun getLable(countryId  :Int,type: Int,content :String) {
+        mLabelPresenter.label(countryId,type,content)
     }
     private fun getPath(photos: File) {
             Log.i("图片大小", "原+${photos.length()}")
