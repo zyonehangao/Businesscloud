@@ -63,4 +63,6 @@ object Constant {
         const val EDIT_TODO_TYPE_KEY = "edit_todo_type_key"
     }
 
+    const val USERAGREE="file:///android_asset/useragreement.html"
+
 }

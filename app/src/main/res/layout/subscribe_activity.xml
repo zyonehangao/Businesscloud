@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+
     android:id="@+id/root_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/subscribe_activity_bg">
+    android:background="@color/subscribe_activity_bg"
+    app:ignore="NamespaceTypo">
 
-    <include
+    <!--<include-->
+        <!--android:id="@+id/title_bar"-->
+        <!--layout="@layout/toolbar" />-->
+    <RelativeLayout
         android:id="@+id/title_bar"
-        layout="@layout/toolbar" />
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent">
+
+        <!--<ImageView-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_marginStart="@dimen/dp_15"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/arrow_login2"/>-->
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
+            app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
+            app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
+            app:floatingSearch_searchHint="Search..."
+            app:floatingSearch_suggestionsListAnimDuration="250"
+            app:floatingSearch_showSearchKey="false"
+            app:floatingSearch_leftActionMode="showHamburger"
+            app:floatingSearch_menu="@menu/menu_main"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
+        </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -56,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_20">
             </com.zhy.view.flowlayout.TagFlowLayout>
-            
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"

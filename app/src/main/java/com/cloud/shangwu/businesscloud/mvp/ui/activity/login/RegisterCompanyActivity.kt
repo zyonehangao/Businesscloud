@@ -7,12 +7,15 @@ import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.mvp.contract.RegisterCompanyContract
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ComRegise
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.model.bean.UserRegise
+import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
 
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
+import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Validator
 import kotlinx.android.synthetic.main.activity_registercompany.*
@@ -22,25 +25,53 @@ import kotlinx.android.synthetic.main.title_register.*
 /**
  * Created by Administrator on 2018/11/10.
  */
-class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View {
+class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View, RegisterCompanyContract.View {
 
-    override fun showLoading() {
+    var comRegise: ComRegise?=null
+    override fun JsonDateErr() {
 
     }
 
-    override fun hideLoading() {
+    private val mDialog by lazy {
+        DialogUtil.getWaitDialog(this, getString(R.string.register_ing))
+    }
 
+    override fun showLoading() {
+        mDialog.show()
+    }
+
+    override fun hideLoading() {
+        mDialog.hide()
     }
 
     override fun showError(errorMsg: String) {
         showToast(errorMsg)
     }
 
+
+    override fun registerSuccess(data: LoginData) {
+        showToast(getString(R.string.register_success))
+        finish()
+    }
+
+    override fun registerFail() {
+        showToast(getString(R.string.register_fail))
+        finish()
+    }
+
+
+    override fun JsonDateOk(json: String) {
+
+    }
+
+
     override fun registerOK(data: LoginData) {
 
     }
 
-    override fun registerFail() {
+
+    private val mRegisterPresenter: RegisterCompanyPresenter by lazy {
+        RegisterCompanyPresenter()
 
     }
 
@@ -64,6 +95,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 
     override fun initView() {
         mPresenter.attachView(this)
+        mRegisterPresenter.attachView(this)
         back.setOnClickListener(onClickListener)
         btn_login.setOnClickListener(onClickListener)
         ll_choice_location.setOnClickListener(onClickListener)
@@ -82,25 +114,21 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         when (view.id) {
             R.id.btn_login -> {
                 if (getMessage()){
-//                    Intent(this@RegisterCompanyActivity, RegisterCompanySecActivity::class.java).apply {
-//                        intent.putStringArrayListExtra("message",mutableList)
-//                        startActivity(this)
-//                    }
-//                    val intent:Intent=Intent().apply { this.putStringArrayListExtra("message",mutableList)}
-//                    startActivity(intent)
-                    var bundle=Bundle()
 
-                    bundle.putSerializable("ComRegise", ComRegise(
-                           tv_location.text.toString(),
-                            et_username.text.toString(),
-                            et_email.text.toString(),
-                            "","","",
-                            et_invcode.text.toString(),
-                            et_password.text.toString(),"",-1,
-                            et_id.text.toString()
-                    ))
-                    JumpUtil.Next(this@RegisterCompanyActivity,RegisterCompanySecActivity::class.java,bundle)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+//                    var bundle=Bundle()
+//
+//                    bundle.putSerializable("ComRegise", ComRegise(
+//                           tv_location.text.toString(),
+//                            et_username.text.toString(),
+//                            et_email.text.toString(),
+//                            "","","",
+//                            et_invcode.text.toString(),
+//                            et_password.text.toString(),"",-1,
+//                            et_id.text.toString()
+//                    ))
+//                    JumpUtil.Next(this@RegisterCompanyActivity,RegisterCompanySecActivity::class.java,bundle)
+//                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                   register()
                 }
 
             }
@@ -141,7 +169,13 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_email))
             valid=false
         }
-
+        comRegise= ComRegise(tv_location.text.toString(),
+                et_username.text.toString(),
+                et_email.text.toString(),
+                "","","",
+                et_invcode.text.toString(),
+                et_password.text.toString(),"",0,
+                et_id.text.toString())
         return valid
     }
 
@@ -156,6 +190,19 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         }
         return valid
 
+    }
+
+    /**
+     * Register
+     */
+    private fun register() {
+        mRegisterPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area, 0,
+                comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username)
+    }
+
+    override fun onDestroy() {
+        mDialog.dismiss()
+        super.onDestroy()
     }
 
 

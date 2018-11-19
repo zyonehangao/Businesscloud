@@ -3,12 +3,16 @@ package com.cloud.shangwu.businesscloud.mvp.ui.activity.login;
 
 import android.annotation.SuppressLint;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 
+import android.support.v4.content.res.ResourcesCompat;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +25,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.arlib.floatingsearchview.util.Util;
 import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.app.App;
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity;
 
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ChannelManage;
+import com.cloud.shangwu.businesscloud.mvp.model.bean.ColorSuggestion;
 import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper;
 
 import com.zhy.view.flowlayout.FlowLayout;
@@ -60,6 +69,10 @@ public class LablesActivity extends BaseSwipeBackActivity  {
     private TagAdapter<String> madapterMore;
 
     private Boolean islabelClicked=false;
+
+    private FloatingSearchView mSearchView;
+
+    private boolean mIsDarkSearchTheme = false;
     /** 初始化数据*/
     public void initData() {
 
@@ -94,17 +107,115 @@ public class LablesActivity extends BaseSwipeBackActivity  {
     public void initView() {
         final LayoutInflater mInflater = LayoutInflater.from(this);
         mFlowLayout = (TagFlowLayout) findViewById(R.id.id_flowlayout);
-        View view = findViewById(R.id.title_bar);
-        TextView title = view.findViewById(R.id.toolbar_nam);
-        title.setText(getResources().getString(R.string.busnissgoal));
-        ImageView iv_back=view.findViewById(R.id.iv_black);
-        iv_back.setOnClickListener(new View.OnClickListener() {
+//        View view = findViewById(R.id.title_bar);
+//        TextView title = view.findViewById(R.id.toolbar_nam);
+//        title.setText(getResources().getString(R.string.busnissgoal));
+//        ImageView iv_back=view.findViewById(R.id.iv_black);
+//        iv_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
+        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
+
+        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
+        List<ColorSuggestion> list = new ArrayList<ColorSuggestion>();
+
+
+        mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
-            public void onClick(View view) {
+            public void onSearchTextChanged(String oldQuery, final String newQuery) {
+                if (!oldQuery.equals("") && newQuery.equals("")) {
+                    mSearchView.clearSuggestions();
+                } else {
+                    //this shows the top left circular progress
+                    //you can call it where ever you want, but
+                    //it makes sense to do it when loading something in
+                    //the background.
+                    mSearchView.showProgress();
+
+                    //simulates a query call to a data source
+                    //with a new query.
+//                    DataHelper.findSuggestions(getActivity(), newQuery, 5,
+//                            FIND_SUGGESTION_SIMULATED_DELAY, new DataHelper.OnFindSuggestionsListener() {
+//
+//                                @Override
+//                                public void onResults(List<ColorSuggestion> results) {
+//
+//                                    //this will swap the data and
+//                                    //render the collapse/expand animations as necessary
+                                    mSearchView.swapSuggestions(list);
+//
+//                                    //let the users know that the background
+//                                    //process has completed
+//                                    mSearchView.hideProgress();
+//                                }
+//                            });
+                }
+
+            }
+        });
+
+        mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
+
+            }
+
+            @Override
+            public void onSearchAction(String query) {
+
+            }
+        });
+
+        mSearchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
+            @Override
+            public void onFocus() {
+
+            }
+
+            @Override
+            public void onFocusCleared() {
+
+            }
+        });
+
+        mSearchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
+            @Override
+            public void onHomeClicked() {
                 finish();
             }
         });
-        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
+
+        mSearchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
+            @Override
+            public void onBindSuggestion(View suggestionView, ImageView leftIcon,
+                                         TextView textView, SearchSuggestion item, int itemPosition) {
+                ColorSuggestion colorSuggestion = (ColorSuggestion) item;
+
+                String textColor = mIsDarkSearchTheme ? "#ffffff" : "#000000";
+                String textLight = mIsDarkSearchTheme ? "#bfbfbf" : "#787878";
+
+                if (colorSuggestion.getIsHistory()) {
+                    leftIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
+                            R.drawable.ic_history_black_24dp, null));
+
+                    Util.setIconColor(leftIcon, Color.parseColor(textColor));
+                    leftIcon.setAlpha(.36f);
+                } else {
+                    leftIcon.setAlpha(0.0f);
+                    leftIcon.setImageDrawable(null);
+                }
+
+                textView.setTextColor(Color.parseColor(textColor));
+                String text = colorSuggestion.getBody()
+                        .replaceFirst(mSearchView.getQuery(),
+                                "<font color=\"" + textLight + "\">" + mSearchView.getQuery() + "</font>");
+                textView.setText(Html.fromHtml(text));
+            }
+
+        });
 
         madapter=new TagAdapter<String>(list1) {
             @Override

@@ -96,5 +96,6 @@
     <string name="ini_company">公司简介</string>
     <string name="busnissscope">经营范围</string>
     <string name="iuput_busnissscope">请输入经营范围</string>
+    <string name="user_agree">用户协议</string>
 
 </resources>

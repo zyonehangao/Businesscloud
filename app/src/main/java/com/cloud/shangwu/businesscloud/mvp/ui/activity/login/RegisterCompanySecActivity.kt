@@ -255,9 +255,6 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
         mPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area,0,
                 comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username)
 
-//        mPresenter.registerCompany(comRegise.companyName,comRegise.password,comRegise.area,0,
-//                comRegise.type,comRegise.email,comRegise.position,comRegise.username)
-
     }
 
     override fun onDestroy() {
