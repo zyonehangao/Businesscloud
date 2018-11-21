@@ -3,6 +3,7 @@ package com.cloud.shangwu.businesscloud.mvp.presenter
 import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 import com.cloud.shangwu.businesscloud.mvp.model.LoginModel
 import com.cloud.shangwu.businesscloud.base.BasePresenter
+import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.http.exception.ExceptionHandle
 import com.cloud.shangwu.businesscloud.http.function.RetryWithDelay
 
@@ -16,18 +17,19 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
         LoginModel()
     }
 
-    override fun login(username: String, password: String) {
+    override fun login(username: String, password: String, invitedCode: String) {
         mView?.showLoading()
-        val disposable = loginModel.login(username, password)
+        val disposable = loginModel.login(username, password,invitedCode)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ res ->
                     mView?.apply {
-                        if (res.code == 0) {
+                        if (res.code !=Constant.OK) {
                             showError(res.message)
                             loginFail()
                         } else {
                             loginSuccess(res.data)
                         }
+
                     }
                 }, { t ->
                     mView?.apply {

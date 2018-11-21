@@ -91,13 +91,12 @@ dependencies {
     implementation 'com.github.donkingliang:LabelsView:1.4.1'
     implementation 'com.yanzhenjie:album:2.1.2'
     implementation 'id.zelory:compressor:2.1.0'
-
     //标签控件
-    compile 'co.lujun:androidtagview:1.0.3'
-    compile 'com.hyman:flowlayout-lib:1.1.2'
+    implementation 'co.lujun:androidtagview:1.0.3'
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
     //搜索控件
-    compile 'com.github.arimorty:floatingsearchview:2.1.1'
-
-
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation 'co.lujun:androidtagview:1.0.3'
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
 }
 

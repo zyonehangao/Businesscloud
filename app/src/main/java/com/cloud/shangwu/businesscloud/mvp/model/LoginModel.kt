@@ -12,8 +12,8 @@ import io.reactivex.Observable
  */
 class LoginModel : BaseModel() {
 
-    fun login(username: String, password: String): Observable<HttpResult<LoginData>> {
-        return RetrofitHelper.service.login(username, password)
+    fun login(username: String, password: String, invitedCode: String): Observable<HttpResult<LoginData>> {
+        return RetrofitHelper.service.login(username, password,invitedCode)
                 .compose(SchedulerUtils.ioToMain())
     }
 

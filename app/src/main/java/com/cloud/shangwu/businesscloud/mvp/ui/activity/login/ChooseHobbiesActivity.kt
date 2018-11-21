@@ -20,7 +20,7 @@ class ChooseHobbiesActivity : BaseSwipeBackActivity(), ChooseHobbiesContract.Vie
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         val toJson = Gson().toJson(list)
         var adapter = MultiItemAdapter(list)
-        showToast("测试")
+
         mRecyclerView.adapter = adapter
     }
 

@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.arlib.floatingsearchview.FloatingSearchView;
+//import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.arlib.floatingsearchview.util.Util;
@@ -37,6 +37,7 @@ import com.cloud.shangwu.businesscloud.mvp.model.bean.ChannelManage;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ColorSuggestion;
 import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper;
 
+import com.cloud.shangwu.businesscloud.widget.FloatingSearchView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -73,6 +74,9 @@ public class LablesActivity extends BaseSwipeBackActivity  {
     private FloatingSearchView mSearchView;
 
     private boolean mIsDarkSearchTheme = false;
+
+
+
     /** 初始化数据*/
     public void initData() {
 
@@ -117,9 +121,12 @@ public class LablesActivity extends BaseSwipeBackActivity  {
 //                finish();
 //            }
 //        });
-        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
 
+        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
+        ImageView left_action = (ImageView) mFlowLayoutmore.findViewById(R.id.left_action);
+//        left_action.setOnFocusChangeListener();
         mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
+
         List<ColorSuggestion> list = new ArrayList<ColorSuggestion>();
 
 

@@ -1,8 +1,6 @@
 package com.cloud.shangwu.businesscloud.api
 
-import com.cloud.shangwu.businesscloud.mvp.model.bean.ChooseHobbiseData
-import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
-import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
+import com.cloud.shangwu.businesscloud.mvp.model.bean.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -19,7 +17,9 @@ interface ApiService {
     @POST("/business/pass/login")
     @FormUrlEncoded
     fun login(@Field("username") username: String,
-              @Field("password") password: String): Observable<HttpResult<LoginData>>
+              @Field("password") password: String,
+              @Field("invitedCode") invitedCode: String
+              ): Observable<HttpResult<LoginData>>
 
 
     /**
@@ -60,15 +60,15 @@ interface ApiService {
      * @param area
      * @param email
      */
-    @POST("/pass/save")
+    @POST("/business/pass/save")
     @FormUrlEncoded
     fun userRegister(@Field("username") username: String,
-                           @Field("type") type: String,
-                           @Field("telephone") telephone: String,
                            @Field("password") password: String,
-                           @Field("area") area: String,
                            @Field("email") email: String,
-                           @Field("position") position: String
+                           @Field("area") area: String,
+                            @Field("pid") pid: String,
+                            @Field("type") type: String,
+                           @Field("code") position: String
     ): Observable<HttpResult<LoginData>>
 
 
@@ -99,10 +99,8 @@ interface ApiService {
      * @param password
      *
      */
-    @GET("/pass/email")
-    @FormUrlEncoded
-    fun email(@Field("email") username: String
-                 ): Observable<HttpResult<LoginData>>
+    @GET("/business/pass/email")
+    fun email(@Query("email") content: String): Observable<HttpResult<LoginData>>
 
 
     /**
@@ -111,8 +109,8 @@ interface ApiService {
      * @param password
      *
      */
-    @GET("/pass/sms")
-    @FormUrlEncoded
+    @GET("/business/pass/sms")
+
     fun sms(@Field("phone") phone: String
                  ): Observable<HttpResult<LoginData>>
 
@@ -122,12 +120,25 @@ interface ApiService {
      * @param password
      *
      */
-    @GET("/pass/update/password")
-    @FormUrlEncoded
+    @GET("/business/pass/update/password")
+
     fun password(
             @Field("userName") userName: String,
             @Field("oldPassword") oldPassword: String,
             @Field("newPassword") newPassword: String
+                 ): Observable<HttpResult<LoginData>>
+    /**
+     *忘记密码
+     * @param username
+     * @param password
+     *
+     */
+    @POST("/business/pass/forget/password")
+    @FormUrlEncoded
+    fun forgetpassword(
+            @Field("username") userName: String,
+            @Field("password") oldPassword: String,
+            @Field("code") newPassword: String
                  ): Observable<HttpResult<LoginData>>
 
     /**上传图片
@@ -155,6 +166,7 @@ interface ApiService {
                     @Part file:MultipartBody.Part ):
             Observable<HttpResult<LoginData>>
 
+
     /**
      *获取标签接口
      * @param type
@@ -167,8 +179,6 @@ interface ApiService {
             @Path("type") type: Int,
             @Query("content") content: String
     ): Observable<HttpResult<LoginData>>
-
-
     /**
      * 获取爱好
      * @param type

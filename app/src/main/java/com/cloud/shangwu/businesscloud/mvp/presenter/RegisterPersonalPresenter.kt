@@ -5,19 +5,20 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.widget.Toast
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
+import com.cloud.shangwu.businesscloud.R.id.label
 import com.cloud.shangwu.businesscloud.R.string.username
 import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.base.BasePresenter
+import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.http.exception.ExceptionHandle
 import com.cloud.shangwu.businesscloud.http.function.RetryWithDelay
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.model.UserRegisterModel
 import com.cloud.shangwu.businesscloud.mvp.model.bean.*
-import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.JsonData
-import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterCompanyActivity
 import com.cloud.shangwu.businesscloud.ui.activity.RegisterPersonalActivity
 import com.cloud.shangwu.businesscloud.utils.GetJsonDataUtil
 import com.google.gson.Gson
@@ -27,8 +28,8 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
 
 
     private var options1Items = ArrayList<JsonData.DataBean>()
-    private val options2Items = ArrayList<ArrayList<String>>()
-    private val options3Items = ArrayList<ArrayList<ArrayList<String>>>()
+    private val options2Items = ArrayList<ArrayList<JsonData.DataBean.ChildrenBeanX>>()
+    private val options3Items = ArrayList<ArrayList<ArrayList<JsonData.DataBean.ChildrenBeanX.ChildrenBean>>>()
     private var thread: Thread? = null
     private val MSG_LOAD_DATA = 0x0001
     private val MSG_LOAD_SUCCESS = 0x0002
@@ -38,15 +39,16 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
         UserRegisterModel()
     }
 
-    override fun userRegister(usernme: String, password: String, email: String, invitedCode: String, portrait: String, hobbys: String, label: String) {
+    override fun userRegister(usernme: String, password: String, email: String, area: String, pid: String,type: String, code: String) {
         mView?.showLoading()
-        val subscribe = userRegisterModer.UserRegister(usernme, password, email, invitedCode, portrait, hobbys, label)
+        val subscribe = userRegisterModer.UserRegister(usernme, password, email, area, pid,type, code)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ res ->
                     mView?.apply {
-                        if (res.code == 0) {
+                        if (res.code != Constant.OK) {
                             showError(res.message)
                             registerFail()
+                            hideLoading()
                         } else {
                             registerOK(res.data)
                         }
@@ -66,15 +68,13 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
 
         val pvOptions = OptionsPickerBuilder(mView as BaseActivity, OnOptionsSelectListener { options1, options2, options3, v ->
             //返回的分别是三个级别的选中位置
-            var tx = options1Items[options1].pickerViewText
-                    options2Items[options1][options2]
-                    options3Items[options1][options2][options3]
-
+            var tx = options1Items[options1].pickerViewText+"-"+
+                    options2Items[options1][options2].pickerViewText+"-"+
+                    options3Items[options1][options2][options3].pickerViewText
+            Log.i("级别",tx)
             Toast.makeText(mView as BaseActivity, tx, Toast.LENGTH_SHORT).show()
             if (mView is RegisterPersonalActivity) {
                 (mView as RegisterPersonalActivity).showPicker(tx)
-            }else{
-                (mView as RegisterCompanyActivity).showPicker(tx)
             }
 
         })
@@ -87,7 +87,7 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
 
         /*pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items as List<JsonData.DataBean>, options2Items as List<MutableList<String>>, options3Items as List<MutableList<MutableList<String>>>)//三级选择器
+        pvOptions.setPicker(options1Items as List<JsonData.DataBean>, options2Items as List<List<JsonData.DataBean.ChildrenBeanX>> , options3Items as  List<List<List<JsonData.DataBean.ChildrenBeanX.ChildrenBean>>>)//三级选择器
         pvOptions.show()
 
     }
@@ -105,25 +105,26 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
     }
 
     override fun getJsonData() {
-        val Json = GetJsonDataUtil().getJson(mView as BaseActivity, "province.json")//获取assets目录下的json文件数据
+//        val Json = GetJsonDataUtil().getJson(mView as BaseActivity, "province.json")//获取assets目录下的json文件数据
+        val Json = GetJsonDataUtil().getJson(mView as BaseActivity, "response.json")//获取assets目录下的json文件数据
         var jsonBean = parseData(Json)//用Gson 转成实体
         options1Items = jsonBean
         for (i in jsonBean.indices) {//遍历省份
-            val CityList =ArrayList<String>()//该省的城市列表（第二级）
-            val Province_AreaList = ArrayList<ArrayList<String>>()//该省的所有地区列表（第三极）
+            val CityList =ArrayList<JsonData.DataBean.ChildrenBeanX>()//该省的城市列表（第二级）
+            val Province_AreaList = ArrayList<ArrayList<JsonData.DataBean.ChildrenBeanX.ChildrenBean>>()//该省的所有地区列表（第三极）
 
             for (c in 0 until jsonBean[i].children!!.size) {//遍历该省份的所有城市
-                val CityName = jsonBean[i].children!![c].content
+                val CityName = jsonBean[i].children!![c]
                 CityList.add(CityName!!)//添加城市
-                val City_AreaList = java.util.ArrayList<String>()//该城市的所有地区列表
+                val City_AreaList = java.util.ArrayList<JsonData.DataBean.ChildrenBeanX.ChildrenBean>()//该城市的所有地区列表
 
                 //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
                 if (jsonBean[i].children!![c].children == null || jsonBean[i].children!![c].children!!.size === 0) {
-                    City_AreaList.add("")
+                    City_AreaList.add(JsonData.DataBean.ChildrenBeanX.ChildrenBean())
                 } else {
-                    val areaList =ArrayList<String>()//该省的城市列表（第二级）
+                    val areaList =ArrayList<JsonData.DataBean.ChildrenBeanX.ChildrenBean>()//该省的城市列表（第二级）
                     jsonBean[i].children!![c].children!!.forEachIndexed { index, childrenBean ->
-                        areaList.add(childrenBean.content)
+                        areaList.add(childrenBean)
                     }
                     City_AreaList.addAll(areaList)
                 }
@@ -141,25 +142,6 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
             options3Items.add(Province_AreaList)
         }
 
-//        jsonData.forEachIndexed { index, dataBean ->
-//            var CityName = ArrayList<String>()//该省的城市列表（第二级）
-//            var Province_AreaList = ArrayList<ArrayList<String>>()//该省的所有地区列表（第三级）
-//            //添加城市
-//            jsonData[index].children!!.forEachIndexed { inde, childrenBeanX ->
-//                CityName.add(childrenBeanX.content!!)//添加城市
-//                val City_AreaList = ArrayList<String>()//该城市的所有地区列表
-//                City_AreaList.add()//添加该省所有地区数据
-//            }
-//            /**
-//             * 添加城市数据
-//             */
-//            options2Items.add(CityName)
-//
-//            /**
-//             * 添加地区数据
-//             */
-//            options3Items.add(Province_AreaList)
-//        }
         mHandler.sendEmptyMessage(MSG_LOAD_SUCCESS)
     }
     @SuppressLint("HandlerLeak")

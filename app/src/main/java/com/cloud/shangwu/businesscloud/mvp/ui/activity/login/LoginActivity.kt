@@ -13,8 +13,10 @@ import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.LoginPresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.ForgetPassword
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
+import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.white_toolbar.*
@@ -59,7 +61,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
     override fun attachLayoutRes(): Int = R.layout.activity_login
 
-    override fun useEventBus(): Boolean = false
+    override fun useEventBus(): Boolean = true
 
     override fun enableNetworkTip(): Boolean = false
 
@@ -81,14 +83,17 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         showToast(getString(R.string.login_success))
         isLogin = true
         user = data.username
-        pwd = data.password
+
         token = data.token
 
-        EventBus.getDefault().post(LoginEvent(true))
+        EventBus.getDefault().post(LoginEvent(isLogin,data))
+        JumpUtil.Next(this,MainActivity::class.java)
         finish()
     }
 
+
     override fun loginFail() {
+        hideLoading()
     }
 
     /**
@@ -118,7 +123,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     private fun login() {
 
         if (validate()) {
-            mPresenter.login(et_username.text.toString(), et_password.text.toString())
+            mPresenter.login(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
         }
 
     }

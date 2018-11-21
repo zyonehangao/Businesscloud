@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/gou"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_contacts"
+        android:enabled="true"
+        android:icon="@drawable/gou"
+        android:title="@string/navigation"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_dynamic"
+        android:enabled="true"
+        android:icon="@drawable/gou"
+        android:title="@string/action_dynamic"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_mine"
+        android:enabled="true"
+        android:icon="@drawable/gou"
+        android:title="@string/mine"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -21,7 +21,9 @@ import org.greenrobot.eventbus.EventBus
 
 
 class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View {
+    var area:String =""
     override fun showPicker(tx: String) {
+        area=tx
         tv_location?.run {
             text=tx
             setTextColor(resources.getColor(R.color.Black))
@@ -34,9 +36,8 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         showToast(getString(R.string.register_success))
         isLogin = true
         user = data.username
-        pwd = data.password
 
-        EventBus.getDefault().post(LoginEvent(true))
+        EventBus.getDefault().post(LoginEvent(true,data))
         finish()
     }
 
@@ -129,15 +130,29 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
      */
     private fun register() {
         if (validate()) {
-           val bundle= Bundle()
-            bundle.putSerializable("UserRegise",UserRegise(
-                    et_username.text.toString(),
-                    et_password.text.toString(),
+            mPresenter.userRegister(et_username.text.toString()
+                    ,et_password.text.toString(),
                     et_password2.text.toString(),
-                    invitationcode.text.toString(),
+                    area,
+                    "0",
+                    "0",
                     tv_location.text.toString()
-                    ))
-            JumpUtil.Next(this@RegisterPersonalActivity,UsersRegisterActivity::class.java,bundle)
+                    )
+//           val bundle= Bundle()
+//            bundle.putSerializable("UserRegise",UserRegise(
+//                    et_username.text.toString(),
+//                    et_password.text.toString(),
+//                    et_password2.text.toString(),
+//                    invitationcode.text.toString(),
+//                    tv_location.text.toString()
+//                    ))
+//            JumpUtil.Next(this@RegisterPersonalActivity,UsersRegisterActivity::class.java,bundle)
+//            Intent(this@RegisterPersonalActivity, UsersRegisterActivity::class.java).run {
+//                startActivitys(this)
+//            }
+//            mPresenter.userRegister(et_username.text.toString(),
+//                    et_password.text.toString(),
+//                    et_password2.text.toString(), "", "", "", "")
         }
     }
 

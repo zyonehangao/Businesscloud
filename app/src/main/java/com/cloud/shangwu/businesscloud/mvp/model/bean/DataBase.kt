@@ -17,20 +17,37 @@ data class DataBaseResult<T>(@Json(name = "data") var data: String,
 data class BaseResult<T>(@Json(name = "data") var data: MutableList<T>,
                          @Json(name = "code") var code: Int,
                          @Json(name = "message") var message: String)
-
-// 登录数据
 data class LoginData(
-        @Json(name = "chapterTops") var chapterTops: MutableList<String>,
-        @Json(name = "collectIds") var collectIds: MutableList<String>,
-        @Json(name = "email") var email: String,
-        @Json(name = "icon") var icon: String,
-        @Json(name = "id") var id: Int,
-        @Json(name = "password") var password: String,
-        @Json(name = "token") var token: String,
-        @Json(name = "type") var type: Int,
-        @Json(name = "username") var username: String
+    val area: String,
+    val businessScope: Any,
+    val clan: Any,
+    val companyName: Any,
+    val email: String,
+    val goal: Any,
+    val hobbys: Any,
+    val im: Any,
+    val impact: Any,
+    val intro: Any,
+    val invitedCode: Any,
+    val label: Any,
+    val name: Any,
+    val personalCode: Any,
+    val pid: Int,
+    val portrait: Any,
+    val position: Any,
+    val qq: Any,
+    val registerTime: Any,
+    val status: Any,
+    val telephone: Any,
+    val token: String,
+    val type: Int,
+    val uid: Int,
+    val username: String,
+    val userno: Any,
+    val wx: Any
+):Serializable
 
-)
+
 data class UserRegise(var username: String,var  password: String,var  email: String, var invitecode: String, var position: String):Serializable
 
 data class ComRegise(var area : String, var companyName: String, var email : String, var businessScope: String,

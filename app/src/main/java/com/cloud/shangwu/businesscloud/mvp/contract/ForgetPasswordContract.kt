@@ -9,6 +9,7 @@ interface ForgetPasswordContract {
     interface View : IView {
 
         fun forgetSuccess(data: LoginData)
+        fun getCodeSuccess()
 
         fun forgetFail()
 
@@ -16,7 +17,9 @@ interface ForgetPasswordContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun Forgetpasd(phone: String, code: String,password:String,newpassword: String)
+        fun Forgetpasd(username: String, password: String,code:String)
+
+        fun getCode(code: String)
 
     }
 }

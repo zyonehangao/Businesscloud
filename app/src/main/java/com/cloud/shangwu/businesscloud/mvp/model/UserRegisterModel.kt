@@ -1,5 +1,7 @@
 package com.cloud.shangwu.businesscloud.mvp.model
 
+import com.cloud.shangwu.businesscloud.R.attr.type
+import com.cloud.shangwu.businesscloud.R.id.label
 import com.cloud.shangwu.businesscloud.base.BaseModel
 import com.cloud.shangwu.businesscloud.http.RetrofitHelper
 import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
@@ -12,14 +14,14 @@ class UserRegisterModel : BaseModel() {
             usernme: String
             , password: String
             , email: String
-            , invitedCode: String,
-            portrait: String,
-            hobbys: String,
-            label: String
+            , area: String,
+            pid: String,
+             type: String,
+            code: String
     ): Observable<HttpResult<LoginData>>{
         return RetrofitHelper.service.userRegister(
                 usernme, password, email
-                , invitedCode, portrait, hobbys, label).compose(SchedulerUtils.ioToMain())
+                , area, pid,type,code).compose(SchedulerUtils.ioToMain())
     }
 
 }

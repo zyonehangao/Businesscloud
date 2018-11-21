@@ -53,13 +53,14 @@
 
 
                 <com.cloud.shangwu.businesscloud.widget.ClearEditText
+                    android:id="@+id/ed_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp_15"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:background="@null"
-                    android:hint="@string/password"
+                    android:hint="@string/code"
                     android:inputType="textEmailAddress"
                     android:textColorHint="@color/text_color"
                     android:textSize="@dimen/sp_16" />
@@ -92,7 +93,7 @@
                 android:focusableInTouchMode="true">
 
                 <com.cloud.shangwu.businesscloud.widget.ClearEditText
-
+                    android:id="@+id/new_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/newpassword"
@@ -110,7 +111,7 @@
                 android:focusableInTouchMode="true">
 
                 <com.cloud.shangwu.businesscloud.widget.ClearEditText
-                    android:id="@+id/invitation_code"
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/please_enter_password"

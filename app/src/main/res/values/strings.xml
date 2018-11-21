@@ -2,11 +2,11 @@
     <string name="app_name">商务云</string>
     <string name="navigation_drawer_open">打开</string>
     <string name="navigation_drawer_close">关闭</string>
-    <string name="home">首页</string>
-    <string name="knowledge_system"></string>
-    <string name="navigation">导航</string>
-    <string name="project">项目</string>
-    <string name="wechat">公众号</string>
+    <string name="home">消息</string>
+    <string name="knowledge_system">联系人</string>
+    <string name="navigation">联系人</string>
+    <string name="action_dynamic">动态</string>
+    <string name="mine">我的</string>
     <string name="exit_tip">再按一次退出程序</string>
     <string name="share_article_url">%1$s分享【%2$s】：%3$s</string>
     <string name="confirm">确定</string>
@@ -22,6 +22,7 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="no_account">没有账号？去注册</string>
+    <string name="code">请输入验证码</string>
     <string name="username_not_empty">用户名不能为空</string>
     <string name="password_not_empty">密码不能为空</string>
     <string name="have_account">已有账户？去登录</string>
@@ -29,8 +30,10 @@
     <string name="confirm_password_not_empty">确认密码不能为空</string>
     <string name="password_cannot_match">两次密码不相同</string>
     <string name="login_success">登录成功</string>
+    <string name="sms_succes">验证码已发送</string>
     <string name="login_fail">登录失败</string>
     <string name="register_success">注册成功</string>
+    <string name="forget_password_success">密码修改成功</string>
     <string name="register_fail">注册失败</string>
     <string name="confirm_logout">确认退出登录？</string>
     <string name="logout_success">已退出登录</string>
@@ -38,6 +41,8 @@
     <string name="login_tint">请先登录</string>
     <string name="login_ing">登录中...</string>
     <string name="register_ing">注册中...</string>
+    <string name="forgetpasd">密码修改中...</string>
+    <string name="record">加载中...</string>
     <string name="login_now">立即登录</string>
     <string name="register_personal">个人注册</string>
     <string name="register_company">企业注册</string>
@@ -69,7 +74,7 @@
     <string name="input_emaill">请输入邮箱</string>
     <string name="complete">完成</string>
     <string name="please_enter_password">请在输入一次密码</string>
-    <string name="enter_phone_number_email">请输入用户名、邮箱、手机号</string>
+    <string name="enter_phone_number_email">请输入用户名、手机号</string>
     <string name="choice_location">请选择所在地区</string>
 
     <string name="album_view">选择图片</string>

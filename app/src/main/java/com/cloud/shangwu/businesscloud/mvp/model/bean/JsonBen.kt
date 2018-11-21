@@ -1,58 +1,76 @@
-package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
+package com.cloud.shangwu.businesscloud.mvp.model.bean
 
 import com.contrarywind.interfaces.IPickerViewData
 
 class JsonData {
 
 
-    var code: Int = 0
-    var message: String? = null
-    var data: List<DataBean>? = null
+    private var code: Int = 0
+    var data: List<JsonData.DataBean>? = null
+    private var message: String? = null
+    fun setCode(code: Int) {
+        this.code = code
+    }
 
-    class DataBean : IPickerViewData {
+    fun getCode(): Int {
+        return code
+    }
+
+    fun setMessage(message: String) {
+        this.message = message
+    }
+
+    fun getMessage(): String? {
+        return message
+    }
+
+
+    open class DataBean : IPickerViewData {
         override fun getPickerViewText(): String {
             return this.content
         }
 
-
-        var did: Int = 0
-        var higher: Int = 0
+        var did: String? = null
+        var higher: String? = null
         var content: String = ""
-        var label: Any? = null
-        var status: Any? = null
-        var createTime: Any? = null
-        var children: ArrayList<ChildrenBeanX>?= null
+        var label: String? = null
+        var status: String? = null
+        var createTime: String? = null
+        var children: List<JsonData.DataBean.ChildrenBeanX>? = null
 
-        class ChildrenBeanX {
-
-
-            var did: Int = 0
-            var higher: Int = 0
-            var content: String? = null
-            var label: Any? = null
-            var status: Any? = null
-            var createTime: Any? = null
-            var children: ArrayList<ChildrenBean>? = null
-
-            class ChildrenBean {
-                /**
-                 * did : 130102
-                 * higher : 130100
-                 * content : 长安区
-                 * label : null
-                 * status : null
-                 * createTime : null
-                 * children : null
-                 */
-
-                var did: Int = 0
-                var higher: Int = 0
-                var content: String = ""
-                var label: Any? = null
-                var status: Any? = null
-                var createTime: Any? = null
-                var children: Any? = null
+        open class ChildrenBeanX : IPickerViewData {
+            override fun getPickerViewText(): String {
+                return this.content
             }
+
+            var did: String? = null
+            var higher: String? = null
+            var content: String = ""
+            var label: String? = null
+            var status: String? = null
+            var createTime: String? = null
+            var children: List<ChildrenBean>? = null
+
+            open class ChildrenBean : IPickerViewData {
+                override fun getPickerViewText(): String {
+                    return this.content
+                }
+
+                var did: String? = null
+                var higher: String? = null
+                var content: String = ""
+                var label: String? = null
+                var status: String? = null
+                var createTime: String? = null
+                var children: List<ChildrenBean>? = null
+
+            }
+
+
         }
+
+
     }
+
+
 }

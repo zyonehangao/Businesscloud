@@ -110,9 +110,7 @@ class UsersRegisterActivity : BaseActivity(), UserRegisterContract.View {
                     }
                     .onCancel { Toast.makeText(this@UsersRegisterActivity, R.string.canceled, Toast.LENGTH_LONG).show() }
                     .start()
-
         }
-
     }
 
     private fun getPath(photos: File) {

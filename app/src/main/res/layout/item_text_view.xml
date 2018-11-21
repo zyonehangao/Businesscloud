@@ -8,6 +8,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="0dp"
+
     card_view:cardUseCompatPadding="false">
 
     <com.cloud.shangwu.businesscloud.widget.CustomExpandableListView

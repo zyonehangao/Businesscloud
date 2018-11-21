@@ -105,6 +105,7 @@ class ChooseHobbiseData {
 
                 var hid: Int = 0
                 var higher: Int = 0
+                var isselect: Boolean = false
                 var content: String? = null
                 var label: Any? = null
                 var status: Any? = null

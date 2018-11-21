@@ -88,12 +88,15 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
             convertView = LayoutInflater.from(context).inflate(R.layout.item_choose_hobbies_child, null)
             childHold = ChildHold()
             childHold.tvChildName = convertView!!.findViewById<View>(R.id.tv_elv_childName) as TextView
+            childHold.iv_select = convertView.findViewById<ImageView>(R.id.iv_select) as ImageView
             //            childHold.cbElvChild = (CheckBox) convertView.findViewById(R.id.cb_elvChild);
             convertView.tag = childHold
+
         } else {
             childHold = convertView.tag as ChildHold
         }
-
+        if (!classes[groupPosition].children!![childPosition].isselect)
+        {childHold.iv_select!!.visibility=View.GONE}else{childHold.iv_select!!.visibility=View.VISIBLE}
         val childName = stuents[groupPosition][childPosition].content
 //        val childName = "paobu "
         childHold.tvChildName?.text = childName
@@ -116,6 +119,7 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
 
     internal inner class ChildHold {
         var tvChildName: TextView? = null
+        var iv_select: ImageView? = null
         //        CheckBox cbElvChild;
     }
 }

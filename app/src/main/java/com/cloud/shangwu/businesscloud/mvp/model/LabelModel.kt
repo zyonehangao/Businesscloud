@@ -1,5 +1,6 @@
 package com.cloud.shangwu.businesscloud.mvp.model
 
+import com.cloud.shangwu.businesscloud.R.attr.type
 import com.cloud.shangwu.businesscloud.base.BaseModel
 import com.cloud.shangwu.businesscloud.http.RetrofitHelper
 import com.cloud.shangwu.businesscloud.mvp.model.bean.HttpResult
