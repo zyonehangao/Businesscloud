@@ -198,6 +198,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
             }
         });
 
+
+
         madapterMore = new LabelAdapter(list2) {
             @Override
             public void setClickAble(int position, View v) {
