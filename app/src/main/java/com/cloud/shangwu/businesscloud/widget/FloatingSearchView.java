@@ -58,6 +58,7 @@ import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -74,6 +75,7 @@ import com.arlib.floatingsearchview.util.adapter.TextWatcherAdapter;
 import com.arlib.floatingsearchview.util.view.MenuView;
 import com.arlib.floatingsearchview.util.view.SearchInputView;
 import com.bartoszlipinski.viewpropertyobjectanimator.ViewPropertyObjectAnimator;
+import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.app.App;
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.LablesActivity;
 
@@ -118,6 +120,8 @@ public class FloatingSearchView extends FrameLayout {
     public final static int LEFT_ACTION_MODE_SHOW_HOME = 3;
     public final static int LEFT_ACTION_MODE_NO_LEFT_ACTION = 4;
     private final static int LEFT_ACTION_MODE_NOT_SET = -1;
+
+    private InputMethodManager imm;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LEFT_ACTION_MODE_SHOW_HAMBURGER, LEFT_ACTION_MODE_SHOW_SEARCH,
@@ -370,7 +374,7 @@ public class FloatingSearchView extends FrameLayout {
         mHostActivity = Util.getHostActivity(getContext());
 
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMainLayout = inflate(getContext(), com.arlib.floatingsearchview.R.layout.floating_search_layout, this);
+        mMainLayout = inflate(getContext(), R.layout.floating_search_layout, this);
         mBackgroundDrawable = new ColorDrawable(Color.BLACK);
 
         mQuerySection = (CardView) findViewById(com.arlib.floatingsearchview.R.id.search_query_section);
@@ -461,6 +465,9 @@ public class FloatingSearchView extends FrameLayout {
         if (!isInEditMode()) {
             setupSuggestionSection();
         }
+
+
+        imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     private void applyXmlAttributes(AttributeSet attrs) {
@@ -682,6 +689,9 @@ public class FloatingSearchView extends FrameLayout {
             public void onClick(View v) {
 
                 if (isSearchBarFocused()) {
+                    if (imm.isActive()){
+                        imm.hideSoftInputFromWindow(FloatingSearchView.this.getWindowToken(), 0);
+                    }
                     ((Activity) getContext()).finish();
 //                    ((Activity) App.instance.getApplicationContext()).finish();
 //                    setSearchFocusedInternal(false);

@@ -83,4 +83,7 @@
     <dimen name="dp_34">34dp</dimen>
     <dimen name="dp_25">25dp</dimen>
 
+    <!--<dimen name="square_button_size">48dp</dimen>-->
+
+
 </resources>
