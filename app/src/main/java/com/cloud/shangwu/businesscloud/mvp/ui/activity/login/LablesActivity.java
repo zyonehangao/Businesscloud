@@ -71,7 +71,6 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     /**
      * 是否在移动，由于这边是动画结束后才进行的数据更替，设置这个限制为了避免操作太频繁造成的数据错乱。
      */
-    boolean isMove = false;
 
     private TagFlowLayout mFlowLayout;
     private TagFlowLayout mFlowLayoutmore;
@@ -81,16 +80,6 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
     private TagAdapter<String> madapter;
     private LabelAdapter madapterMore;
-
-    private Boolean islabelClicked = false;
-
-    private ImageView mBack;
-
-    private ImageView mSearch;
-
-    private TextView mInput;
-
-    private boolean mIsDarkSearchTheme = false;
 
     private FloatingSearchView mSearchView;
     private LayoutInflater mInflater;
@@ -106,30 +95,6 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
      */
     public void initData() {
 
-//        list1.add("Java");
-//        list1.add("C++");
-//        list1.add("Python");
-//        list1.add("Swift");
-//        list1.add("你好，这是一个TAG");
-//        list1.add("PHP");
-//        list1.add("JavaScript");
-//        list1.add("Html");
-//        list1.add("Welcome to use AndroidTagView!");
-//
-//        list2.add("China");
-//        list2.add("USA");
-//        list2.add("Austria");
-//        list2.add("Japan");
-//        list2.add("Sudan");
-//        list2.add("Spain");
-//        list2.add("UK");
-//        list2.add("Germany");
-//        list2.add("Niger");
-//        list2.add("Poland");
-//        list2.add("Norway");
-//        list2.add("Uruguay");
-//        list2.add("Brazil");
-//        list2.add("Java");
     }
 
     /**
@@ -145,7 +110,6 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
         List<ColorSuggestion> list = new ArrayList<ColorSuggestion>();
 
-
         mSearchView.setOnSearchListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +124,6 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
     @Override
     public void onBackPressed() {
-//        saveChannel();
         super.onBackPressed();
     }
 
@@ -240,6 +203,7 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
             public void setClickAble(int position, View v) {
                 if (list1.contains(list2.get(position))){
                     v.setClickable(false);
+                    //TODO
                 }else {
                     v.setClickable(true);
                 }
