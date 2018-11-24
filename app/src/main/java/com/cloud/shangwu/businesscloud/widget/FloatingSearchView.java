@@ -183,6 +183,7 @@ public class FloatingSearchView extends FrameLayout {
     private int mOverflowIconColor;
     private OnMenuItemClickListener mActionMenuItemListener;
     private ImageView mClearButton;
+    private ImageView mSearchButton;
     private int mClearBtnColor;
     private Drawable mIconClear;
     private int mBackgroundColor;
@@ -379,6 +380,7 @@ public class FloatingSearchView extends FrameLayout {
 
         mQuerySection = (CardView) findViewById(com.arlib.floatingsearchview.R.id.search_query_section);
         mClearButton = (ImageView) findViewById(com.arlib.floatingsearchview.R.id.clear_btn);
+        mSearchButton=(ImageView) findViewById(R.id.search);
         mSearchInput = (SearchInputView) findViewById(com.arlib.floatingsearchview.R.id.search_bar_text);
         mSearchInputParent = findViewById(com.arlib.floatingsearchview.R.id.search_input_parent);
         mLeftAction = (ImageView) findViewById(com.arlib.floatingsearchview.R.id.left_action);
@@ -560,6 +562,10 @@ public class FloatingSearchView extends FrameLayout {
         }
     }
 
+    public void setOnSearchListener(OnClickListener listener){
+        mSearchButton.setOnClickListener(listener);
+    }
+
     private void setupQueryBar() {
 
         mSearchInput.setTextColor(mSearchInputTextColor);
@@ -617,6 +623,7 @@ public class FloatingSearchView extends FrameLayout {
                 }
             }
         });
+
 
         mSearchInput.addTextChangedListener(new TextWatcherAdapter() {
 

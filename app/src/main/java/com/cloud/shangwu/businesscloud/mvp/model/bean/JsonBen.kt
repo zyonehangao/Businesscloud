@@ -66,11 +66,8 @@ class JsonData {
 
             }
 
-
         }
 
-
     }
-
 
 }

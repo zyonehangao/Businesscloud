@@ -187,6 +187,17 @@ interface ApiService {
     @GET("/business/hobby/list/all")
     fun chooseAll(): Observable<ChooseHobbiseData>
 
+    /**
+     *获取热门标签接口
+     * @param type
+     *
+     */
+
+    @GET("/business/country/{countryId}/label/list/{type}/hot")
+    fun labelHot(
+            @Path("countryId") countryId: Int,
+            @Path("type") type: Int
+    ): Observable<BaseResult<LabelHot>>
 
 
 }
