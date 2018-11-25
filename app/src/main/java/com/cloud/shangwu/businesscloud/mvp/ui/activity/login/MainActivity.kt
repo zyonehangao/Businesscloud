@@ -10,6 +10,7 @@ import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.MainContract
+import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.MainPresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.fragment.*
 import com.cloud.shangwu.businesscloud.widget.helper.BottomNavigationViewHelper
@@ -62,7 +63,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initData() {
-
+        var extra = intent.extras.getSerializable("login")as LoginData
+        mLoginType=extra.type
     }
 
     override fun initView() {

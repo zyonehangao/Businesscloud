@@ -7,6 +7,13 @@ import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.LablesActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainActivity
 import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import kotlinx.android.synthetic.main.fragment_company.*
+import android.text.Spanned
+import android.text.style.ImageSpan
+import android.graphics.drawable.Drawable
+import android.text.SpannableString
+import android.opengl.ETC1.getWidth
+
+
 
 
 class CompanyFragment : BaseFragment() , View.OnClickListener {
@@ -28,6 +35,28 @@ class CompanyFragment : BaseFragment() , View.OnClickListener {
         ll_follow_mycom.setOnClickListener(this)
         ll_bankcard_mycom.setOnClickListener(this)
         ll_setting_mycom.setOnClickListener(this)
+
+        name.setText("阿里巴巴网络技术有限公司")
+        name.post(Runnable {
+            //获取第一行的宽度
+            val lineWidth = name.getLayout().getLineWidth(0)
+            //获取第一行最后一个字符的下标
+            val lineEnd = name.getLayout().getLineEnd(0)
+            //计算每个字符占的宽度
+            val widthPerChar = lineWidth / (lineEnd + 1)
+            //计算TextView一行能够放下多少个字符
+            val numberPerLine = Math.floor((name.getWidth() / widthPerChar).toDouble()).toInt()
+            //在原始字符串中插入一个空格，插入的位置为numberPerLine - 1
+            val stringBuilder = StringBuilder("阿里巴巴网络技术有限公司").insert(numberPerLine - 1, " ")
+
+            //SpannableString的构建
+            val spannableString = SpannableString(stringBuilder.toString() + " ")
+            val drawable = resources.getDrawable(R.drawable.v1_mycom)
+            drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+            val imageSpan = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
+            spannableString.setSpan(imageSpan, spannableString.length - 1, spannableString.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            name.setText(spannableString)
+        })
 
     }
 

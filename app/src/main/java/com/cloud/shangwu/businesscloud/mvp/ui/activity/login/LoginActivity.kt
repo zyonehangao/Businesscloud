@@ -2,6 +2,7 @@ package com.cloud.shangwu.businesscloud.ui.activity
 
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
@@ -98,7 +99,11 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         token = data.token
 
         EventBus.getDefault().post(LoginEvent(isLogin,data))
-        JumpUtil.Next(this,MainActivity::class.java)
+
+        var bundle=Bundle()
+        bundle.putSerializable("login",data)
+
+        JumpUtil.Next(this,MainActivity::class.java,bundle)
         finish()
     }
 
@@ -157,6 +162,11 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         }
         return valid
 
+    }
+
+    override fun onDestroy() {
+        mDialog.dismiss()
+        super.onDestroy()
     }
 
 }

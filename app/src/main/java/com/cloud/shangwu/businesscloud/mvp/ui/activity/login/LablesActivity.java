@@ -121,32 +121,24 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     @SuppressLint("WrongViewCast")
     public void initView() {
         mInflater = LayoutInflater.from(this);
-        mFlowLayout = (TagFlowLayout) findViewById(R.id.id_flowlayout);
+        mFlowLayout =  findViewById(R.id.id_flowlayout);
         mPresenter.attachView(this);
-        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
-        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
-        mSearchResultsList = (RecyclerView) findViewById(R.id.search_results_list);
+        mFlowLayoutmore =  findViewById(R.id.id_flowlayout_more);
+        mSearchView = findViewById(R.id.floating_search_view);
+        mSearchResultsList =  findViewById(R.id.search_results_list);
         mCommit= findViewById(R.id.commit);
-        mMain=(ScrollView) findViewById(R.id.main);
+        mMain=findViewById(R.id.main);
         mSearchResultsAdapter = new SearchResultsListAdapter();
 
-        mSearchResultsAdapter.setItemsOnClickListener(new SearchResultsListAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                mSearchView.setSearchText(list2.get(position).getContext());
-                mMain.bringToFront();
-            }
+        mSearchResultsAdapter.setItemsOnClickListener(position -> {
+            mSearchView.setSearchText(list2.get(position).getContext());
+            mMain.bringToFront();
         });
         mSearchResultsList.setAdapter(mSearchResultsAdapter);
         mSearchResultsList.setLayoutManager(new LinearLayoutManager(LablesActivity.this,LinearLayoutManager.VERTICAL,true));
 
-        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
-        mCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
-        });
+        mFlowLayoutmore = findViewById(R.id.id_flowlayout_more);
+        mCommit.setOnClickListener(v -> mPresenter.saveLabel(45,1,list2.get(0).getContext(),1,1,1,3));
 
         mSearchView.setOnSearchClickListener(new FloatingSearchView.OnSearchClickListener() {
             @Override
@@ -158,6 +150,7 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
             @Override
             public void onSearchAction(String currentQuery) {
                 mSearchResultsList.bringToFront();
+                mPresenter.labelHot(45,3);
                 mSearchResultsAdapter.swapData(list2);
             }
         });
@@ -190,6 +183,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     @Override
     public void labelSuccess(List<LabelHot> data) {
         Log.i("test","do2");
+        list1.clear();
+        list2.clear();
         list2.addAll(data);
         //选中的标签
         madapter = new TagAdapter<LabelHot>(list1) {
@@ -291,6 +286,17 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
     @Override
     public void showError(@NotNull String errorMsg) {
+
+    }
+
+    @Override
+    public void labelsaveSuccess() {
+        Toast.makeText(this,R.string.save_success,Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void labelsaveFail() {
 
     }
 }

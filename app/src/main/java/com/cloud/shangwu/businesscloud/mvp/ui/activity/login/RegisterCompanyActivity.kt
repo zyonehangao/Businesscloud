@@ -56,7 +56,6 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 
     override fun registerFail() {
         showToast(getString(R.string.register_fail))
-        finish()
     }
 
 
@@ -156,7 +155,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
                 et_email.text.toString(),
                 "","","",
                 et_invcode.text.toString(),
-                et_password.text.toString(),"",0,
+                et_password.text.toString(),"",1,
                 et_id.text.toString())
         return valid
     }

@@ -112,4 +112,5 @@
     <string name="account_balance">账户余额</string>
     <string name="add_sub_account">添加子账户</string>
     <string name="get_ing">获取数据中</string>
+    <string name="save_success">保存成功</string>
 </resources>

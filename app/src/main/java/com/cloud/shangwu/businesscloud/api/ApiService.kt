@@ -206,11 +206,16 @@ interface ApiService {
      *
      */
 
-    @POST("/business/country/{countryId}/label/list/{type}/hot")
+    @POST("/business/country/{countryId}/label/update/{lid}")
     fun saveLabel(
             @Path("countryId") countryId: Int,
-            @Path("type") type: Int
-    ): Observable<BaseResult<LabelHot>>
+            @Path("lid") lid:Int,
+            @Query("context") context: String,
+            @Query("ishot") ishot:Int,
+            @Query("lid") id:Int,
+            @Query("state") state:Int,
+            @Query("type") type:Int
+    ): Observable<HttpResult<LabelHot>>
 
 
 }

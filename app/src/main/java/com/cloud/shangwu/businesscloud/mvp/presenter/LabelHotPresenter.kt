@@ -20,7 +20,28 @@ import java.io.File
  * Created by chenxz on 2018/6/3.
  */
 class LabelHotPresenter : BasePresenter<LabelHotContract.View>(), LabelHotContract.Presenter {
-
+    override fun saveLabel(countryId: Int, lid: Int, context: String, ishot: Int, id: Int, status: Int, type: Int) {
+        mView?.showLoading()
+        val disposable = labelModel.saveLabel(countryId,lid,context,ishot,id,status,type)
+                .retryWhen(RetryWithDelay())
+                .subscribe({ results ->
+                    mView?.apply {
+                        if (results.code != OK) {
+                            showError(results.message)
+                            labelsaveFail()
+                        } else {
+                            labelsaveSuccess()
+                        }
+                        hideLoading()
+                    }
+                }, { t ->
+                    mView?.apply {
+                        hideLoading()
+                        showError(ExceptionHandle.handleException(t))
+                    }
+                })
+        addSubscription(disposable)
+    }
 
     private val labelModel by lazy {
         LabelHotModel()
@@ -47,6 +68,7 @@ class LabelHotPresenter : BasePresenter<LabelHotContract.View>(), LabelHotContra
                     }
                 })
         addSubscription(disposable)
+
     }
 
 

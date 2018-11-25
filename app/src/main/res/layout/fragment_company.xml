@@ -32,8 +32,7 @@
                     android:maxEms="8"
                     android:textStyle="bold"
                     android:text="阿里巴巴网络技术有限公司"
-                    android:textSize="@dimen/sp_16"
-                    android:drawableRight="@drawable/v1_mycom"/>
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     android:background="@drawable/label_check"

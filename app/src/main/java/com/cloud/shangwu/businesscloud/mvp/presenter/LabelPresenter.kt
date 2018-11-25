@@ -51,7 +51,7 @@ class LabelPresenter : BasePresenter<LabelContract.View>(), LabelContract.Presen
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {
-                        if (results.code != 0) {
+                        if (results.code != Constant.OK) {
                             showError(results.message)
                             labelFail()
                         } else {

@@ -18,4 +18,8 @@ class LabelHotModel : BaseModel() {
         return RetrofitHelper.service.labelHot(countryId,type).compose(SchedulerUtils.ioToMain())
     }
 
+    fun saveLabel(countryId  :Int,lid:Int,context:String,ishot:Int,id:Int,status:Int,type: Int): Observable<HttpResult<LabelHot>> {
+        return RetrofitHelper.service.saveLabel(countryId,lid,context,ishot,id,status,type).compose(SchedulerUtils.ioToMain())
+    }
+
 }
