@@ -91,11 +91,10 @@ public class MultiItemAdapter extends BaseMultiItemQuickAdapter<ChooseHobbiseDat
                 expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                        String content = stuents.get(groupPosition).get(childPosition);
-                        ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean childrenBean = stuents.get(groupPosition).get(childPosition);
-                        childrenBean.setSelect(true);
-                        hobbiesList.add(Collections.singletonList(childrenBean));
-                        return false;
+//                        ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean childrenBean = stuents.get(groupPosition).get(childPosition);
+//                        childrenBean.setSelect(!childrenBean.getIsselect());
+                        costomExppandableAdapter.notifyDataSetChanged();
+                        return true;
                     }
                 });
                 break;

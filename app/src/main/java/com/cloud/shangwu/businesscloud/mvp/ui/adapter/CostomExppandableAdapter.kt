@@ -49,7 +49,8 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
             convertView = LayoutInflater.from(context).inflate(R.layout.item_choose_hobbies_group, null)
             groupHold = GroupHold()
             groupHold.tvGroupName = convertView!!.findViewById<View>(R.id.type_name) as TextView
-            groupHold.ivGoToChildLv = convertView.findViewById<View>(R.id.type_size) as TextView
+            groupHold.ivGoToChildtext = convertView.findViewById<View>(R.id.type_size) as TextView
+            groupHold.ivGoToChildLv = convertView.findViewById<View>(R.id.iv_goToChildLV) as ImageView
 
             convertView.tag = groupHold
 
@@ -60,13 +61,13 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
 
         val groupName = classes[groupPosition].content
         groupHold.tvGroupName!!.text = groupName
-        groupHold.ivGoToChildLv?.text="${classes.size}"
+        groupHold.ivGoToChildtext?.text="${classes.size}"
         //取消默认的groupIndicator后根据方法中传入的isExpand判断组是否展开并动态自定义指示器
-//        if (isExpanded) {   //如果组展开
-//            groupHold.ivGoToChildLv!!.setImageResource(R.drawable.down)
-//        } else {
-//            groupHold.ivGoToChildLv!!.setImageResource(R.drawable.updat)
-//        }
+        if (isExpanded) {   //如果组展开
+            groupHold.ivGoToChildLv!!.setImageResource(R.drawable.down)
+        } else {
+            groupHold.ivGoToChildLv!!.setImageResource(R.drawable.updat)
+        }
 
         //setTag() 方法接收的类型是object ，所以可将position和converView先封装在Map中。Bundle中无法封装view,所以不用bundle
         val tagMap = HashMap<String, Any>()
@@ -89,18 +90,17 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
             childHold = ChildHold()
             childHold.tvChildName = convertView!!.findViewById<View>(R.id.tv_elv_childName) as TextView
             childHold.iv_select = convertView.findViewById<ImageView>(R.id.iv_select) as ImageView
-            //            childHold.cbElvChild = (CheckBox) convertView.findViewById(R.id.cb_elvChild);
             convertView.tag = childHold
 
         } else {
             childHold = convertView.tag as ChildHold
         }
-        if (!classes[groupPosition].children!![childPosition].isselect)
-        {childHold.iv_select!!.visibility=View.GONE}else{childHold.iv_select!!.visibility=View.VISIBLE}
+        stuents[groupPosition][childPosition].select=!stuents[groupPosition][childPosition].select
+        if (stuents[groupPosition][childPosition].select)
+        {childHold.iv_select!!.visibility=View.VISIBLE}
+        else{childHold.iv_select!!.visibility=View.GONE}
         val childName = stuents[groupPosition][childPosition].content
-//        val childName = "paobu "
         childHold.tvChildName?.text = childName
-
         return convertView
     }
 
@@ -114,7 +114,8 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
 
     internal inner class GroupHold {
         var tvGroupName: TextView? = null
-        var ivGoToChildLv: TextView? = null
+        var ivGoToChildtext: TextView? = null
+        var ivGoToChildLv: ImageView? = null
     }
 
     internal inner class ChildHold {
