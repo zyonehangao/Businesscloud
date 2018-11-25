@@ -19,6 +19,7 @@ import com.cloud.shangwu.businesscloud.http.function.RetryWithDelay
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.model.UserRegisterModel
 import com.cloud.shangwu.businesscloud.mvp.model.bean.*
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterCompanyActivity
 import com.cloud.shangwu.businesscloud.ui.activity.RegisterPersonalActivity
 import com.cloud.shangwu.businesscloud.utils.GetJsonDataUtil
 import com.google.gson.Gson
@@ -75,6 +76,8 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
             Toast.makeText(mView as BaseActivity, tx, Toast.LENGTH_SHORT).show()
             if (mView is RegisterPersonalActivity) {
                 (mView as RegisterPersonalActivity).showPicker(tx)
+            }else{
+                (mView as RegisterCompanyActivity).showPicker(tx)
             }
 
         })

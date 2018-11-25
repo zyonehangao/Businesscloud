@@ -154,6 +154,7 @@ public class FloatingSearchView extends FrameLayout {
 
     private CardView mQuerySection;
     private OnSearchListener mSearchListener;
+    private OnSearchClickListener mSearchClickListener;
     private SearchInputView mSearchInput;
     private int mQueryTextSize;
     private boolean mCloseSearchOnSofteKeyboardDismiss;
@@ -208,6 +209,7 @@ public class FloatingSearchView extends FrameLayout {
     private OnSuggestionsListHeightChanged mOnSuggestionsListHeightChanged;
     private long mSuggestionSectionAnimDuration;
     private OnClearSearchActionListener mOnClearSearchActionListener;
+    private ImageView mSearch;
 
     //An interface for implementing a listener that will get notified when the suggestions
     //section's height is set. This is to be used internally only.
@@ -251,6 +253,28 @@ public class FloatingSearchView extends FrameLayout {
      * to when the current search has completed.
      */
     public interface OnSearchListener {
+
+        /**
+         * Called when a suggestion was clicked indicating
+         * that the current search has completed.
+         *
+         * @param searchSuggestion
+         */
+        void onSuggestionClicked(SearchSuggestion searchSuggestion);
+
+        /**
+         * Called when the current search has completed
+         * as a result of pressing search key in the keyboard.
+         * <p/>
+         * Note: This will only get called if
+         * {@link com.arlib.floatingsearchview.FloatingSearchView#setShowSearchKey(boolean)}} is set to true.
+         *
+         * @param currentQuery the text that is currently set in the query TextView
+         */
+        void onSearchAction(String currentQuery);
+    }
+
+    public interface OnSearchClickListener {
 
         /**
          * Called when a suggestion was clicked indicating
@@ -361,6 +385,7 @@ public class FloatingSearchView extends FrameLayout {
         void onClearSearchClicked();
     }
 
+
     public FloatingSearchView(Context context) {
         this(context, null);
     }
@@ -377,6 +402,8 @@ public class FloatingSearchView extends FrameLayout {
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMainLayout = inflate(getContext(), R.layout.floating_search_layout, this);
         mBackgroundDrawable = new ColorDrawable(Color.BLACK);
+
+        mSearch = (ImageView) findViewById(R.id.search);
 
         mQuerySection = (CardView) findViewById(com.arlib.floatingsearchview.R.id.search_query_section);
         mClearButton = (ImageView) findViewById(com.arlib.floatingsearchview.R.id.clear_btn);
@@ -566,6 +593,10 @@ public class FloatingSearchView extends FrameLayout {
         mSearchButton.setOnClickListener(listener);
     }
 
+    public void setOnSearchClickListener(OnClickListener listener ){
+        mSearch.setOnClickListener(listener);
+    }
+
     private void setupQueryBar() {
 
         mSearchInput.setTextColor(mSearchInputTextColor);
@@ -679,6 +710,23 @@ public class FloatingSearchView extends FrameLayout {
             public void onSearchKeyClicked() {
                 if (mSearchListener != null) {
                     mSearchListener.onSearchAction(getQuery());
+                }
+                mSkipTextChangeEvent = true;
+                mSkipTextChangeEvent = true;
+                if (mIsTitleSet) {
+                    setSearchBarTitle(getQuery());
+                } else {
+                    setSearchText(getQuery());
+                }
+                setSearchFocusedInternal(false);
+            }
+        });
+
+        mSearch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSearchClickListener != null) {
+                    mSearchClickListener.onSearchAction(getQuery());
                 }
                 mSkipTextChangeEvent = true;
                 mSkipTextChangeEvent = true;
@@ -1313,6 +1361,10 @@ public class FloatingSearchView extends FrameLayout {
                             mSearchListener.onSuggestionClicked(item);
                         }
 
+                        if (mSearchClickListener != null) {
+                            mSearchClickListener.onSuggestionClicked(item);
+                        }
+
                         if (mDismissFocusOnItemSelection) {
                             mIsFocused = false;
 
@@ -1706,6 +1758,10 @@ public class FloatingSearchView extends FrameLayout {
      */
     public void setOnSearchListener(OnSearchListener listener) {
         this.mSearchListener = listener;
+    }
+
+    public void setOnSearchClickListener(OnSearchClickListener listener) {
+        this.mSearchClickListener = listener;
     }
 
     /**

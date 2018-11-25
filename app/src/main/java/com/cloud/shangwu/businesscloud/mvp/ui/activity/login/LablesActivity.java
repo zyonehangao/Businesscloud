@@ -11,6 +11,9 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,6 +50,7 @@ import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper;
 
 import com.cloud.shangwu.businesscloud.mvp.presenter.LabelHotPresenter;
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.LabelAdapter;
+import com.cloud.shangwu.businesscloud.mvp.ui.adapter.SearchResultsListAdapter;
 import com.cloud.shangwu.businesscloud.widget.FloatingSearchView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -76,6 +80,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     private TagFlowLayout mFlowLayout;
     private TagFlowLayout mFlowLayoutmore;
 
+    private TextView mCommit;
+
     private List<LabelHot> list1 = new ArrayList<LabelHot>();
     private List<LabelHot> list2 = new ArrayList<LabelHot>();
 
@@ -86,6 +92,11 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     private LayoutInflater mInflater;
 
     private LabelHotPresenter mPresenter = getPresenter();
+
+    private RecyclerView mSearchResultsList;
+    private SearchResultsListAdapter mSearchResultsAdapter;
+
+//    private String mLastQuery = "";
 
     private LabelHotPresenter getPresenter() {
         return new LabelHotPresenter();
@@ -108,17 +119,33 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
         mPresenter.attachView(this);
         mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
         mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
+        mSearchResultsList = (RecyclerView) findViewById(R.id.search_results_list);
+        mCommit= findViewById(R.id.commit);
 
-        List<ColorSuggestion> list = new ArrayList<ColorSuggestion>();
+        mSearchResultsAdapter = new SearchResultsListAdapter();
+        mSearchResultsList.setAdapter(mSearchResultsAdapter);
+        mSearchResultsList.setLayoutManager(new LinearLayoutManager(LablesActivity.this,LinearLayoutManager.VERTICAL,true));
 
-        mSearchView.setOnSearchListener(new View.OnClickListener() {
+        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
+        mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //TODO
             }
         });
 
-        mFlowLayoutmore = (TagFlowLayout) findViewById(R.id.id_flowlayout_more);
+        mSearchView.setOnSearchClickListener(new FloatingSearchView.OnSearchClickListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+            }
+
+            @Override
+            public void onSearchAction(String currentQuery) {
+                mSearchResultsList.bringToFront();
+                mSearchResultsAdapter.swapData(list2);
+            }
+        });
 
     }
 
@@ -148,11 +175,6 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     public void labelSuccess(List<LabelHot> data) {
         Log.i("test","do2");
         list2.addAll(data);
-//        for (LabelHot hot : data) {
-//            list2.add(hot);
-//        }
-//        list1.remove(0);
-//        list1.remove(1);
         //选中的标签
         madapter = new TagAdapter<LabelHot>(list1) {
             @Override

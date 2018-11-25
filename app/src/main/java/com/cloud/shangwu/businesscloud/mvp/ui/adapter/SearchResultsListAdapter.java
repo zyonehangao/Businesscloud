@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.arlib.floatingsearchview.util.Util;
 import com.cloud.shangwu.businesscloud.R;
+import com.cloud.shangwu.businesscloud.mvp.model.bean.LabelHot;
 
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.List;
 
 public class SearchResultsListAdapter extends RecyclerView.Adapter<SearchResultsListAdapter.ViewHolder> {
 
-//    private List<ColorWrapper> mDataSet = new ArrayList<>();
+    private List<LabelHot> mDataSet = new ArrayList<>();
 
     private int mLastAnimatedItemPosition = -1;
 
@@ -47,19 +48,16 @@ public class SearchResultsListAdapter extends RecyclerView.Adapter<SearchResults
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mColorName;
-        public final TextView mColorValue;
-        public final View mTextContainer;
 
         public ViewHolder(View view) {
             super(view);
             mColorName = (TextView) view.findViewById(R.id.color_name);
-            mColorValue = (TextView) view.findViewById(R.id.color_value);
-            mTextContainer = view.findViewById(R.id.text_container);
+
         }
     }
 
-    public void swapData() {
-//        mDataSet = mNewDataSet;
+    public void swapData(List<LabelHot> mNewDataSet) {
+        mDataSet = mNewDataSet;
         notifyDataSetChanged();
     }
 
@@ -77,14 +75,10 @@ public class SearchResultsListAdapter extends RecyclerView.Adapter<SearchResults
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-//        ColorWrapper colorSuggestion = mDataSet.get(position);
-//        holder.mColorName.setText(colorSuggestion.getName());
-//        holder.mColorValue.setText(colorSuggestion.getHex());
-//
-//        int color = Color.parseColor(colorSuggestion.getHex());
-//        holder.mColorName.setTextColor(color);
-//        holder.mColorValue.setTextColor(color);
 
+        if (mDataSet.size()>=0){
+            holder.mColorName.setText(mDataSet.get(position).getContext());
+        }
         if(mLastAnimatedItemPosition < position){
             animateItem(holder.itemView);
             mLastAnimatedItemPosition = position;
@@ -102,7 +96,7 @@ public class SearchResultsListAdapter extends RecyclerView.Adapter<SearchResults
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mDataSet.size();
     }
 
     private void animateItem(View view) {
