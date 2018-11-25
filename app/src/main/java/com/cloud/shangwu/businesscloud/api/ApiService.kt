@@ -200,4 +200,17 @@ interface ApiService {
     ): Observable<BaseResult<LabelHot>>
 
 
+    /**
+     *保存标签
+     * @param type
+     *
+     */
+
+    @POST("/business/country/{countryId}/label/list/{type}/hot")
+    fun saveLabel(
+            @Path("countryId") countryId: Int,
+            @Path("type") type: Int
+    ): Observable<BaseResult<LabelHot>>
+
+
 }

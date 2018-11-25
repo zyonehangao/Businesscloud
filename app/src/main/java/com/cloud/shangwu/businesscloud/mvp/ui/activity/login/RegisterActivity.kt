@@ -52,7 +52,7 @@ class RegisterActivity : BaseActivity() {
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             R.id.tv_loginnow ->{
-                Intent(this@RegisterActivity, LablesActivity::class.java).apply {
+                Intent(this@RegisterActivity, LoginActivity::class.java).apply {
                     startActivity(this)
                 }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

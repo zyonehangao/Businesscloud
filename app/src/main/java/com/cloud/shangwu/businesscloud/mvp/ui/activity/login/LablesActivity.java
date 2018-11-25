@@ -3,6 +3,7 @@ package com.cloud.shangwu.businesscloud.mvp.ui.activity.login;
 
 import android.annotation.SuppressLint;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
@@ -28,6 +29,8 @@ import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +54,7 @@ import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper;
 import com.cloud.shangwu.businesscloud.mvp.presenter.LabelHotPresenter;
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.LabelAdapter;
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.SearchResultsListAdapter;
+import com.cloud.shangwu.businesscloud.utils.DialogUtil;
 import com.cloud.shangwu.businesscloud.widget.FloatingSearchView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -96,6 +100,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     private RecyclerView mSearchResultsList;
     private SearchResultsListAdapter mSearchResultsAdapter;
 
+    private ScrollView mMain;
+
 //    private String mLastQuery = "";
 
     private LabelHotPresenter getPresenter() {
@@ -121,8 +127,16 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
         mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
         mSearchResultsList = (RecyclerView) findViewById(R.id.search_results_list);
         mCommit= findViewById(R.id.commit);
-
+        mMain=(ScrollView) findViewById(R.id.main);
         mSearchResultsAdapter = new SearchResultsListAdapter();
+
+        mSearchResultsAdapter.setItemsOnClickListener(new SearchResultsListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                mSearchView.setSearchText(list2.get(position).getContext());
+                mMain.bringToFront();
+            }
+        });
         mSearchResultsList.setAdapter(mSearchResultsAdapter);
         mSearchResultsList.setLayoutManager(new LinearLayoutManager(LablesActivity.this,LinearLayoutManager.VERTICAL,true));
 
@@ -137,7 +151,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
         mSearchView.setOnSearchClickListener(new FloatingSearchView.OnSearchClickListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-
+                list2.remove(0);
+                mSearchResultsAdapter.swapData(list2);
             }
 
             @Override
@@ -152,6 +167,7 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
     @Override
     public void onBackPressed() {
+        mMain.bringToFront();
         super.onBackPressed();
     }
 

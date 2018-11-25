@@ -11,10 +11,7 @@ import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.MainContract
 import com.cloud.shangwu.businesscloud.mvp.presenter.MainPresenter
-import com.cloud.shangwu.businesscloud.mvp.ui.fragment.ContatsFragment
-import com.cloud.shangwu.businesscloud.mvp.ui.fragment.DynamicFragment
-import com.cloud.shangwu.businesscloud.mvp.ui.fragment.MessageFragment
-import com.cloud.shangwu.businesscloud.mvp.ui.fragment.MineFragment
+import com.cloud.shangwu.businesscloud.mvp.ui.fragment.*
 import com.cloud.shangwu.businesscloud.widget.helper.BottomNavigationViewHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -26,11 +23,16 @@ class MainActivity : BaseActivity(), MainContract.View {
     private val FRAGMENT_CONTACTS = 0x02
     private val FRAGMENT_DYNAMIC = 0x03
     private val FRAGMENT_MINE = 0x04
+    private val PERSONAL = 0x05
+    private val COMPANY = 0x06
     private var mIndex = FRAGMENT_HOME
     private var mMessageFragment: MessageFragment? = null
     private var mContatsFragment: ContatsFragment? = null
     private var mDynamicFragment: DynamicFragment? = null
     private var mMineFragment: MineFragment? = null
+    private var mCompanyFragment: CompanyFragment? = null
+
+    private var mLoginType=COMPANY
     /**
      * Presenter
      */
@@ -198,13 +200,22 @@ class MainActivity : BaseActivity(), MainContract.View {
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     visibility = View.GONE
                 }
-
-                if (mMineFragment == null) {
-                    mMineFragment = MineFragment.getInstance()
-                    transaction.add(R.id.container, mMineFragment!!, "mine")
-                } else {
-                    transaction.show(mMineFragment!!)
+                if(mLoginType==PERSONAL){
+                    if (mMineFragment == null) {
+                        mMineFragment = MineFragment.getInstance()
+                        transaction.add(R.id.container, mMineFragment!!, "mine")
+                     } else {
+                        transaction.show(mMineFragment!!)
+                    }
+                }else{
+                    if (mCompanyFragment == null) {
+                        mCompanyFragment = CompanyFragment.getInstance()
+                        transaction.add(R.id.container, mCompanyFragment!!, "mine")
+                    } else {
+                        transaction.show(mCompanyFragment!!)
+                    }
                 }
+
             }
         }
         transaction.commit()
@@ -219,6 +230,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         mContatsFragment?.let { transaction.hide(it) }
         mDynamicFragment?.let { transaction.hide(it) }
         mMineFragment?.let { transaction.hide(it) }
+        mCompanyFragment?.let { transaction.hide(it) }
     }
 
 }

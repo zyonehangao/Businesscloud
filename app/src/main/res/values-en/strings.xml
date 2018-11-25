@@ -103,4 +103,13 @@
     <string name="search">搜索</string>
     <string name="my_collection">my collection</string>
     <string name="my_balance">我的余额</string>
+    <string name="floor_mycom">公司主页</string>
+    <string name="introduction_mycom">公司简介</string>
+    <string name="cooperation_mycom">我的招聘</string>
+    <string name="follow_mycom">公司目标</string>
+    <string name="bankcard_mycom">银行卡管理</string>
+    <string name="setting">设置</string>
+    <string name="account_balance">账户余额</string>
+    <string name="add_sub_account">添加子账户</string>
+    <string name="get_ing">获取数据中</string>
 </resources>

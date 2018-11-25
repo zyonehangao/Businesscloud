@@ -41,7 +41,7 @@ public class SearchResultsListAdapter extends RecyclerView.Adapter<SearchResults
     private int mLastAnimatedItemPosition = -1;
 
     public interface OnItemClickListener{
-        void onClick( );
+        void onClick( int position);
     }
 
     private OnItemClickListener mItemsOnClickListener;
@@ -88,7 +88,7 @@ public class SearchResultsListAdapter extends RecyclerView.Adapter<SearchResults
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemsOnClickListener.onClick();
+                    mItemsOnClickListener.onClick(position);
                 }
             });
         }

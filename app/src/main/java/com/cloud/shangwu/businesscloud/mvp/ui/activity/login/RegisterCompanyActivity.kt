@@ -87,8 +87,6 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         RegisterPersonalPresenter()
     }
 
-    private val mutableList = arrayListOf<String>()
-
     override fun initData() {
 
     }
@@ -114,20 +112,6 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         when (view.id) {
             R.id.btn_login -> {
                 if (getMessage()){
-
-//                    var bundle=Bundle()
-//
-//                    bundle.putSerializable("ComRegise", ComRegise(
-//                           tv_location.text.toString(),
-//                            et_username.text.toString(),
-//                            et_email.text.toString(),
-//                            "","","",
-//                            et_invcode.text.toString(),
-//                            et_password.text.toString(),"",-1,
-//                            et_id.text.toString()
-//                    ))
-//                    JumpUtil.Next(this@RegisterCompanyActivity,RegisterCompanySecActivity::class.java,bundle)
-//                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                    register()
                 }
 
@@ -153,8 +137,6 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         var pwd=et_password.text.trim().toString()
         var name=et_username.text.trim().toString()
         var email=et_email.text.trim().toString()
-//        var area=et_area.text.trim().toString()
-        var intcode=et_invcode.text.trim().toString()
 
         if (!validate(id)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_id))
