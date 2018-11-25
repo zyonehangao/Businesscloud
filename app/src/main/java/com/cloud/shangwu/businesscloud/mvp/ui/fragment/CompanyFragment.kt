@@ -1,5 +1,6 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.fragment
 
+import android.content.Intent
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseFragment
@@ -12,8 +13,7 @@ import android.text.style.ImageSpan
 import android.graphics.drawable.Drawable
 import android.text.SpannableString
 import android.opengl.ETC1.getWidth
-
-
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.IntCompanyActivity
 
 
 class CompanyFragment : BaseFragment() , View.OnClickListener {
@@ -68,6 +68,10 @@ class CompanyFragment : BaseFragment() , View.OnClickListener {
             }
 
             R.id.ll_invite_contact ->{
+                Intent(activity, IntCompanyActivity::class.java).apply {
+                    startActivity(this)
+//                    startActivity(this)
+                }
 
             }
 

@@ -102,6 +102,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
     private ScrollView mMain;
 
+    private TextView mChooseCount;
+
 //    private String mLastQuery = "";
 
     private LabelHotPresenter getPresenter() {
@@ -128,6 +130,7 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
         mSearchResultsList =  findViewById(R.id.search_results_list);
         mCommit= findViewById(R.id.commit);
         mMain=findViewById(R.id.main);
+        mChooseCount=findViewById(R.id.my_category_tip_text);
         mSearchResultsAdapter = new SearchResultsListAdapter();
 
         mSearchResultsAdapter.setItemsOnClickListener(position -> {
@@ -183,9 +186,15 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     @Override
     public void labelSuccess(List<LabelHot> data) {
         Log.i("test","do2");
+
         list1.clear();
         list2.clear();
         list2.addAll(data);
+
+        String str1=String.format("<font color=\"#0094ff\">%s",list1.size()+"<font color=\"#333333\">/10");
+        mChooseCount.setText(Html.fromHtml(str1));
+
+//        mChooseCount.setText(list1.size()+"/10");
         //选中的标签
         madapter = new TagAdapter<LabelHot>(list1) {
             @Override
@@ -214,6 +223,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
                 list1.remove(position);
                 madapter.notifyDataChanged();
                 madapterMore.notifyDataChanged();
+                String str1=String.format("<font color=\"#0094ff\">%s",list1.size()+"<font color=\"#333333\">/10");
+                mChooseCount.setText(Html.fromHtml(str1));
                 return false;
 
             }
@@ -223,11 +234,15 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 if (!list2.get(position).getSelect()){
-                    list2.get(position).setSelect(true);
-                    list1.add(list2.get(position));
+                    if (list1.size()<=10){
+                        list2.get(position).setSelect(true);
+                        list1.add(list2.get(position));
+                    }
                 }
                 madapter.notifyDataChanged();
                 madapterMore.notifyDataChanged();
+                String str1=String.format("<font color=\"#0094ff\">%s",list1.size()+"<font color=\"#333333\">/10");
+                mChooseCount.setText(Html.fromHtml(str1));
                 return true;
             }
         });

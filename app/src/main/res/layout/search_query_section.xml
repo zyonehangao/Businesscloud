@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     card_view:cardCornerRadius="@dimen/search_view_corner_radius"
+    android:padding="@dimen/dp_15"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -26,11 +27,12 @@
             <ImageView
                 android:id="@+id/left_action"
                 android:layout_width="@dimen/square_button_size"
-                android:layout_height="@dimen/square_button_size"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:alpha="1"
                 android:background="@drawable/oval_btn_selector"
                 android:clickable="true"
-                android:padding="@dimen/square_button_padding"
+                android:padding="5dp"
                 android:src="@drawable/ic_arrow_back_black_24dp"/>
 
             <ProgressBar

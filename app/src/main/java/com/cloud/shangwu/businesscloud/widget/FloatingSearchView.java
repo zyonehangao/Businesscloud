@@ -107,7 +107,7 @@ public class FloatingSearchView extends FrameLayout {
     private final static float MENU_BUTTON_PROGRESS_ARROW = 1.0f;
     private final static float MENU_BUTTON_PROGRESS_HAMBURGER = 0.0f;
 
-    private final static int BACKGROUND_DRAWABLE_ALPHA_SEARCH_FOCUSED = 150;
+    private final static int BACKGROUND_DRAWABLE_ALPHA_SEARCH_FOCUSED = 0;
     private final static int BACKGROUND_DRAWABLE_ALPHA_SEARCH_NOT_FOCUSED = 0;
     private final static int BACKGROUND_FADE_ANIM_DURATION = 250;
 
@@ -401,7 +401,7 @@ public class FloatingSearchView extends FrameLayout {
 
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMainLayout = inflate(getContext(), R.layout.floating_search_layout, this);
-        mBackgroundDrawable = new ColorDrawable(Color.BLACK);
+        mBackgroundDrawable = new ColorDrawable(Color.BLUE);
 
         mSearch = (ImageView) findViewById(R.id.search);
 
@@ -566,7 +566,7 @@ public class FloatingSearchView extends FrameLayout {
             setLeftActionIconColor(a.getColor(com.arlib.floatingsearchview.R.styleable.FloatingSearchView_floatingSearch_leftActionColor
                     , Util.getColor(getContext(), com.arlib.floatingsearchview.R.color.left_action_icon)));
             setActionMenuOverflowColor(a.getColor(com.arlib.floatingsearchview.R.styleable.FloatingSearchView_floatingSearch_actionMenuOverflowColor
-                    , Util.getColor(getContext(), com.arlib.floatingsearchview.R.color.overflow_icon_color)));
+                    , mHostActivity.getResources().getColor(R.color.colorAccent)));
             setMenuItemIconColor(a.getColor(com.arlib.floatingsearchview.R.styleable.FloatingSearchView_floatingSearch_menuItemIconColor
                     , Util.getColor(getContext(), com.arlib.floatingsearchview.R.color.menu_icon_color)));
             setDividerColor(a.getColor(com.arlib.floatingsearchview.R.styleable.FloatingSearchView_floatingSearch_dividerColor

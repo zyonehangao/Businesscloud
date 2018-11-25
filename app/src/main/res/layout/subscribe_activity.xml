@@ -61,6 +61,7 @@
             android:layout_height="wrap_content" />
 
         <com.cloud.shangwu.businesscloud.widget.FloatingSearchView
+            android:padding="@dimen/dp_5"
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -77,6 +78,7 @@
         </RelativeLayout>
 
     <FrameLayout
+        android:background="@color/white"
         android:layout_below="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -85,14 +87,12 @@
             android:id="@+id/search_results_list"
             android:layout_width="match_parent"
             android:background="@color/white"
-            android:layout_marginEnd="@dimen/dp_50"
-            android:layout_marginStart="@dimen/dp_50"
-
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:clipToPadding="true" />
 
         <ScrollView
+            android:background="@color/white"
             android:id="@+id/main"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -102,10 +102,10 @@
                 android:id="@+id/subscribe_main_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/subscribe_bg"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
@@ -123,18 +123,18 @@
                         android:text="@string/your_tap_career" />
 
                     <TextView
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/my_category_tip_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12.0dip"
                         android:textColor="@color/subscribe_tip_text"
-                        android:textSize="11.0sp" />
-                </LinearLayout>
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
 
                 <com.zhy.view.flowlayout.TagFlowLayout
                     android:id="@+id/id_flowlayout"
                     zhy:max_select="-1"
-
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_20">
