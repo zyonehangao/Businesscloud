@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
+import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterCompanyContract
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
@@ -20,6 +21,7 @@ import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Validator
 import kotlinx.android.synthetic.main.activity_registercompany.*
 import kotlinx.android.synthetic.main.title_register.*
+import org.greenrobot.eventbus.EventBus
 
 
 /**
@@ -51,7 +53,16 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 
     override fun registerSuccess(data: LoginData) {
         showToast(getString(R.string.register_success))
+        isLogin = true
+
+        EventBus.getDefault().post(LoginEvent(isLogin,data))
+
+        var bundle=Bundle()
+        bundle.putSerializable("login",data)
+
+        JumpUtil.Next(this,MainActivity::class.java,bundle)
         finish()
+
     }
 
     override fun registerFail() {

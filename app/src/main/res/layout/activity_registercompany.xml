@@ -22,6 +22,24 @@
             android:focusableInTouchMode="true">
 
             <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_16"
+                android:textColorHint="@color/text_color"
+                android:hint="@string/email" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_8"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
                 android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,23 +86,7 @@
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:layout_marginTop="@dimen/dp_8"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
 
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_16"
-                android:textColorHint="@color/text_color"
-                android:hint="@string/email" />
-
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
