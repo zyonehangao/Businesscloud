@@ -3,6 +3,7 @@ package com.cloud.shangwu.businesscloud.mvp.ui.adapter;
 import android.view.View;
 
 import com.cloud.shangwu.businesscloud.mvp.contract.MainContract;
+import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.List;

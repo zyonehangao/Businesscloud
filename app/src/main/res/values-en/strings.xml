@@ -101,5 +101,6 @@
     <string name="iuput_busnissscope">请输入经营范围</string>
     <string name="user_agree">用户协议</string>
     <string name="search">搜索</string>
-
+    <string name="my_collection">my collection</string>
+    <string name="my_balance">我的余额</string>
 </resources>

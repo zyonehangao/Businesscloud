@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,10 +76,10 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     private TagFlowLayout mFlowLayout;
     private TagFlowLayout mFlowLayoutmore;
 
-    private List<String> list1 = new ArrayList<String>();
-    private List<String> list2 = new ArrayList<String>();
+    private List<LabelHot> list1 = new ArrayList<LabelHot>();
+    private List<LabelHot> list2 = new ArrayList<LabelHot>();
 
-    private TagAdapter<String> madapter;
+    private TagAdapter<LabelHot> madapter;
     private LabelAdapter madapterMore;
 
     private FloatingSearchView mSearchView;
@@ -146,37 +147,36 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
     @Override
     public void labelSuccess(List<LabelHot> data) {
         Log.i("test","do2");
-        for (LabelHot hot : data) {
-            list1.add(hot.getContext());
-            list2.add(hot.getContext());
-        }
-        list1.remove(0);
-        list1.remove(1);
-
-        madapter = new TagAdapter<String>(list1) {
+        list2.addAll(data);
+//        for (LabelHot hot : data) {
+//            list2.add(hot);
+//        }
+//        list1.remove(0);
+//        list1.remove(1);
+        //选中的标签
+        madapter = new TagAdapter<LabelHot>(list1) {
             @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.subscribe_category_item,
-                        mFlowLayout, false);
+            public View getView(FlowLayout parent, int position, LabelHot labelHot) {
+                TextView tv = ((TextView) mInflater.inflate(R.layout.subscribe_category_item, parent, false));
                 Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.error1);
-                drawable.setBounds(0, 0, 30, 20);
+                drawable.setBounds(0, 2, 50,50);
+                tv.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
                 tv.setCompoundDrawables(null, null, drawable, null);
-                tv.setCompoundDrawablePadding(25);
-                tv.setText(list1.get(position));
-                return tv;
+                tv.setCompoundDrawablePadding(0);
+                tv.setText(list1.get(position).getContext());
+                return   tv;
             }
+
         };
-
-
-        Log.i("test","do1");
 
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                int indexOf = list2.lastIndexOf(list1.get(position));
-                View childAt = mFlowLayoutmore.getChildAt(indexOf);
-                if (list2.contains(list1.get(position))) {
-                    childAt.setClickable(true);
+                LabelHot info = list1.get(position);
+                for (LabelHot labelHot : list2) {
+                    if (info.getLid()==labelHot.getLid()){
+                        labelHot.setSelect(false);
+                    }
                 }
                 list1.remove(position);
                 madapter.notifyDataChanged();
@@ -189,12 +189,13 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
         mFlowLayoutmore.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                if (!list1.contains(list2.get(position))) {
+                if (!list2.get(position).getSelect()){
+                    list2.get(position).setSelect(true);
                     list1.add(list2.get(position));
-                    madapter.notifyDataChanged();
-                    view.setClickable(false);
                 }
-                return false;
+                madapter.notifyDataChanged();
+                madapterMore.notifyDataChanged();
+                return true;
             }
         });
 
@@ -203,28 +204,29 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
         madapterMore = new LabelAdapter(list2) {
             @Override
             public void setClickAble(int position, View v) {
-                if (list1.contains(list2.get(position))){
-                    v.setClickable(false);
-                    //TODO
-                }else {
-                    v.setClickable(true);
-                }
+
             }
 
             @Override
             public View getView(FlowLayout parent, int position, Object o) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.lab_more_item,
                         mFlowLayout, false);
-                tv.setText(list2.get(position));
+                tv.setText(list2.get(position).getContext());
+                for (LabelHot labelHot : list2) {
+                    if (labelHot.getSelect()){
+                       tv.setEnabled(false);
+                    }else {
+                        tv.setEnabled(true);
+                    }
+                }
+
                 return tv;
             }
 
             @Override
             public boolean setSelected(int position, Object o) {
-                if (list1.contains(list2.get(position))){
-                    return true;
-                }
-                return false;
+
+                return  list2.get(position).getSelect();
             }
 
         };

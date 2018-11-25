@@ -6,7 +6,7 @@
     android:id="@+id/root_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/subscribe_activity_bg"
+    android:background="@color/white"
     app:ignore="NamespaceTypo">
 
     <!--<include-->
@@ -119,6 +119,7 @@
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/id_flowlayout"
                 zhy:max_select="-1"
+
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_20">

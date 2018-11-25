@@ -90,7 +90,7 @@
     <color name="subscribe_item_pressed_stroke">#ffcdcdcd</color>
     <color name="subscribe_item_pressed_bg">#fff9f9f9</color>
     <color name="subscribe_item_normal_stroke">#ffcdcdcd</color>
-    <color name="subscribe_item_normal_bg">#fff5f5f5</color>
+    <color name="subscribe_item_normal_bg">#ffffff</color>
 
     <item name="subscribe_item_text_color_normal" type="color">@color/default_text</item>
 

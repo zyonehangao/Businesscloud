@@ -6,6 +6,7 @@
     android:gravity="center"
     android:textColor="@color/subscribe_item_text_color"
     android:textSize="@dimen/sp_14"
+
     android:background="@drawable/label_check"
     android:layout_margin="@dimen/dp_8"
     android:padding="@dimen/dp_5"
