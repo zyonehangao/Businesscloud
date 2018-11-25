@@ -59,6 +59,8 @@ data class ComRegise(var area : String, var companyName: String, var email : Str
 data class LabelHot(
         val context: String,
         val country: Int,
+        var select: Boolean =false,
+
         val createTime: Any,
         val ishot: Int,
         val lid: Int,

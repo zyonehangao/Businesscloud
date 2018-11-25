@@ -1,5 +1,6 @@
 package com.cloud.shangwu.businesscloud.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 

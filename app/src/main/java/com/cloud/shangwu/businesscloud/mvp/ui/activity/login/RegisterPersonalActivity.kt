@@ -28,7 +28,6 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
             text=tx
             setTextColor(resources.getColor(R.color.Black))
         }
-
     }
 
 

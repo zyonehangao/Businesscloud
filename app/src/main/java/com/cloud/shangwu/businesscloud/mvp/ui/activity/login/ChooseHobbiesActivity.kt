@@ -45,8 +45,7 @@ class ChooseHobbiesActivity : BaseSwipeBackActivity(), ChooseHobbiesContract.Vie
     override fun attachLayoutRes(): Int = R.layout.activity_choose_hobbies
 
     override fun initData() {
-        val string = intent.extras.getString("1");
-        Log.i("string",string)
+
     }
 
 

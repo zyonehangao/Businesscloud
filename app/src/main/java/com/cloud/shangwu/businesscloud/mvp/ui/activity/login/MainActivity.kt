@@ -2,6 +2,7 @@ package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
+import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.R.id.toolbar
 import com.cloud.shangwu.businesscloud.R.string.username
@@ -138,6 +139,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                     }
                     setSupportActionBar(this)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    visibility = View.VISIBLE
                 }
                 if (mMessageFragment == null) {
                     mMessageFragment = MessageFragment.getInstance()
@@ -155,10 +157,12 @@ class MainActivity : BaseActivity(), MainContract.View {
                     }
                     setSupportActionBar(this)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    visibility = View.VISIBLE
                 }
+
                 if (mContatsFragment == null) {
                     mContatsFragment = ContatsFragment.getInstance()
-                    transaction.add(R.id.container, mContatsFragment!!, "message")
+                    transaction.add(R.id.container, mContatsFragment!!, "contats")
                 } else {
                     transaction.show(mContatsFragment!!)
                 }
@@ -173,10 +177,12 @@ class MainActivity : BaseActivity(), MainContract.View {
                     }
                     setSupportActionBar(this)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    visibility = View.VISIBLE
                 }
+
                 if (mDynamicFragment == null) {
                     mDynamicFragment = DynamicFragment.getInstance()
-                    transaction.add(R.id.container, mDynamicFragment!!, "message")
+                    transaction.add(R.id.container, mDynamicFragment!!, "dynamic")
                 } else {
                     transaction.show(mDynamicFragment!!)
                 }
@@ -190,16 +196,18 @@ class MainActivity : BaseActivity(), MainContract.View {
                     }
                     setSupportActionBar(this)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    visibility = View.GONE
                 }
+
                 if (mMineFragment == null) {
                     mMineFragment = MineFragment.getInstance()
-                    transaction.add(R.id.container, mMineFragment!!, "message")
+                    transaction.add(R.id.container, mMineFragment!!, "mine")
                 } else {
                     transaction.show(mMineFragment!!)
                 }
             }
-
         }
+        transaction.commit()
     }
 
 
