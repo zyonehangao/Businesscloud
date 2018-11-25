@@ -24,6 +24,7 @@ import com.google.gson.Gson
 class MinePresenter : BasePresenter<MineContract.View>(),MineContract.Presenter {
 
 
+
     private var options1Items = ArrayList<JsonData.DataBean>()
     private val options2Items = ArrayList<ArrayList<JsonData.DataBean.ChildrenBeanX>>()
     private val options3Items = ArrayList<ArrayList<ArrayList<JsonData.DataBean.ChildrenBeanX.ChildrenBean>>>()
@@ -48,13 +49,8 @@ class MinePresenter : BasePresenter<MineContract.View>(),MineContract.Presenter 
                     options3Items[options1][options2][options3].pickerViewText
             Log.i("级别",tx)
             Toast.makeText(activity, tx, Toast.LENGTH_SHORT).show()
-//            if (mView is MineFragment) {
-//                (mView as MineFragment).showPicker(tx)
-//            }
-            getArea()
-
+            mView!!.getArea(tx)
         })
-
                 .setTitleText("城市选择")
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
@@ -68,9 +64,7 @@ class MinePresenter : BasePresenter<MineContract.View>(),MineContract.Presenter 
 
     }
 
-   fun getArea():String{
-        return tx
-    }
+
 
 
     fun parseData(result: String): ArrayList<JsonData.DataBean> {//Gson 解析

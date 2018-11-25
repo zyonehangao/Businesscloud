@@ -71,7 +71,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 text = getString(R.string.register_personal)
             }
             setSupportActionBar(this)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
         bottom_navigation.run {
             // 以前使用 BottomNavigationViewHelper.disableShiftMode(this) 方法来设置底部图标和字体都显示并去掉点击动画

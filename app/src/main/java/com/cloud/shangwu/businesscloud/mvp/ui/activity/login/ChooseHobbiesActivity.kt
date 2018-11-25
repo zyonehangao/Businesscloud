@@ -15,11 +15,12 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class ChooseHobbiesActivity : BaseSwipeBackActivity(), ChooseHobbiesContract.View {
     internal var list: List<String> = ArrayList()
+    var adapter : MultiItemAdapter ?=null
     override fun getListTypeOK(list: List<ChooseHobbiseData.DataBean.ChildrenBeanX>?) {
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         val toJson = Gson().toJson(list)
-        var adapter = MultiItemAdapter(list)
+         adapter = MultiItemAdapter(list)
 
         mRecyclerView.adapter = adapter
     }
@@ -60,6 +61,9 @@ class ChooseHobbiesActivity : BaseSwipeBackActivity(), ChooseHobbiesContract.Vie
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
+        btn_confirm.setOnClickListener {
+            adapter!!.hobbiesList
+        }
     }
 
     override fun start() {

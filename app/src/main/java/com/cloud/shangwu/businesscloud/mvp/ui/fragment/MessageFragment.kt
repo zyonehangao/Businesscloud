@@ -12,10 +12,9 @@ class MessageFragment : BaseFragment() {
     override fun attachLayoutRes(): Int = R.layout.fragment_message
 
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun lazyLoad() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

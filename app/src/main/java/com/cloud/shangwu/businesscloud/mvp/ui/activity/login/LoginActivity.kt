@@ -69,6 +69,17 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun initView() {
+
+        tl_title.run {
+            title = ""
+            toolbar_withe_name.run {
+                text = getString(R.string.login)
+
+            }
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+
         mPresenter.attachView(this)
         et_username.setText(user)
         btn_login.setOnClickListener(onClickListener)

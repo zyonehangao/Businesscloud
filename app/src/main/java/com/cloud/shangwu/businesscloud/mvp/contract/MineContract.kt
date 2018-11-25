@@ -8,6 +8,7 @@ import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainActivity
 interface MineContract {
     interface View : IView{
         fun showData()
+        fun getArea(tx:String)
     }
 
     interface  Presenter : IPresenter<View> {

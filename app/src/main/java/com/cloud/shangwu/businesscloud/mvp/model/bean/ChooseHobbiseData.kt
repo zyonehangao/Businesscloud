@@ -111,6 +111,7 @@ class ChooseHobbiseData {
                 var status: Any? = null
                 var createTime: Any? = null
                 var children: Any? = null
+                var select: Boolean = false
             }
         }
     }

@@ -137,7 +137,7 @@ abstract class BaseActivity : AppCompatActivity() {
         mThemeColor = if (!SettingUtil.getIsNightMode()) {
             SettingUtil.getColor()
         } else {
-            resources.getColor(R.color.colorPrimary)
+            resources.getColor(R.color.while_most_color)
         }
         StatusBarUtil.setColor(this, mThemeColor, 0)
         if (this.supportActionBar != null) {

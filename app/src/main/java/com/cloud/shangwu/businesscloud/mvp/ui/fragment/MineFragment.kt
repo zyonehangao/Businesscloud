@@ -19,8 +19,12 @@ import kotlinx.android.synthetic.main.fragment_mine_home.*
 import kotlinx.android.synthetic.main.mine_type_layou.*
 
 class MineFragment :BaseFragment() , MineContract.View, View.OnClickListener {
+    override fun getArea(tx:String) {
+        if (tx.isEmpty()) tv_area.text="请选择地区" else tv_area.text=tx
 
-//    override fun showPicker(tx: String) {
+    }
+
+    //    override fun showPicker(tx: String) {
 //        area=tx
 //        tv_location?.run {
 //            text=tx
@@ -97,7 +101,6 @@ class MineFragment :BaseFragment() , MineContract.View, View.OnClickListener {
             R.id.ll_area ->{
                 activity?.let { mPresenter.showPickerView(activity as MainActivity) }
 //
-                if (mPresenter.getArea().isEmpty()) tv_area.text="请选择地区" else tv_area.text=mPresenter.getArea()
             }
 
             R.id.ll_card_manager ->{
