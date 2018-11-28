@@ -47,7 +47,7 @@
     <string name="next">next</string>
     <string name="input_id">Please enter the business id</string>
     <string name="input_username">Please enter the company name</string>
-    <string name="email">请输入邮箱</string>
+    <string name="email">* 请输入邮箱</string>
     <string name="area">Please enter your area</string>
     <string name="logo_com">请上传公司logo</string>
     <string name="register_now">立即注册</string>

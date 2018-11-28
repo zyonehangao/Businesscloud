@@ -7,6 +7,7 @@ import com.cloud.shangwu.businesscloud.base.BaseActivity
 
 import com.cloud.shangwu.businesscloud.ui.activity.LoginActivity
 import com.cloud.shangwu.businesscloud.ui.activity.RegisterPersonalActivity
+import com.cloud.shangwu.businesscloud.utils.JumpUtil
 
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -32,6 +33,9 @@ class RegisterActivity : BaseActivity() {
     }
 
     override fun start() {
+        if (isLogin){
+            JumpUtil.Next(this,LoginActivity::class.java)
+        }
     }
 
     /**

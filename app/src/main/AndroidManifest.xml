@@ -33,7 +33,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".mvp.ui.activity.login.RegisterActivity"
           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
         <activity android:name=".ui.activity.RegisterPersonalActivity"/>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanyActivity"/>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"/>
-        <activity android:name=".mvp.ui.activity.login.RegisterActivity"/>
+        <activity android:name=".ui.activity.LoginActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.ForgetPassword"/>
         <activity android:name=".mvp.ui.activity.login.UsersRegisterActivity"/>
         <activity android:name=".mvp.ui.activity.login.LableActivity"/>

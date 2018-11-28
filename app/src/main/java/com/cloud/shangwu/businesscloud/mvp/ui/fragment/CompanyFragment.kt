@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable
 import android.text.SpannableString
 import android.opengl.ETC1.getWidth
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.IntCompanyActivity
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainCompanyActivity
 
 
 class CompanyFragment : BaseFragment() , View.OnClickListener {
@@ -64,7 +65,10 @@ class CompanyFragment : BaseFragment() , View.OnClickListener {
         when(v.id){
 
             R.id.ll_user_homepage ->{
-
+                Intent(activity, MainCompanyActivity::class.java).apply {
+                    startActivity(this)
+//                    startActivity(this)
+                }
             }
 
             R.id.ll_invite_contact ->{

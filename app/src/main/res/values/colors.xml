@@ -107,4 +107,7 @@
 
     <color name="tab_stroke_check">#ffeaeaea</color>
 
+    <color name="dividerline_color">#f1f2f6</color>
+    <color name="invicard_bg">#f7fbfe</color>
+
 </resources>

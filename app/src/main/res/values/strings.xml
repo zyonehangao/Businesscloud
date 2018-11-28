@@ -50,7 +50,7 @@
     <string name="next">下一步</string>
     <string name="input_id">请输入企业id</string>
     <string name="input_username">请输入企业名称</string>
-    <string name="email">请输入邮箱</string>
+    <string name="email">* 请输入邮箱</string>
     <string name="area">请输入所在区域</string>
     <string name="logo_com">请上传公司logo</string>
     <string name="register_now">立即注册</string>

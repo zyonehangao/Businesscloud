@@ -89,12 +89,16 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun start() {
+        if (isLogin){
+            mPresenter.login(user, pwd, "")
+        }
     }
 
     override fun loginSuccess(data: LoginData) {
         showToast(getString(R.string.login_success))
         isLogin = true
         user = data.username
+        pwd=et_password.text.toString()
 
         token = data.token
 

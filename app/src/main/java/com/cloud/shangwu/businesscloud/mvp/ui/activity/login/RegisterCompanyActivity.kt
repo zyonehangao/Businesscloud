@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
+import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterCompanyContract
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ComRegise
+import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.model.bean.UserRegise
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
@@ -18,6 +20,7 @@ import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterCompanyPresenter
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.JumpUtil
+import com.cloud.shangwu.businesscloud.utils.Preference
 import com.cloud.shangwu.businesscloud.utils.Validator
 import kotlinx.android.synthetic.main.activity_registercompany.*
 import kotlinx.android.synthetic.main.title_register.*
@@ -30,6 +33,17 @@ import org.greenrobot.eventbus.EventBus
 class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContract.View, RegisterCompanyContract.View {
 
     var comRegise: ComRegise?=null
+
+    /**
+     * local username
+     */
+    private var user: String by Preference(Constant.USERNAME_KEY, "")
+
+    /**
+     * local password
+     */
+    private var pwd: String by Preference(Constant.PASSWORD_KEY, "")
+
     override fun JsonDateErr() {
 
     }
@@ -54,9 +68,8 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
     override fun registerSuccess(data: LoginData) {
         showToast(getString(R.string.register_success))
         isLogin = true
-
+        pwd=et_password.text.toString()
         EventBus.getDefault().post(LoginEvent(isLogin,data))
-
         var bundle=Bundle()
         bundle.putSerializable("login",data)
 

@@ -35,6 +35,10 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         showToast(getString(R.string.register_success))
         isLogin = true
         user = data.username
+        pwd=et_password.text.toString()
+
+        Preference(Constant.LOGIN_KEY, isLogin)
+        Preference(Constant.PASSWORD_KEY, pwd)
 
         EventBus.getDefault().post(LoginEvent(true,data))
         finish()
