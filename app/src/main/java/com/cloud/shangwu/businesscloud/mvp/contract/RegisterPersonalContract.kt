@@ -15,7 +15,7 @@ interface RegisterPersonalContract {
 
     interface Persenter :IPresenter<View>{
 
-        fun userRegister(usernme: String, password: String, email: String, invitedCode: String, pid: String,type: String, area: String)
+        fun userRegister(usernme: String, password: String, email: String, invitedCode: String, pid: String,type: String, area: String,clan: String, name: String)
 
         fun getJsonData()
         fun start()

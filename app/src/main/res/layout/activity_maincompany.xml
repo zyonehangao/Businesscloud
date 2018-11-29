@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <include layout="@layout/toolbar"></include>
+
+        <include layout="@layout/toolbar" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,7 +20,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bg_compage"/>
+                android:src="@drawable/bg_compage"
+                android:contentDescription="TODO" />
             <LinearLayout
                 android:layout_marginBottom="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_73"
@@ -38,7 +40,8 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/dp_25"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UselessParent">
 
                         <ImageView
                             android:id="@+id/icon"
@@ -46,7 +49,7 @@
                             android:layout_height="@dimen/dp_58"
                             android:src="@drawable/magnifier_search"
                             android:layout_marginStart="@dimen/dp_15"
-                            />
+                            android:contentDescription="TODO" />
 
                         <TextView
                             android:layout_gravity="center_vertical"
@@ -147,81 +150,145 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <View
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_10"
-            android:background="@color/dividerline_color"/>
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginStart="@dimen/dp_15"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:textColor="@color/black"
-                android:text="@string/action_settings"
-                android:textSize="@dimen/sp_15"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0.5"
-            android:background="@color/Grey200"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_150">
-            <RelativeLayout
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginStart="@dimen/dp_15"
-                android:layout_marginEnd="@dimen/dp_15"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/invicard_bg">
-                <LinearLayout
-                    android:layout_marginEnd="@dimen/dp_50"
+                android:orientation="vertical">
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/dividerline_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="@dimen/dp_11"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:gravity="center_vertical"
                         android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_height="@dimen/dp_40"
+                        android:textColor="@color/black"
                         android:text="@string/action_settings"
-                        android:textColor="@color/Cyan"
-                        android:textSize="@dimen/sp_12"
-                        tools:ignore="Suspicious0dp" />
-                    <TextView
-                        android:layout_marginStart="@dimen/dp_11"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/dp_16"
-                        android:text="@string/action_settings"
-                        android:textColor="@color/Cyan"
-                        android:textSize="@dimen/sp_12"/>
-                    <TextView
-                        android:layout_marginStart="@dimen/dp_11"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/dp_16"
-                        android:text="@string/action_settings"
-                        android:textColor="@color/Cyan"
-                        android:textSize="@dimen/sp_12"
-                        android:layout_marginBottom="@dimen/dp_16"/>
+                        android:textSize="@dimen/sp_15"/>
                 </LinearLayout>
-                <ImageView
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0.5"
+                    android:background="@color/Grey200"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_150">
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:layout_marginEnd="@dimen/dp_15"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/invicard_bg">
+                        <LinearLayout
+                            android:layout_marginEnd="@dimen/dp_50"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_marginStart="@dimen/dp_11"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="@dimen/dp_16"
+                                android:text="@string/action_settings"
+                                android:textColor="@color/Cyan"
+                                android:textSize="@dimen/sp_12"
+                                tools:ignore="Suspicious0dp" />
+                            <TextView
+                                android:layout_marginStart="@dimen/dp_11"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="@dimen/dp_16"
+                                android:text="@string/action_settings"
+                                android:textColor="@color/Cyan"
+                                android:textSize="@dimen/sp_12"/>
+                            <TextView
+                                android:layout_marginStart="@dimen/dp_11"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="@dimen/dp_16"
+                                android:text="@string/action_settings"
+                                android:textColor="@color/Cyan"
+                                android:textSize="@dimen/sp_12"
+                                android:layout_marginBottom="@dimen/dp_16"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/layer_compage"
+                            android:contentDescription="TODO" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/dividerline_color" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:textColor="@color/black"
+                        android:text="@string/action_settings"
+                        android:textSize="@dimen/sp_15"/>
+                </LinearLayout>
+
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:id="@+id/id_flowlayout"
+                    zhy:max_select="-1"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/layer_compage"/>
-            </RelativeLayout>
-        </LinearLayout>
+                    android:padding="@dimen/dp_20">
+                </com.zhy.view.flowlayout.TagFlowLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/dividerline_color" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:textColor="@color/black"
+                        android:text="@string/action_settings"
+                        android:textSize="@dimen/sp_15"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

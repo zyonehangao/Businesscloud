@@ -38,6 +38,42 @@
                     android:textSize="@dimen/sp_16" />
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <com.cloud.shangwu.businesscloud.widget.ClearEditText
+                    android:id="@+id/et_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_firstname"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/text_color"
+                    android:textSize="@dimen/sp_16" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <com.cloud.shangwu.businesscloud.widget.ClearEditText
+                    android:id="@+id/et_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_lastname"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/text_color"
+                    android:textSize="@dimen/sp_16" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -110,7 +146,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:hint="@string/choice_location"
+                    android:text="@string/choice_location"
                     android:inputType="textEmailAddress"
                     android:textColorHint="@color/text_color"
                     android:textSize="@dimen/sp_16" />

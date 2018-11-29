@@ -11,11 +11,13 @@ import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.RegisterPersonalContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.UserRegise
 import com.cloud.shangwu.businesscloud.mvp.presenter.RegisterPersonalPresenter
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.UsersRegisterActivity
 import com.cloud.shangwu.businesscloud.utils.DialogUtil
 import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_registerpersonal.*
+
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 
@@ -37,10 +39,11 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         user = data.username
         pwd=et_password.text.toString()
 
-        Preference(Constant.LOGIN_KEY, isLogin)
-        Preference(Constant.PASSWORD_KEY, pwd)
-
         EventBus.getDefault().post(LoginEvent(true,data))
+        var bundle=Bundle()
+        bundle.putSerializable("login",data)
+
+        JumpUtil.Next(this, MainActivity::class.java,bundle)
         finish()
     }
 
@@ -139,8 +142,9 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
                     area,
                     "0",
                     "0",
-                    tv_location.text.toString()
-                    )
+                    tv_location.text.toString(),
+                    et_lastname.text.toString(),
+                    et_firstname.text.toString())
 //           val bundle= Bundle()
 //            bundle.putSerializable("UserRegise",UserRegise(
 //                    et_username.text.toString(),
@@ -169,6 +173,8 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         val email: String = et_password2.text.toString()
         val invitationcode: String = invitationcode.text.toString()
         val tv_location: String = tv_location.text.toString()
+        val et_firstname: String = et_firstname.text.toString()
+        val et_lastname: String = et_lastname.text.toString()
         if (username.isEmpty()) {
             et_username.error = getString(R.string.username_not_empty)
             valid = false
@@ -186,7 +192,20 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
             et_password2.error = getString(R.string.choice_location)
             valid = false
         }
+        if (et_firstname.isEmpty()) {
+            et_password2.error = getString(R.string.input_firstname)
+            valid = false
+        }
+        if (et_lastname.isEmpty()) {
+            et_password2.error = getString(R.string.input_lastname)
+            valid = false
+        }
         return valid
+    }
+
+    override fun onDestroy() {
+        mDialog.dismiss()
+        super.onDestroy()
     }
 
 

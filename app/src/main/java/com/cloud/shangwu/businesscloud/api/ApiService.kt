@@ -68,7 +68,9 @@ interface ApiService {
                            @Field("area") area: String,
                             @Field("pid") pid: String,
                             @Field("type") type: String,
-                           @Field("code") position: String
+                           @Field("code") position: String,
+                     @Field("clan") clan: String,
+                     @Field("name") name: String
     ): Observable<HttpResult<LoginData>>
 
 

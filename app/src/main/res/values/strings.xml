@@ -17,7 +17,7 @@
     <string name="network_unavailable_tip">网络连接不可用,请检查网络设置!</string>
     <!-- Login -->
     <string name="username">请输入手机号</string>
-    <string name="password">密码（6-20位字母、数字或字符）</string>
+    <string name="password">* 密码（6-20位字母、数字或字符）</string>
     <string name="invitationcode">请输入邀请吗(选填)</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
@@ -71,11 +71,11 @@
     <string name="forgetpsds">忘记密码</string>
     <string name="import_user_name"></string>
     <string name="newpassword">新密码（6-20位字母、数字或字符）</string>
-    <string name="input_emaill">请输入邮箱</string>
+    <string name="input_emaill">* 请输入邮箱</string>
     <string name="complete">完成</string>
     <string name="please_enter_password">请在输入一次密码</string>
     <string name="enter_phone_number_email">请输入用户名、手机号</string>
-    <string name="choice_location">请选择所在地区</string>
+    <string name="choice_location">* 请选择所在地区</string>
 
     <string name="album_view">选择图片</string>
     <string name="image_view">单击选择</string>
@@ -115,4 +115,6 @@
     <string name="add_sub_account">添加子账户</string>
     <string name="get_ing">获取数据中</string>
     <string name="save_success">保存成功</string>
+    <string name="input_lastname">* 请输入姓氏</string>
+    <string name="input_firstname">* 请输入名字</string>
 </resources>

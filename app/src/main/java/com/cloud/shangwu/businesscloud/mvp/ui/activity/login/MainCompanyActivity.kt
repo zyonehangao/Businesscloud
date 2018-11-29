@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus
 
 class MainCompanyActivity : BaseSwipeBackActivity() {
 
-    override fun attachLayoutRes(): Int = R.layout.activity_registerpersonal
+    override fun attachLayoutRes(): Int = R.layout.activity_maincompany
 
     override fun useEventBus(): Boolean = false
 
