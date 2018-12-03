@@ -10,10 +10,11 @@ interface UserRegisterContract {
         fun userRegisterOK(data: LoginData)
         fun userRegisterEdrr()
         fun JsonDateOk(json:String)
+        fun JsonDateErr()
         fun uploadOk(json:String)
         fun uploadErr()
 
-        fun JsonDateErr()
+
     }
 
     interface Presenter :IPresenter<View>{

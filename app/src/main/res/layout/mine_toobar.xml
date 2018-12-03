@@ -53,6 +53,7 @@
                 android:paddingLeft="@dimen/dp_15">
 
                 <ImageView
+                    android:id="@+id/iv_icon"
                     android:layout_width="@dimen/dp_65"
                     android:layout_height="@dimen/dp_65"
                     android:src="@drawable/reg_contact" />
@@ -61,18 +62,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+
+                    android:gravity="center|left"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/dp_5">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
 
                         android:paddingLeft="@dimen/dp_5">
 
                         <TextView
+                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|bottom"
@@ -85,20 +88,12 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|bottom"
                             android:layout_marginLeft="@dimen/dp_15"
-                            android:text="技术总监"
+                            android:singleLine="true"
+                            android:text="技术总监 "
                             android:textColor="@color/white"
+                            android:drawableRight="@drawable/v1_homepage"
                             android:textSize="15sp" />
 
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/dp_5"
-                            android:layout_marginTop="2dp"
-                            android:paddingLeft="13dp"
-                            android:paddingRight="@dimen/dp_10"
-                            android:src="@drawable/v1_homepage"
-                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -185,7 +180,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:background="#f1f2f6"
+            android:background="@color/line_divider"
             android:layout_height="10dp"/>
     </LinearLayout>
 

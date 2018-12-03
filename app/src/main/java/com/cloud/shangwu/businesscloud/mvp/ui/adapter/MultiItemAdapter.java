@@ -3,6 +3,7 @@ package com.cloud.shangwu.businesscloud.mvp.ui.adapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,6 +23,8 @@ public class MultiItemAdapter extends BaseMultiItemQuickAdapter<ChooseHobbiseDat
     private List<List<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean>> stuents;
     private List<List<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean>> hobbiesList;
     private List<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean> childrenlist;
+    private CostomExppandableAdapter costomExppandableAdapter = null;
+    private CustomExpandableListView expandableListView;
 
     public MultiItemAdapter(List<ChooseHobbiseData.DataBean.ChildrenBeanX> data) {
         super(data);
@@ -55,7 +58,7 @@ public class MultiItemAdapter extends BaseMultiItemQuickAdapter<ChooseHobbiseDat
                 helper.setText(R.id.tv_type, item.getContent());
                 break;
             case 1:
-                CustomExpandableListView expandableListView = ((CustomExpandableListView) helper.getView(R.id.expan_ListView));
+                expandableListView = ((CustomExpandableListView) helper.getView(R.id.expan_ListView));
 
                 View.OnClickListener ivGoToChildClickListener = v -> {
                     //获取被点击图标所在的group的索引
@@ -77,7 +80,7 @@ public class MultiItemAdapter extends BaseMultiItemQuickAdapter<ChooseHobbiseDat
                         stuents.add(data.get(i).getChildren());
                     }
                 }
-                CostomExppandableAdapter costomExppandableAdapter =
+                 costomExppandableAdapter =
                         new CostomExppandableAdapter(gruopList, stuents, mContext, ivGoToChildClickListener);
                 expandableListView.setGroupIndicator(null);
                 expandableListView.setAdapter(costomExppandableAdapter);
@@ -91,10 +94,17 @@ public class MultiItemAdapter extends BaseMultiItemQuickAdapter<ChooseHobbiseDat
                 expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                        ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean childrenBean = stuents.get(groupPosition).get(childPosition);
-//                        childrenBean.setSelect(!childrenBean.getIsselect());
+                        ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean childrenBean = stuents.get(groupPosition).get(childPosition);
+                        childrenBean.setSelect(!childrenBean.getSelect());
+                        ImageView iv_select = (ImageView) v.findViewById(R.id.iv_select);
+                        if (childrenBean.getSelect()){
+                            iv_select.setVisibility(View.VISIBLE);
+                        }else {
+                            iv_select.setVisibility(View.GONE);
+                        }
+
                         costomExppandableAdapter.notifyDataSetChanged();
-                        return true;
+                        return false;
                     }
                 });
                 break;
@@ -102,6 +112,6 @@ public class MultiItemAdapter extends BaseMultiItemQuickAdapter<ChooseHobbiseDat
     }
 
     public List<List<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean>> getHobbiesList(){
-        return hobbiesList;
+        return stuents;
     }
 }

@@ -22,7 +22,4 @@
         app:itemTextColor="@drawable/nav_item_color_state"
         app:layout_behavior="com.cloud.shangwu.businesscloud.widget.behavior.BottomNavigationBehavior"
         app:menu="@menu/bottom_navigation_main" />
-
-
-
-、</android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

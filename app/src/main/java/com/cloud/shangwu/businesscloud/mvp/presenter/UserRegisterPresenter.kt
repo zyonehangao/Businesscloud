@@ -17,11 +17,8 @@ import android.os.Environment.getExternalStorageDirectory
 class UserRegisterPresenter : BasePresenter<UserRegisterContract.View>(), UserRegisterContract.Presenter {
 
     override fun upload(file: File) {
-//        val file = File(Environment.getExternalStorageDirectory().absolutePath + file.path)
         val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         val photo1part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-//        RetrofitHelper.service.uploadFile(photo1part)
-
         RetrofitHelper.service.uploadFile(photo1part)
                 .compose(SchedulerUtils.ioToMain())
                 .subscribe({ results ->

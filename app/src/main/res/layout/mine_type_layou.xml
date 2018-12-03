@@ -37,6 +37,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content" />
             <ImageView
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:src="@drawable/back_mycom"
                 android:layout_height="wrap_content" />
@@ -61,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:textColor="@color/black"
-                android:text="职业标签"
+                android:text="个人目标"
                 android:textSize="15sp"
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content" />
@@ -74,6 +75,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content" />
             <ImageView
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:src="@drawable/back_mycom"
                 android:layout_height="wrap_content" />
@@ -112,6 +114,7 @@
                 android:layout_height="wrap_content" />
             <ImageView
                 android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:src="@drawable/back_mycom"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -147,7 +150,20 @@
                 android:textSize="15sp"
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_hobby"
+                android:layout_width="wrap_content"
+                android:textColor="@color/gray_active_icon"
+                android:text="@string/hobby"
+                android:layout_gravity="center"
+
+                android:textSize="15sp"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content" />
+
             <ImageView
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:src="@drawable/back_mycom"
                 android:layout_height="wrap_content" />

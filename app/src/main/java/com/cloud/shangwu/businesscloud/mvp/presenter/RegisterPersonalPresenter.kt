@@ -162,7 +162,7 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
                 }
 
                 MSG_LOAD_SUCCESS -> {
-                    Toast.makeText(mView as BaseActivity, "数据加载成功", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(mView as BaseActivity, "数据加载成功", Toast.LENGTH_SHORT).show()
                     isLoaded = true
                 }
 

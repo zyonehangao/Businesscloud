@@ -1,7 +1,6 @@
 package com.cloud.shangwu.businesscloud.base
 
 import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.PixelFormat
@@ -137,7 +136,7 @@ abstract class BaseActivity : AppCompatActivity() {
         mThemeColor = if (!SettingUtil.getIsNightMode()) {
             SettingUtil.getColor()
         } else {
-            resources.getColor(R.color.while_most_color)
+            resources.getColor(R.color.colorPrimary)
         }
         StatusBarUtil.setColor(this, mThemeColor, 0)
         if (this.supportActionBar != null) {
@@ -159,6 +158,8 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     /**
      * 初始化 TipView
@@ -186,16 +187,11 @@ abstract class BaseActivity : AppCompatActivity() {
         start()
     }
 
-    /**
-     * init ToolBar
-     */
     protected fun initToolbar(toolbar: Toolbar, homeAsUpEnabled: Boolean, title: String) {
         toolbar?.title = title
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
     }
-
-
 
     /**
      * Network Change
@@ -260,13 +256,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        if (mTipView != null && mTipView.parent != null) {
+        if (mTipView.parent != null) {
             mWindowManager.removeView(mTipView)
         }
     }
 
-    protected fun startActivitys(intent: Intent) {
-        startActivity(intent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
 }

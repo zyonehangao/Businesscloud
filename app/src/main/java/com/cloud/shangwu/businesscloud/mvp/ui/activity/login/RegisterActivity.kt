@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseActivity
+import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 
 import com.cloud.shangwu.businesscloud.ui.activity.LoginActivity
 import com.cloud.shangwu.businesscloud.ui.activity.RegisterPersonalActivity
@@ -33,9 +34,7 @@ class RegisterActivity : BaseActivity() {
     }
 
     override fun start() {
-        if (isLogin){
-            JumpUtil.Next(this,LoginActivity::class.java)
-        }
+//
     }
 
     /**

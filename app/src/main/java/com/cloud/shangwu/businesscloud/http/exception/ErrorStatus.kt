@@ -8,7 +8,7 @@ object ErrorStatus {
      * 响应成功
      */
     @JvmField
-    val SUCCESS = 0
+    val SUCCESS = 200
 
     /**
      * 未知错误

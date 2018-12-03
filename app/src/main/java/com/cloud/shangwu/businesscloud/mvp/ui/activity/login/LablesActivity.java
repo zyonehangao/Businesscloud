@@ -42,6 +42,7 @@ import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.app.App;
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity;
 
+import com.cloud.shangwu.businesscloud.event.MessageEvent;
 import com.cloud.shangwu.businesscloud.mvp.contract.LabelHotContract;
 import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ChannelManage;
@@ -61,6 +62,8 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -182,6 +185,8 @@ public class LablesActivity extends BaseSwipeBackActivity implements LabelHotCon
 
     }
 
+
+//    onEventMainThread
 
     @Override
     public void labelSuccess(List<LabelHot> data) {

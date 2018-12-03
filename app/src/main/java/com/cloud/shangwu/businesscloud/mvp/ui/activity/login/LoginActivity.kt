@@ -9,6 +9,7 @@ import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
+import com.cloud.shangwu.businesscloud.event.MessageEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
@@ -89,9 +90,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun start() {
-        if (isLogin){
-            mPresenter.login(user, pwd, "")
-        }
+
     }
 
     override fun loginSuccess(data: LoginData) {
@@ -102,7 +101,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
         token = data.token
 
-        EventBus.getDefault().post(LoginEvent(isLogin,data))
+        EventBus.getDefault().postSticky(LoginEvent(isLogin,data))
 
         var bundle=Bundle()
         bundle.putSerializable("login",data)
@@ -127,12 +126,12 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             }
             R.id.tv_sign_up -> {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                startActivitys(intent)
+                startActivity(intent)
 
             }
             R.id.tv_forgetpsd ->{
                 val intent = Intent(this@LoginActivity, ForgetPassword::class.java)
-                startActivitys(intent)
+                startActivity(intent)
             }
         }
     }

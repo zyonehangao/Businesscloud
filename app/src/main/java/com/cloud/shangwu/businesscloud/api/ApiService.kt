@@ -129,6 +129,19 @@ interface ApiService {
             @Field("oldPassword") oldPassword: String,
             @Field("newPassword") newPassword: String
                  ): Observable<HttpResult<LoginData>>
+
+    /**
+     *添加爱好
+     * @param username
+     * @param password
+     *
+     */
+    @GET("/hobby/update/{hid}")
+
+    fun HobbyUpdate(
+            @Path("hid") hid: String,
+            @Field("label") label: String
+                 ): Observable<HttpResult<LoginData>>
     /**
      *忘记密码
      * @param username
@@ -181,6 +194,8 @@ interface ApiService {
             @Path("type") type: Int,
             @Query("content") content: String
     ): Observable<HttpResult<LoginData>>
+
+
     /**
      * 获取爱好
      * @param type
@@ -220,4 +235,6 @@ interface ApiService {
     ): Observable<HttpResult<LabelHot>>
 
 
+    @POST("/business/userLabel/add/{uid}")
+    abstract fun addUid(@Body body: RequestBody): Observable<HttpResult<LoginData>>
 }

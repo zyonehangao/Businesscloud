@@ -10,13 +10,15 @@ import android.widget.TextView
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ChooseHobbiseData
 import org.w3c.dom.Text
+import java.util.ArrayList
 
 
 import java.util.HashMap
 
 class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataBean.ChildrenBeanX>,  var stuents: MutableList<MutableList<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean>>,  val context: Context,  val ivGoToChildClickListener:View.OnClickListener) : BaseExpandableListAdapter() {
 //    , internal var ivGoToChildClickListener: View.OnClickListener
-
+  var selelList: MutableList<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean> =ArrayList();
+    var listsize:Int ?= null
     override fun getGroupCount(): Int {    //组的数量
         return classes.size
     }
@@ -61,7 +63,18 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
 
         val groupName = classes[groupPosition].content
         groupHold.tvGroupName!!.text = groupName
-        groupHold.ivGoToChildtext?.text="${classes.size}"
+        if (selelList.size>0){
+            selelList.clear()
+        }
+        stuents.forEach {
+            it.forEach {
+                if (it.select){
+                    selelList.add(it)
+                }
+            }
+            listsize=   it.size
+        }
+        groupHold.ivGoToChildtext?.text="${selelList.size}/${listsize}"
         //取消默认的groupIndicator后根据方法中传入的isExpand判断组是否展开并动态自定义指示器
         if (isExpanded) {   //如果组展开
             groupHold.ivGoToChildLv!!.setImageResource(R.drawable.down)
@@ -95,10 +108,10 @@ class CostomExppandableAdapter( val classes: MutableList<ChooseHobbiseData.DataB
         } else {
             childHold = convertView.tag as ChildHold
         }
-        stuents[groupPosition][childPosition].select=!stuents[groupPosition][childPosition].select
-        if (stuents[groupPosition][childPosition].select)
-        {childHold.iv_select!!.visibility=View.VISIBLE}
-        else{childHold.iv_select!!.visibility=View.GONE}
+//        stuents[groupPosition][childPosition].select=!stuents[groupPosition][childPosition].select
+//        if (stuents[groupPosition][childPosition].select)
+//        {childHold.iv_select!!.visibility=View.VISIBLE}
+//        else{childHold.iv_select!!.visibility=View.GONE}
         val childName = stuents[groupPosition][childPosition].content
         childHold.tvChildName?.text = childName
         return convertView

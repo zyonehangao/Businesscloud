@@ -157,7 +157,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         var valid = true
 
         var id = et_id.text.trim().toString()
-        var pwd=et_password.text.trim().toString()
+        var pwd= et_password.text!!.trim().toString()
         var name=et_username.text.trim().toString()
         var email=et_email.text.trim().toString()
 

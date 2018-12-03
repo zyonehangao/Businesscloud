@@ -1,23 +1,31 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
+import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
-import com.cloud.shangwu.businesscloud.R.id.toolbar
-import com.cloud.shangwu.businesscloud.R.string.username
 import com.cloud.shangwu.businesscloud.base.BaseActivity
-import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
 import com.cloud.shangwu.businesscloud.mvp.contract.MainContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.MainPresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.fragment.*
-import com.cloud.shangwu.businesscloud.widget.helper.BottomNavigationViewHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import android.widget.Toast
+import com.cloud.shangwu.businesscloud.R.string.navigation
+import com.cloud.shangwu.businesscloud.constant.Constant
+import com.cloud.shangwu.businesscloud.event.ColorEvent
+import com.cloud.shangwu.businesscloud.event.LoginEvent
+import com.cloud.shangwu.businesscloud.event.MessageEvent
+import com.cloud.shangwu.businesscloud.widget.BNVEffect
+import kotlin.math.log
+
 
 class MainActivity : BaseActivity(), MainContract.View {
     private val FRAGMENT_HOME = 0x01
@@ -32,8 +40,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     private var mDynamicFragment: DynamicFragment? = null
     private var mMineFragment: MineFragment? = null
     private var mCompanyFragment: CompanyFragment? = null
-
-    private var mLoginType=COMPANY
+    var budle:Bundle?=null
+    private var mLoginType = COMPANY
     /**
      * Presenter
      */
@@ -63,8 +71,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initData() {
-        var extra = intent.extras.getSerializable("login")as LoginData
-        mLoginType=extra.type
+
+
     }
 
     override fun initView() {
@@ -81,22 +89,62 @@ class MainActivity : BaseActivity(), MainContract.View {
             // 以前使用 BottomNavigationViewHelper.disableShiftMode(this) 方法来设置底部图标和字体都显示并去掉点击动画
             // 升级到 28.0.0 之后，官方重构了 BottomNavigationView ，目前可以使用 labelVisibilityMode = 1 来替代
             // BottomNavigationViewHelper.disableShiftMode(this)
-            labelVisibilityMode = 1
             setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         }
+        showFragment(mIndex)
+
+    }
+
+    override fun initColor() {
+        super.initColor()
+        refreshColor(ColorEvent(true))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun loginEvent(event: LoginEvent) {
-        if (event.isLogin) {
-            event.data
+    fun refreshColor(event: ColorEvent) {
+        if (event.isRefresh) {
 
         }
-
+    }
+    //获取登录返回的数据
+    @Subscribe(threadMode = ThreadMode.ASYNC,sticky = true)
+    fun onMessageEvent(event: LoginEvent) {
+        Log.i("onMessageEvent","${event.data}")
+        budle = Bundle()
+        budle!!.putSerializable(Constant.LOGIN_KEY,event.data)
+        mLoginType= event.data.run {
+           if (1==type) COMPANY else PERSONAL
+        }
     }
 
     override fun start() {
+
     }
+    override fun recreate() {
+        try {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            if (mMessageFragment != null) {
+                fragmentTransaction.remove(mMessageFragment!!)
+            }
+            if (mContatsFragment != null) {
+                fragmentTransaction.remove(mContatsFragment!!)
+            }
+            if (mDynamicFragment != null) {
+                fragmentTransaction.remove(mDynamicFragment!!)
+            }
+            if (mMineFragment != null) {
+                fragmentTransaction.remove(mMineFragment!!)
+            }
+            if (mCompanyFragment != null) {
+                fragmentTransaction.remove(mCompanyFragment!!)
+            }
+            fragmentTransaction.commitAllowingStateLoss()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        super.recreate()
+    }
+
 
     /**
      * NavigationItemSelect监听
@@ -134,8 +182,8 @@ class MainActivity : BaseActivity(), MainContract.View {
         val transaction = supportFragmentManager.beginTransaction()
         hideFragments(transaction)
         mIndex = index
-        when(index){
-            FRAGMENT_HOME ->{
+        when (index) {
+            FRAGMENT_HOME -> {
                 toolbar.run {
                     title = ""
                     toolbar_nam.run {
@@ -153,7 +201,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
             }
 
-            FRAGMENT_CONTACTS ->{
+            FRAGMENT_CONTACTS -> {
                 toolbar.run {
                     title = ""
                     toolbar_nam.run {
@@ -173,7 +221,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             }
 
 
-            FRAGMENT_DYNAMIC ->{
+            FRAGMENT_DYNAMIC -> {
                 toolbar.run {
                     title = ""
                     toolbar_nam.run {
@@ -192,7 +240,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
             }
 
-            FRAGMENT_MINE ->{
+            FRAGMENT_MINE -> {
                 toolbar.run {
                     title = ""
                     toolbar_nam.run {
@@ -202,17 +250,17 @@ class MainActivity : BaseActivity(), MainContract.View {
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     visibility = View.GONE
                 }
-                if(mLoginType==PERSONAL){
+                if (mLoginType == PERSONAL) {
                     if (mMineFragment == null) {
-                        mMineFragment = MineFragment.getInstance()
+                        mMineFragment = MineFragment.getInstance(budle!!)
                         transaction.add(R.id.container, mMineFragment!!, "mine")
-                     } else {
+                    } else {
                         transaction.show(mMineFragment!!)
                     }
-                }else{
+                } else {
                     if (mCompanyFragment == null) {
                         mCompanyFragment = CompanyFragment.getInstance()
-                        transaction.add(R.id.container, mCompanyFragment!!, "mine")
+                        transaction.add(R.id.container, mCompanyFragment!!, "company")
                     } else {
                         transaction.show(mCompanyFragment!!)
                     }
@@ -235,4 +283,30 @@ class MainActivity : BaseActivity(), MainContract.View {
         mCompanyFragment?.let { transaction.hide(it) }
     }
 
+
+    private var mExitTime: Long = 0
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis().minus(mExitTime) <= 2000) {
+                finish()
+            } else {
+                mExitTime = System.currentTimeMillis()
+                showToast(getString(R.string.exit_tip))
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mMessageFragment = null
+        mContatsFragment = null
+        mDynamicFragment = null
+        mMineFragment = null
+        mCompanyFragment = null
+
+    }
 }

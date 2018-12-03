@@ -29,20 +29,8 @@ public class ChannelManage {
 		defaultUserChannels.add(new ChannelItem(2, "我爱", 2, 1));
 		defaultUserChannels.add(new ChannelItem(3, "我爱中", 3, 1));
 		defaultUserChannels.add(new ChannelItem(4, "我爱中国", 4, 1));
-		defaultUserChannels.add(new ChannelItem(5, "我", 5, 1));
-		defaultUserChannels.add(new ChannelItem(6, "我爱", 6, 1));
-		defaultUserChannels.add(new ChannelItem(7, "我爱中", 7, 1));
-		defaultOtherChannels.add(new ChannelItem(8, "我爱中国", 1, 0));
-		defaultOtherChannels.add(new ChannelItem(9, "我", 2, 0));
-		defaultOtherChannels.add(new ChannelItem(10, "我爱", 3, 0));
-		defaultOtherChannels.add(new ChannelItem(11, "我爱中", 4, 0));
-		defaultOtherChannels.add(new ChannelItem(12, "我爱中国", 5, 0));
-		defaultOtherChannels.add(new ChannelItem(13, "我", 6, 0));
-		defaultOtherChannels.add(new ChannelItem(14, "我爱", 7, 0));
-		defaultOtherChannels.add(new ChannelItem(15, "我爱中", 8, 0));
-		defaultOtherChannels.add(new ChannelItem(16, "我爱中国", 9, 0));
-		defaultOtherChannels.add(new ChannelItem(17, "我", 10, 0));
-		defaultOtherChannels.add(new ChannelItem(18, "我爱", 11, 0));
+
+
 	}
 
 	private ChannelManage(SQLHelper paramDBHelper) throws SQLException {

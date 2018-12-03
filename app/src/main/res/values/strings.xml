@@ -69,6 +69,7 @@
     <string name="toast_error_psw">密码</string>
     <string name="toast_error_name">公司名称</string>
     <string name="forgetpsds">忘记密码</string>
+    <string name="user_present">个人简介</string>
     <string name="import_user_name"></string>
     <string name="newpassword">新密码（6-20位字母、数字或字符）</string>
     <string name="input_emaill">* 请输入邮箱</string>
@@ -84,6 +85,7 @@
     <string name="limit_exceeded">最多能选 %d 张</string>
     <string name="error_gif">error_gif</string>
     <string name="permission_request_denied">Permission request denied</string>
+    <string name="input_introduction">Please input the introduction</string>
 
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

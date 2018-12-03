@@ -30,7 +30,7 @@ data class LoginData(
     val intro: Any,
     val invitedCode: Any,
     val label: Any,
-    val name: Any,
+    val name: String,
     val personalCode: Any,
     val pid: Int,
     val portrait: Any,

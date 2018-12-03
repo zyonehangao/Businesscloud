@@ -9,17 +9,27 @@ import android.util.Log
 import android.widget.Toast
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
+import com.cloud.shangwu.businesscloud.R.id.iv_logo
 import com.cloud.shangwu.businesscloud.R.string.area
 import com.cloud.shangwu.businesscloud.app.App
 import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.base.BasePresenter
+import com.cloud.shangwu.businesscloud.constant.Constant
+import com.cloud.shangwu.businesscloud.http.RetrofitHelper
+import com.cloud.shangwu.businesscloud.http.exception.ExceptionHandle
 import com.cloud.shangwu.businesscloud.mvp.contract.MineContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.JsonData
+import com.cloud.shangwu.businesscloud.mvp.rx.SchedulerUtils
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.fragment.MineFragment
 import com.cloud.shangwu.businesscloud.ui.activity.RegisterPersonalActivity
 import com.cloud.shangwu.businesscloud.utils.GetJsonDataUtil
+import com.cloud.shangwu.businesscloud.utils.ImageLoader
 import com.google.gson.Gson
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class MinePresenter : BasePresenter<MineContract.View>(),MineContract.Presenter {
 
@@ -136,7 +146,7 @@ class MinePresenter : BasePresenter<MineContract.View>(),MineContract.Presenter 
                 }
 
                 MSG_LOAD_SUCCESS -> {
-                    Toast.makeText(activity, "数据加载成功", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, "数据加载成功", Toast.LENGTH_SHORT).show()
                     isLoaded = true
                 }
 
@@ -144,4 +154,28 @@ class MinePresenter : BasePresenter<MineContract.View>(),MineContract.Presenter 
             }
         }
     }
+
+    override fun upload(file: File) {
+        val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val photo1part = MultipartBody.Part.createFormData("file", file.name, requestBody)
+        RetrofitHelper.service.uploadFile(photo1part)
+                .compose(SchedulerUtils.ioToMain())
+                .subscribe({ results ->
+                    mView?.let {
+                        if (results.code != Constant.OK) {
+                            it.showError(results.message)
+                            it.JsonDateErr()
+                        } else {
+                            it.JsonDateOk(results.data )
+                        }
+                    }
+                }, { t ->
+                    mView?.apply {
+                        hideLoading()
+                        showError(ExceptionHandle.handleException(t))
+                    }
+                })
+    }
+
+
 }

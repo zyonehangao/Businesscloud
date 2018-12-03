@@ -98,7 +98,8 @@
     <dimen name="dp_7">7dp</dimen>
     <dimen name="dp_0.5">0.5dp</dimen>
     <dimen name="dp_150">150dp</dimen>
-
+    <dimen name="btn_edittext_padding">5dp</dimen>
+    <dimen name="btn_edittext_width">24dp</dimen>
     <!--<dimen name="square_button_size">48dp</dimen>-->
 
 

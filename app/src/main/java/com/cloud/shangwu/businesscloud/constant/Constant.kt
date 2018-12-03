@@ -19,6 +19,7 @@ object Constant {
     const val TODO_NO = "todo_no"
     const val TODO_ADD = "todo_add"
     const val TODO_DONE = "todo_done"
+    const val TODO_DATA = "Data"
     const val OK = 200
 
     /**

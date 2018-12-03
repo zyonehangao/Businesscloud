@@ -13,6 +13,21 @@ import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 
 class ChooseHobbiesPresenter : BasePresenter<ChooseHobbiesContract.View>(), ChooseHobbiesContract.Presenter {
+
+    override fun getList(list: List<List<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean>>) {
+        var hobbies =StringBuffer()
+        list.forEach {
+            it.forEach {
+//                Log.i("it.select","${it.select}")
+                if (it.select){
+                    hobbies.append(it.content)
+                    hobbies.append(",")
+                }
+            }
+        }
+        mView!!.addHobbies(hobbies.toString())
+    }
+
     private val chooseHobbiesModel:ChooseHobbiesModel by lazy {
         ChooseHobbiesModel()
     }

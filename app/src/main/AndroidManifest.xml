@@ -33,7 +33,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".mvp.ui.activity.login.RegisterActivity"
+            android:name=".mvp.ui.activity.login.SplashActivity"
           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,20 +57,24 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths_public"/>
         </provider>
-
+        <activity android:name=".ui.activity.LoginActivity"/>
+        <receiver android:name=".receiver.NetworkChangeReceiver" android:process="system"/>
         <activity android:name=".ui.activity.RegisterPersonalActivity"/>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanyActivity"/>
         <activity android:name=".mvp.ui.activity.login.RegisterCompanySecActivity"/>
-        <activity android:name=".ui.activity.LoginActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.ForgetPassword"/>
         <activity android:name=".mvp.ui.activity.login.UsersRegisterActivity"/>
         <activity android:name=".mvp.ui.activity.login.LableActivity"/>
+        <activity android:name=".mvp.ui.activity.login.RegisterActivity"/>
         <activity android:name=".mvp.ui.activity.login.LablesActivity"/>
         <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"/>
         <activity android:name=".mvp.ui.activity.login.IntCompanyActivity"/>
         <activity android:name=".mvp.ui.activity.login.BusnissActivity"/>
-        <activity android:name=".mvp.ui.activity.login.MainActivity"/>
+        <activity android:name=".mvp.ui.activity.login.MainActivity"
+            android:launchMode="singleTask"
+            />
         <activity android:name=".mvp.ui.activity.login.UserAgreementActivity"/>
+        <activity android:name=".mvp.ui.activity.mine.UserPresentActivity"/>
     </application>
 
 </manifest>

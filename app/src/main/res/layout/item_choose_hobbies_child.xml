@@ -24,7 +24,7 @@
             android:textSize="@dimen/sp_16" />
 
         <ImageView
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/iv_select"
             android:layout_width="20dp"
             android:src="@drawable/gouxuan"

@@ -8,8 +8,11 @@ interface ChooseHobbiesContract {
 
     interface  View :IView{
         fun getListTypeOK(list: List<ChooseHobbiseData.DataBean.ChildrenBeanX>?)
+        fun addHobbies(data:String)
     }
     interface  Presenter :IPresenter<View>{
         fun getListType()
+
+        fun getList(list:List<List<ChooseHobbiseData.DataBean.ChildrenBeanX.ChildrenBean>>)
     }
 }
