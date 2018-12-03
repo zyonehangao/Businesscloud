@@ -92,12 +92,17 @@
     <dimen name="dp_58">58dp</dimen>
     <dimen name="dp_13">13dp</dimen>
     <dimen name="dp_21">21dp</dimen>
-    <dimen name="dp_67.5">67.5dp</dimen>
-    <dimen name="dp_20.5">20.5dp</dimen>
+    <dimen name="dp_6705">67.5dp</dimen>
+    <dimen name="dp_2005">20.5dp</dimen>
     <dimen name="dp_27">27dp</dimen>
     <dimen name="dp_7">7dp</dimen>
-    <dimen name="dp_0.5">0.5dp</dimen>
+    <dimen name="dp_005">0.5dp</dimen>
     <dimen name="dp_150">150dp</dimen>
+    <dimen name="sp_13">13sp</dimen>
+    <dimen name="dp_115">115dp</dimen>
+    <dimen name="dp_1005">10.5dp</dimen>
+    <dimen name="dp_205">2.5dp</dimen>
+
     <dimen name="btn_edittext_padding">5dp</dimen>
     <dimen name="btn_edittext_width">24dp</dimen>
     <!--<dimen name="square_button_size">48dp</dimen>-->

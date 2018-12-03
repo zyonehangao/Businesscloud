@@ -4,11 +4,15 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import com.cloud.shangwu.businesscloud.R
+import kotlinx.android.synthetic.main.activity_forget_passwprd.*
 
 /**
  * Created by chengxiaofen on 2018/7/22.
@@ -18,6 +22,7 @@ class ClearEditText @JvmOverloads constructor(context: Context, attrs: Attribute
     : EditText(context, attrs, defStyle), View.OnFocusChangeListener, TextWatcher {
     //EditText右侧的删除按钮
     private var mClearDrawable: Drawable? = null
+    private var mSeeDrawable: Drawable? = null
     private var hasFocus: Boolean = false
 
     init {
@@ -37,6 +42,19 @@ class ClearEditText @JvmOverloads constructor(context: Context, attrs: Attribute
                 mClearDrawable!!.intrinsicHeight)
         // 默认设置隐藏图标
         setClearIconVisible(false)
+
+        // 获取EditText的DrawableRight,假如没有设置我们就使用默认的图片,获取图片的顺序是左上右下（0,1,2,3,）
+        mSeeDrawable = compoundDrawables[2]
+        if (mSeeDrawable == null) {
+            mSeeDrawable = resources.getDrawable(
+                    R.drawable.blink)
+        }
+
+        mSeeDrawable!!.setBounds(0, 0, mSeeDrawable!!.intrinsicWidth-100,
+                mSeeDrawable!!.intrinsicHeight)
+        // 默认设置隐藏图标
+        setSeeIconVisible(false)
+
         // 设置焦点改变的监听
         onFocusChangeListener = this
         // 设置输入框里面内容发生改变的监听
@@ -66,11 +84,28 @@ class ClearEditText @JvmOverloads constructor(context: Context, attrs: Attribute
                 val rect = compoundDrawables[2].bounds
                 val height = rect.height()
                 val distance = (getHeight() - height) / 2
-                val isInnerWidth = x > width - totalPaddingRight && x < width - paddingRight
+                val isInnerWidth = x > width - totalPaddingRight-40 && x < width - paddingRight-40
+                val isInnerWidth2 = x > width - totalPaddingRight && x < width - paddingRight
                 val isInnerHeight = y > distance && y < distance + height
                 if (isInnerWidth && isInnerHeight) {
                     this.setText("")
                 }
+//                if(isInnerWidth2 && isInnerHeight){
+//                    if (EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == getInputType()) {
+//                        //如果不可见就设置为可见
+//                        setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD)
+//                        setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                        mSeeDrawable = resources.getDrawable(
+//                                R.drawable.blink)
+//
+//                    } else {
+//                        //如果可见就设置为不可见
+//                        setInputType(EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+//                        setTransformationMethod(HideReturnsTransformationMethod.getInstance())
+//                        mSeeDrawable = resources.getDrawable(
+//                                R.drawable.closedeyes)
+//                    }
+//                }
             }
         }
         return super.onTouchEvent(event)
@@ -91,6 +126,12 @@ class ClearEditText @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun setClearIconVisible(visible: Boolean) {
         val right = if (visible) mClearDrawable else null
+        setCompoundDrawables(compoundDrawables[0],
+                compoundDrawables[1], right, compoundDrawables[3])
+    }
+
+    private fun setSeeIconVisible(visible: Boolean) {
+        val right = if (visible) mSeeDrawable else null
         setCompoundDrawables(compoundDrawables[0],
                 compoundDrawables[1], right, compoundDrawables[3])
     }

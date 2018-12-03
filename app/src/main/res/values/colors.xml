@@ -109,5 +109,6 @@
 
     <color name="dividerline_color">#f1f2f6</color>
     <color name="invicard_bg">#f7fbfe</color>
+    <color name="item_position_solid">#f9f9f8</color>
 
 </resources>

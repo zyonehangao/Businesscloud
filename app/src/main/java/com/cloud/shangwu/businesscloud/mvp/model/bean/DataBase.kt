@@ -65,5 +65,13 @@ data class LabelHot(
         val ishot: Int,
         val lid: Int,
         val status: Int,
-        val type: Int
-)
+        val type: Int)
+
+data class PostData(
+        val name: String,
+        val company: String,
+        var location: String,
+        val exception: String,
+        val edution: String,
+        val wage: String)
+

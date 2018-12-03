@@ -87,8 +87,8 @@ class ForgetPassword : BaseSwipeBackActivity(), ForgetPasswordContract.View {
         }
         tv_time.setOnClickListener(onClickListener)
         btn_login.setOnClickListener(onClickListener)
-        seepwd.setOnClickListener(onClickListener)
-        seepwdagin.setOnClickListener(onClickListener)
+//        seepwd.setOnClickListener(onClickListener)
+//        seepwdagin.setOnClickListener(onClickListener)
     }
 
     override fun start() {
@@ -111,30 +111,7 @@ class ForgetPassword : BaseSwipeBackActivity(), ForgetPasswordContract.View {
 
                 mPresenter.Forgetpasd(et_username.text.toString(),new_password.text.toString(),ed_code.text.toString())
             }
-            R.id.seepwd ->{
-                if (EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == password.getInputType()) {
-                    //如果不可见就设置为可见
-                    password.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD)
-                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    //如果可见就设置为不可见
-                    password.setInputType(EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
-                }
 
-            }
-            R.id.seepwdagin ->{
-                if (EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == new_password.getInputType()) {
-                    //如果不可见就设置为可见
-                    new_password.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD)
-                    new_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    //如果可见就设置为不可见
-                    new_password.setInputType(EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    new_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
-                }
-
-            }
         }
     }
 
