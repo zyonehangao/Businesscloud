@@ -17,6 +17,7 @@ import com.cloud.shangwu.businesscloud.mvp.presenter.MinePresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.ChooseHobbiesActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.LablesActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainActivity
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.SettingActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.mine.UserPresentActivity
 import com.cloud.shangwu.businesscloud.utils.FileUtils
 import com.cloud.shangwu.businesscloud.utils.ImageLoader
@@ -42,16 +43,8 @@ class MineFragment :BaseFragment() , MineContract.View, View.OnClickListener {
 
     override fun getArea(tx:String) {
         if (tx.isEmpty()) tv_area.text="请选择地区" else tv_area.text=tx
-
     }
 
-    //    override fun showPicker(tx: String) {
-//        area=tx
-//        tv_location?.run {
-//            text=tx
-//            setTextColor(resources.getColor(R.color.Black))
-//        }
-//    }
     override fun showLoading() {
 
     }
@@ -99,6 +92,7 @@ class MineFragment :BaseFragment() , MineContract.View, View.OnClickListener {
         ll_area.setOnClickListener(this)
         ll_card_manager.setOnClickListener(this)
         iv_icon.setOnClickListener(this)
+        iv_setting.setOnClickListener(this)
 
     }
 
@@ -140,7 +134,9 @@ class MineFragment :BaseFragment() , MineContract.View, View.OnClickListener {
             R.id.ll_card_manager ->{
 
             }
-
+            R.id.iv_setting ->{
+                JumpUtil.Next(activity,SettingActivity::class.java)
+            }
             R.id.iv_icon ->{
                 Album.image(this)
                         .multipleChoice()

@@ -21,12 +21,12 @@ object JumpUtil {
      * @param targetClazz
      */
 
-    fun Next(context: Activity, targetClazz: Class<out Activity>) {
+    fun Next(context: Activity?, targetClazz: Class<out Activity>) {
         val mIntent = Intent(context, targetClazz)
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-        context.startActivity(mIntent)
-        context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        context?.startActivity(mIntent)
+        context?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
 

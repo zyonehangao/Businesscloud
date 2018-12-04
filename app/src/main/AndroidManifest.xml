@@ -70,6 +70,7 @@
         <activity android:name=".mvp.ui.activity.login.ChooseHobbiesActivity"/>
         <activity android:name=".mvp.ui.activity.login.IntCompanyActivity"/>
         <activity android:name=".mvp.ui.activity.login.BusnissActivity"/>
+        <activity android:name=".mvp.ui.activity.login.SettingActivity"/>
         <activity android:name=".mvp.ui.activity.login.MainActivity"
             android:launchMode="singleTask"
             />
