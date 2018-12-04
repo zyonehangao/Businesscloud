@@ -28,12 +28,12 @@ import kotlin.math.log
 
 
 class MainActivity : BaseActivity(), MainContract.View {
-    private val FRAGMENT_HOME = 0x01
+    private val FRAGMENT_HOME = 0x05
     private val FRAGMENT_CONTACTS = 0x02
     private val FRAGMENT_DYNAMIC = 0x03
     private val FRAGMENT_MINE = 0x04
-    private val PERSONAL = 0x05
-    private val COMPANY = 0x06
+    private val PERSONAL = 0x00
+    private val COMPANY = 0x01
     private var mIndex = FRAGMENT_HOME
     private var mMessageFragment: MessageFragment? = null
     private var mContatsFragment: ContatsFragment? = null

@@ -70,7 +70,8 @@ interface ApiService {
                             @Field("type") type: String,
                            @Field("code") position: String,
                      @Field("clan") clan: String,
-                     @Field("name") name: String
+                     @Field("name") name: String,
+                     @Field("telephone") telephone: String
     ): Observable<HttpResult<LoginData>>
 
 
@@ -91,7 +92,8 @@ interface ApiService {
                  @Field("type") type: Int,
                  @Field("email") email: String,
                  @Field("position") position: String,
-                 @Field("username") username: String
+                 @Field("username") username: String,
+                        @Field("telephone") telephone: String
     ): Observable<HttpResult<LoginData>>
 
 

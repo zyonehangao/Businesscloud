@@ -59,6 +59,10 @@ class SplashActivity : BaseActivity() , LoginContract.View{
      */
     private var pwd: String by Preference(Constant.PASSWORD_KEY, "")
 
+    /**
+     * local password
+     */
+
     private var alphaAnimation: AlphaAnimation? = null
 
     override fun attachLayoutRes(): Int = R.layout.activity_splash

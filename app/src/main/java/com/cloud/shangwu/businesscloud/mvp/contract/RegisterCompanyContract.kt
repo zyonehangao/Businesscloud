@@ -23,7 +23,7 @@ interface RegisterCompanyContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun registerCompany(companyname: String, password: String,area: String, pid: Int, type: Int,email: String,position: String,username: String)
+        fun registerCompany(companyname: String, password: String,area: String, pid: Int, type: Int,email: String,position: String,username: String,telephone: String)
 
         fun upload(file: File)
 

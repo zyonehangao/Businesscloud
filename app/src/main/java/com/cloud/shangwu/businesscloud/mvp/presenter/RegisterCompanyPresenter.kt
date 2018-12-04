@@ -19,9 +19,9 @@ import java.io.File
  */
 class RegisterCompanyPresenter : BasePresenter<RegisterCompanyContract.View>(), RegisterCompanyContract.Presenter {
 
-    override fun registerCompany(companyname: String, password: String,area: String, pid: Int, type: Int,email: String,position: String,username: String) {
+    override fun registerCompany(companyname: String, password: String,area: String, pid: Int, type: Int,email: String,position: String,username: String,telephone: String) {
         mView?.showLoading()
-        val disposable = registerModel.register(companyname, password, area,pid,type,email,position,username)
+        val disposable = registerModel.register(companyname, password, area,pid,type,email,position,username,telephone)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ results ->
                     mView?.apply {

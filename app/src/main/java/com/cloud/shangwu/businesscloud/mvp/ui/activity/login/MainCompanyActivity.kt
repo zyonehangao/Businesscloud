@@ -43,9 +43,7 @@ class MainCompanyActivity : BaseSwipeBackActivity() {
             setSupportActionBar(this)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
-        btn_confirm.setOnClickListener {
-            finish()
-        }
+
 
         name.setText("阿里巴巴网络技术有限公司")
         name.post(Runnable {

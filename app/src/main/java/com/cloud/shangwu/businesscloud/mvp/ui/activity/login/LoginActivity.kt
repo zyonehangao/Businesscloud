@@ -36,6 +36,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
      */
     private var pwd: String by Preference(Constant.PASSWORD_KEY, "")
 
+
     /**
      * token
      */
@@ -98,7 +99,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         isLogin = true
         user = data.username
         pwd=et_password.text.toString()
-
         token = data.token
 
         EventBus.getDefault().postSticky(LoginEvent(isLogin,data))

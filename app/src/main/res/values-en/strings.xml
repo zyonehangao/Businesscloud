@@ -56,7 +56,9 @@
     <string name="complete">完成</string>
     <string name="newpassword">新密码（6-20位字母、数字或字符）</string>
     <string name="please_enter_password">请在输入一次密码</string>
-    <string name="enter_phone_number_email">请输入用户名、邮箱、手机号</string>
+    <string name="enter_phone_number_email">请输入手机号/用户名</string>
+    <string name="enter_username">请输入用户名</string>
+    <string name="enter_phone">* 请输入手机号</string>
     <string name="input_emails">请输入邮箱</string>
     <string name="choice_location">* 请选择所在地区</string>
     <string name="import_user_names">qingshur  </string>
