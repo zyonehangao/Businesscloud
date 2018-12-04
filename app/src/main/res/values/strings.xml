@@ -119,4 +119,10 @@
     <string name="save_success">保存成功</string>
     <string name="input_lastname">* 请输入姓氏</string>
     <string name="input_firstname">* 请输入名字</string>
+    <string name="email_company">公司邮箱</string>
+    <string name="tel_company">公司电话</string>
+    <string name="address_company">公司地址</string>
+    <string name="intru_company">公司简介</string>
+    <string name="my_need_position">我招聘的岗位</string>
+    <string name="more">更多</string>
 </resources>

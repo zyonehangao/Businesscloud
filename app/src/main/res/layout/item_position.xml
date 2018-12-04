@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_115">
+
+    <RelativeLayout
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_settings"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_17"/>
+        <TextView
+            android:layout_below="@id/tv_position"
+            android:id="@+id/company"
+            android:layout_marginTop="@dimen/dp_1005"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_settings"
+            android:textColor="@color/Grey700"
+            android:textSize="@dimen/sp_14"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_11"
+            android:layout_below="@id/company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:padding="@dimen/dp_7"
+                android:background="@drawable/bg_item_position"
+                android:id="@+id/area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_settings"
+                android:textColor="@color/Grey700"
+                android:textSize="@dimen/sp_12"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/dp_7"
+                android:padding="@dimen/dp_7"
+                android:background="@drawable/bg_item_position"
+                android:id="@+id/experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_settings"
+                android:textColor="@color/Grey700"
+                android:textSize="@dimen/sp_12"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/dp_7"
+                android:padding="@dimen/dp_7"
+                android:background="@drawable/bg_item_position"
+                android:id="@+id/edution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_settings"
+                android:textColor="@color/Grey700"
+                android:textSize="@dimen/sp_12"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:id="@+id/wage"
+            android:layout_marginTop="@dimen/dp_27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_settings"
+            android:textColor="@color/Cyan"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_15"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

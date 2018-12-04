@@ -170,7 +170,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         }else if (!validate(name)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_name))
             valid=false
-        }else if (!validate(email)||!Validator.isEmail(email)){
+        }else if (!validate(email)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_email))
             valid=false
         }

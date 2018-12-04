@@ -41,7 +41,9 @@ class MainActivity : BaseActivity(), MainContract.View {
     private var mMineFragment: MineFragment? = null
     private var mCompanyFragment: CompanyFragment? = null
     var budle:Bundle?=null
-    private var mLoginType = COMPANY
+
+    private var mLoginType=COMPANY
+    private var mLogindata:LoginData?=null
     /**
      * Presenter
      */
@@ -73,6 +75,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun initData() {
 
 
+        mLogindata = intent.extras.getSerializable("login")as LoginData
+        mLoginType= mLogindata!!.type
     }
 
     override fun initView() {

@@ -76,6 +76,7 @@
             />
         <activity android:name=".mvp.ui.activity.login.UserAgreementActivity"/>
         <activity android:name=".mvp.ui.activity.mine.UserPresentActivity"/>
+        <activity android:name=".mvp.ui.activity.login.MainCompanyActivity"></activity>
     </application>
 
 </manifest>
