@@ -40,9 +40,9 @@ class RegisterPersonalPresenter : BasePresenter<RegisterPersonalContract.View>()
         UserRegisterModel()
     }
 
-    override fun userRegister(usernme: String, password: String, email: String, area: String, pid: String,type: String, code: String,clan: String,name: String) {
+    override fun userRegister(usernme: String, password: String, email: String, area: String, pid: String,type: String, code: String,clan: String,name: String,telephone: String) {
         mView?.showLoading()
-        val subscribe = userRegisterModer.UserRegister(usernme, password, email, area, pid,type, code,clan,name)
+        val subscribe = userRegisterModer.UserRegister(usernme, password, email, area, pid,type, code,clan,name,telephone)
                 .retryWhen(RetryWithDelay())
                 .subscribe({ res ->
                     mView?.apply {

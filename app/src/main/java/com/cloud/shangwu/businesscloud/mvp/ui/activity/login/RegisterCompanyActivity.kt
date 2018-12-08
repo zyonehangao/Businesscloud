@@ -160,6 +160,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         var pwd= et_password.text!!.trim().toString()
         var name=et_username.text.trim().toString()
         var email=et_email.text.trim().toString()
+        var phone=et_phone.text.toString()
 
         if (!validate(id)){
             showToast(getString(R.string.toast_error)+getString(R.string.toast_error_id))
@@ -175,12 +176,12 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
             valid=false
         }
         comRegise= ComRegise(tv_location.text.toString(),
-                et_username.text.toString(),
-                et_email.text.toString(),
+                name,
+                email,
                 "","","",
                 et_invcode.text.toString(),
-                et_password.text.toString(),"",1,
-                et_id.text.toString())
+                pwd,"",1,
+                id,phone)
         return valid
     }
 
@@ -202,7 +203,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
      */
     private fun register() {
         mRegisterPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area, 0,
-                comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username)
+                comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username, comRegise!!.phone)
     }
 
     override fun onDestroy() {

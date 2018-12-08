@@ -252,8 +252,8 @@ class RegisterCompanySecActivity:BaseSwipeBackActivity(), RegisterCompanyContrac
      * Register
      */
     private fun register() {
-        mPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area,0,
-                comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username)
+//        mPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area,0,
+//                comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username,comRegise)
 
     }
 

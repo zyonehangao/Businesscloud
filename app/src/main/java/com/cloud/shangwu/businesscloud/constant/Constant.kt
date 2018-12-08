@@ -66,4 +66,5 @@ object Constant {
 
     const val USERAGREE="file:///android_asset/useragreement.html"
 
+
 }

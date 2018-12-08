@@ -138,13 +138,14 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         if (validate()) {
             mPresenter.userRegister(et_username.text.toString()
                     ,et_password.text.toString(),
-                    et_password2.text.toString(),
+                    et_email.text.toString(),
                     area,
                     "0",
                     "0",
                     tv_location.text.toString(),
                     et_lastname.text.toString(),
-                    et_firstname.text.toString())
+                    et_firstname.text.toString(),
+                    et_phone.text.toString())
 //           val bundle= Bundle()
 //            bundle.putSerializable("UserRegise",UserRegise(
 //                    et_username.text.toString(),
@@ -170,7 +171,7 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
         var valid = true
         val username: String = et_username.text.toString()
         val password: String = et_password.text.toString()
-        val email: String = et_password2.text.toString()
+        val email: String = et_email.text.toString()
         val invitationcode: String = invitationcode.text.toString()
         val tv_location: String = tv_location.text.toString()
         val et_firstname: String = et_firstname.text.toString()
@@ -184,20 +185,21 @@ class RegisterPersonalActivity : BaseSwipeBackActivity(), RegisterPersonalContra
             valid = false
         }
         if (email.isEmpty()) {
-            et_password.error = getString(R.string.input_emaill)
+            et_email.error = getString(R.string.input_emaill)
             valid = false
         }
 
         if (tv_location.isEmpty()) {
-            et_password2.error = getString(R.string.choice_location)
+
+            et_email.error = getString(R.string.choice_location)
             valid = false
         }
         if (et_firstname.isEmpty()) {
-            et_password2.error = getString(R.string.input_firstname)
+            et_email.error = getString(R.string.input_firstname)
             valid = false
         }
         if (et_lastname.isEmpty()) {
-            et_password2.error = getString(R.string.input_lastname)
+            et_email.error = getString(R.string.input_lastname)
             valid = false
         }
         return valid

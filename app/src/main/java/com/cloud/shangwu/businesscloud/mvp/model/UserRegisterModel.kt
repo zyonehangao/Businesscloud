@@ -19,11 +19,12 @@ class UserRegisterModel : BaseModel() {
              type: String,
             code: String,
             clan: String,
-            name: String
+            name: String,
+            telephone: String
     ): Observable<HttpResult<LoginData>>{
         return RetrofitHelper.service.userRegister(
                 usernme, password, email
-                , area, pid,type,code,clan,name).compose(SchedulerUtils.ioToMain())
+                , area, pid,type,code,clan,name,telephone).compose(SchedulerUtils.ioToMain())
     }
 
 }

@@ -54,7 +54,7 @@ data class UserRegise(var username: String,var  password: String,var  email: Str
 data class ComRegise(var area : String, var companyName: String, var email : String,
                      var businessScope: String, var goal : String, var intro: String,
                      var invitedCode : String, var  password : String, var  position: String,
-                     var type : Int, var username : String):Serializable
+                     var type : Int, var username : String, var phone : String):Serializable
 
 data class LabelHot(
         val context: String,
