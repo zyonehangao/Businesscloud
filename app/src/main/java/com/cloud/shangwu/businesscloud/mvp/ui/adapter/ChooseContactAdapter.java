@@ -1,17 +1,17 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ContactComparator;
-import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.CreatGroupActivity;
 import com.cloud.shangwu.businesscloud.utils.Utils;
 
 import java.util.ArrayList;
@@ -21,13 +21,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private String[] mContactNames; // 联系人名称字符串数组
     private List<String> mContactList; // 联系人名称List（转换成拼音）
     private List<Contact> resultList; // 最终结果（包含分组的字母）
     private List<String> characterList; // 字母List
+
+    private Map<Integer,Boolean> map=new HashMap<>();// 存放已被选中的CheckBox
+
+    private CheckItemListener mCheckListener;
+
+    public interface CheckItemListener {
+
+        void itemChecked(Contact checkBean, boolean isChecked);
+    }
+
+    public void setmCheckListener(CheckItemListener listener){
+        this.mCheckListener=listener;
+    }
 
     private int mHeaderCount = 1;
 
@@ -38,7 +51,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public ContactAdapter(Context context, String[] contactNames) {
+    public ChooseContactAdapter(Context context, String[] contactNames) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mContactNames = contactNames;
@@ -81,13 +94,13 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType==ITEM_TYPE.ITEM_TYPE_HEADER.ordinal()){
+        if (viewType== ITEM_TYPE.ITEM_TYPE_HEADER.ordinal()){
             return new HeaderViewHolder(mLayoutInflater.inflate(R.layout.contactmessage_heard, parent, false));
         }else {
             if (viewType == ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()) {
                 return new CharacterHolder(mLayoutInflater.inflate(R.layout.item_character, parent, false));
             } else {
-                return new ContactHolder(mLayoutInflater.inflate(R.layout.item_contactmessage_list, parent, false));
+                return new ContactHolder(mLayoutInflater.inflate(R.layout.item_contactmessage_chooselist, parent, false));
             }
         }
 
@@ -97,20 +110,39 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder){
 
-        }else {
-            if (holder instanceof CharacterHolder) {
-                ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getmName());
-            } else if (holder instanceof ContactHolder) {
-                ((ContactHolder) holder).mTextView.setText(resultList.get(position).getmName());
-                ((ContactHolder) holder).mTextView.setOnClickListener(new View.OnClickListener() {
+        }else if(holder instanceof CharacterHolder) {
+            ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getmName());
+        } else if (holder instanceof ContactHolder) {
+                 Contact contact = resultList.get(position);
+                ((ContactHolder) holder).mTextView.setText(contact.getmName());
+                ((ContactHolder) holder).mTextView.setOnClickListener(view -> {
+                    contact.setIsChecked(!contact.getIsChecked());
+                    ((ContactHolder) holder).mCheckbox.setChecked(contact.getIsChecked());
+                    if (null != mCheckListener) {
+                        mCheckListener.itemChecked(contact, ((ContactHolder) holder).mCheckbox.isChecked());
+                    }
+                    notifyDataSetChanged();
+                });
+                ((ContactHolder) holder).mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(mContext, CreatGroupActivity.class);
-                        mContext.startActivity(intent);
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            map.put(position,true);
+                        }else {
+                            map.remove(position);
+                        }
                     }
                 });
+
+                if(map!=null&&map.containsKey(position)){
+                    ((ContactHolder) holder).mCheckbox.setChecked(true);
+                }else {
+                    ((ContactHolder) holder).mCheckbox.setChecked(false);
+                }
+
+
             }
-        }
+
 
     }
 
@@ -139,15 +171,16 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
 
             mTextView = (TextView) view.findViewById(R.id.character);
+
         }
     }
 
     public class ContactHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
-
+        CheckBox mCheckbox;
         ContactHolder(View view) {
             super(view);
-
+            mCheckbox = (CheckBox) view.findViewById(R.id.choose);
             mTextView = (TextView) view.findViewById(R.id.tv_name);
         }
     }
@@ -170,4 +203,6 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         return -1; // -1不会滑动
     }
+
+
 }
