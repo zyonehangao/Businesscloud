@@ -20,6 +20,7 @@ import com.cloud.shangwu.businesscloud.mvp.contract.MineContract
 import com.cloud.shangwu.businesscloud.mvp.presenter.MinePresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.IntCompanyActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.MainCompanyActivity
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RecommendActivity
 import com.cloud.shangwu.businesscloud.utils.FileUtils
 import com.yanzhenjie.album.Album
 import com.yanzhenjie.album.AlbumFile
@@ -140,7 +141,7 @@ class CompanyFragment : BaseFragment() , View.OnClickListener , MineContract.Vie
             }
 
             R.id.ll_bankcard_mycom ->{
-
+                JumpUtil.Next(activity!!, RecommendActivity::class.java)
             }
 
             R.id.ll_setting_mycom ->{

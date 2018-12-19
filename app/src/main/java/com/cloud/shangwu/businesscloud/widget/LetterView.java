@@ -29,7 +29,7 @@ public class LetterView extends LinearLayout {
     }
 
     private void initView() {
-        addView(buildImageLayout());
+//        addView(buildImageLayout());
 
         for (char i = 'A'; i <= 'Z'; i++) {
             final String character = i + "";
@@ -44,6 +44,7 @@ public class LetterView extends LinearLayout {
     private TextView buildTextLayout(final String character) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1);
 
+        layoutParams.setMargins(0,0,0,0);
         TextView tv = new TextView(mContext);
         tv.setLayoutParams(layoutParams);
         tv.setGravity(Gravity.CENTER);

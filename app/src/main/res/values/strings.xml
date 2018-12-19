@@ -127,4 +127,9 @@
     <string name="intru_company">公司简介</string>
     <string name="my_need_position">我招聘的岗位</string>
     <string name="more">更多</string>
+    <string name="recommend">推荐</string>
+    <string name="add_newfriend">添加新朋友</string>
+    <string name="invite_newfriend">邀请新的朋友</string>
+    <string name="form_contact">群聊</string>
+    <string name="choose_contact">选择联系人</string>
 </resources>

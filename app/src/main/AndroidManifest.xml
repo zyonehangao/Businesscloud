@@ -77,6 +77,8 @@
         <activity android:name=".mvp.ui.activity.login.UserAgreementActivity"/>
         <activity android:name=".mvp.ui.activity.mine.UserPresentActivity"/>
         <activity android:name=".mvp.ui.activity.login.MainCompanyActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.RecommendActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.CreatGroupActivity"></activity>
     </application>
 
 </manifest>
