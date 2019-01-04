@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.cloud.shangwu.businesscloud">
+
+    <permission
+        android:name="com.cloud.shangwu.businesscloud.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.quickblox.sample.chat.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -79,6 +86,78 @@
         <activity android:name=".mvp.ui.activity.login.MainCompanyActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.RecommendActivity"></activity>
         <activity android:name=".mvp.ui.activity.login.CreatGroupActivity"></activity>
+
+        <activity
+            android:theme="@style/ImAppTheme"
+            android:name=".im.ui.activity.SelectUsersActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".im.ui.activity.DialogsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".im.ui.activity.ChatActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChatActivityTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".im.ui.activity.ChatInfoActivity"
+            android:label="@string/chat_info"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".im.ui.activity.AttachmentImageActivity"
+            android:theme="@style/AppTheme.Dark"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.quickblox.sample.chat" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="im.gcm.GcmPushListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.quickblox.messages.services.gcm.QBGcmPushInstanceIDService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <meta-data android:name="com.quickblox.messages.TYPE" android:value="GCM" />
+        <meta-data android:name="com.quickblox.messages.SENDER_ID" android:value="@string/sender_id" />
+        <meta-data android:name="com.quickblox.messages.QB_ENVIRONMENT" android:value="DEVELOPMENT" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:theme="@style/ImAppTheme"
+            android:name=".im.ui.activity.ChatsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:theme="@style/ImAppTheme"
+            android:name=".im.ui.activity.DialogActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+
     </application>
 
 </manifest>

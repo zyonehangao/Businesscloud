@@ -25,6 +25,12 @@ import com.cloud.shangwu.businesscloud.utils.Validator
 import kotlinx.android.synthetic.main.activity_registercompany.*
 import kotlinx.android.synthetic.main.title_register.*
 import org.greenrobot.eventbus.EventBus
+import com.quickblox.core.exception.QBResponseException
+import com.quickblox.users.model.QBUser
+import com.quickblox.core.QBEntityCallback
+import com.quickblox.users.QBUsers
+
+
 
 
 /**
@@ -204,6 +210,18 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
     private fun register() {
         mRegisterPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area, 0,
                 comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username, comRegise!!.phone)
+
+        val user = QBUser(comRegise!!.username, comRegise!!.password)
+
+        QBUsers.signUp(user).performAsync(object : QBEntityCallback<QBUser> {
+            override fun onSuccess(user: QBUser, args: Bundle) {
+                // success
+            }
+
+            override fun onError(error: QBResponseException) {
+                // error
+            }
+        })
     }
 
     override fun onDestroy() {

@@ -1,0 +1,25 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion '28.0.2'
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    api ("com.quickblox:quickblox-android-sdk-messages:$rootProject.qbSdkVersion" )
+
+    api "com.android.support:design:${rootProject.designVersion}"
+    api "com.github.johnkil.android-robototextview:robototextview:${rootProject.robotoTextViewVersion}"
+
+}
