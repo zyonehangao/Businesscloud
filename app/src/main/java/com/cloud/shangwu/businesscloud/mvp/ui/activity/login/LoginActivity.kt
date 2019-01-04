@@ -11,6 +11,8 @@ import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.event.MessageEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.im.ui.activity.DialogsActivity
+import com.cloud.shangwu.businesscloud.im.utils.chat.ChatHelper
 import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.LoginPresenter
@@ -23,6 +25,11 @@ import com.cloud.shangwu.businesscloud.utils.Preference
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.white_toolbar.*
 import org.greenrobot.eventbus.EventBus
+import com.quickblox.core.exception.QBResponseException
+import com.quickblox.users.model.QBUser
+import com.quickblox.core.QBEntityCallback
+import io.reactivex.Single
+
 
 class LoginActivity : BaseActivity(), LoginContract.View {
 
@@ -98,15 +105,15 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         showToast(getString(R.string.login_success))
         isLogin = true
         user = data.username
-        pwd=et_password.text.toString()
+        pwd = et_password.text.toString()
         token = data.token
 
-        EventBus.getDefault().postSticky(LoginEvent(isLogin,data))
+        EventBus.getDefault().postSticky(LoginEvent(isLogin, data))
 
-        var bundle=Bundle()
-        bundle.putSerializable("login",data)
+        var bundle = Bundle()
+        bundle.putSerializable("login", data)
 
-        JumpUtil.Next(this,MainActivity::class.java,bundle)
+        JumpUtil.Next(this, MainActivity::class.java, bundle)
         finish()
     }
 
@@ -129,7 +136,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
                 startActivity(intent)
 
             }
-            R.id.tv_forgetpsd ->{
+            R.id.tv_forgetpsd -> {
                 val intent = Intent(this@LoginActivity, ForgetPassword::class.java)
                 startActivity(intent)
             }
@@ -141,8 +148,18 @@ class LoginActivity : BaseActivity(), LoginContract.View {
      */
     private fun login() {
 
-        if (validate()) {
-            mPresenter.login(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
+        if (validate()) run {
+            //            mPresenter.login(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
+//            val user = QBUser("fang", "12345678")
+//            ChatHelper.getInstance().login(user, object : QBEntityCallback<Void?> {
+//                override fun onError(p0: QBResponseException?) {
+//                }
+//
+//                override fun onSuccess(p0: Void?, p1: Bundle?) {
+//
+//                }
+//            })
+            mPresenter.combineLogin(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
         }
 
     }

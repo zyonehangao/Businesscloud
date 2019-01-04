@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.quickblox.ui.kit.chatmessage.adapter.widget.MessageTextViewLeft
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/msg_message_text_view_left"
+    style="@style/ListItemTextMessage.Left"
+    custom:widget_id_top="@layout/custom_msg_left_top_widget">
+
+    <ImageView
+        android:layout_marginStart="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/checkbox_on"
+        android:layout_marginLeft="10dp" />
+
+</com.quickblox.ui.kit.chatmessage.adapter.widget.MessageTextViewLeft>

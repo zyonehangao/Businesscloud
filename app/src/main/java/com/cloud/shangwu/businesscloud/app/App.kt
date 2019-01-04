@@ -6,6 +6,10 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
+import com.cloud.shangwu.businesscloud.im.models.SampleConfigs
+import com.cloud.shangwu.businesscloud.im.utils.Consts
+import com.cloud.shangwu.businesscloud.im.utils.QBResRequestExecutor
+import com.cloud.shangwu.businesscloud.im.utils.configs.ConfigUtils
 import com.cloud.shangwu.businesscloud.utils.DisplayManager
 import com.cloud.shangwu.businesscloud.utils.SettingUtil
 import com.squareup.leakcanary.LeakCanary
@@ -14,19 +18,26 @@ import java.util.*
 import kotlin.properties.Delegates
 import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper
 import com.cloud.shangwu.businesscloud.widget.helper.MediaLoader
+import com.quickblox.sample.core.CoreApp
+import com.quickblox.sample.core.utils.ActivityLifecycle
 import com.yanzhenjie.album.Album
 import com.yanzhenjie.album.AlbumConfig
+import java.io.IOException
 
 
 /**
  * Created by chengxiaofen on 2018/4/21.
  */
-class App : Application() {
+class App : CoreApp() {
 
     private var refWatcher: RefWatcher? = null
 
 
     private var sqlHelper: SQLHelper? = null
+
+    private var sampleConfigs: SampleConfigs? = null
+
+    private var qbResRequestExecutor: QBResRequestExecutor? = null
 
     companion object {
         private val TAG = "App"
@@ -43,6 +54,8 @@ class App : Application() {
 
     }
 
+
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -56,8 +69,22 @@ class App : Application() {
                 .setLocale(Locale.getDefault())
                 .build()
         )
+
+        initSampleConfigs()
     }
 
+    private fun initSampleConfigs() {
+        try {
+            sampleConfigs = ConfigUtils.getSampleConfigs(Consts.SAMPLE_CONFIG_FILE_NAME)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    fun getSampleConfigs(): SampleConfigs? {
+        return this!!.sampleConfigs
+    }
 
 
 
@@ -154,5 +181,11 @@ class App : Application() {
 
     fun clearAppCache() {}
 
-
+//    @Synchronized
+//    fun getQbResRequestExecutor(): QBResRequestExecutor? {
+//        return if (qbResRequestExecutor == null)
+//            qbResRequestExecutor = QBResRequestExecutor()
+//        else
+//            qbResRequestExecutor
+//    }
 }

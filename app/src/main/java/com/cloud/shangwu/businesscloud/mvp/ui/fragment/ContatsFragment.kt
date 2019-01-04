@@ -15,12 +15,12 @@ import com.cloud.shangwu.businesscloud.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_contant.*
 
 
-
-class ContatsFragment :BaseFragment() {
+class ContatsFragment : BaseFragment() {
 
     private var contactNames: Array<String>? = null
     private var layoutManager: LinearLayoutManager? = null
     private var mAdapter: ContactAdapter? = null
+
     companion object {
         fun getInstance(): ContatsFragment = ContatsFragment()
     }
@@ -33,7 +33,7 @@ class ContatsFragment :BaseFragment() {
         layoutManager = LinearLayoutManager(activity)
         mAdapter = ContactAdapter(activity, contactNames)
 
-        contact_list.layoutManager=layoutManager
+        contact_list.layoutManager = layoutManager
         contact_list.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST))
         contact_list.adapter = mAdapter
 
@@ -42,16 +42,11 @@ class ContatsFragment :BaseFragment() {
             override fun clickCharacter(character: String) {
                 layoutManager!!.scrollToPositionWithOffset(mAdapter!!.getScrollPosition(character), 0)
             }
+
             override fun clickArrow() {
                 layoutManager!!.scrollToPositionWithOffset(0, 0)
             }
         })
-
-        contact_list.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, CreatGroupActivity::class.java)
-            startActivity(intent)
-        })
-
     }
 
     override fun lazyLoad() {

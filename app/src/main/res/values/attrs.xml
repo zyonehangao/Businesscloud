@@ -62,4 +62,25 @@
         <attr name="radius" format="reference|dimension" />
     </declare-styleable>
 
+    <string-array name="dlg_image_pick">
+        <item>Gallery</item>
+        <item>Camera</item>
+    </string-array>
+
+    <declare-styleable name="MaskedImageView">
+        <attr name="mask" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RTCGlView">
+        <attr name="mainMirror" format="boolean" />
+        <attr name="secondMirror" format="boolean" />
+        <attr name="mainCoords" format="reference" />
+        <attr name="secondCoords" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SeekBarPreference">
+        <attr name="min" format="integer" />
+        <attr name="stepSize" format="integer" />
+    </declare-styleable>
+
 </resources>
