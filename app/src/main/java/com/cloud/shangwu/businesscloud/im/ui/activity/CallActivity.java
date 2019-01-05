@@ -67,7 +67,7 @@ import java.util.Map;
 /**
  * QuickBlox team
  */
-public class CallActivity extends BaseActivity implements QBRTCClientSessionCallbacks, QBRTCSessionStateCallback<QBRTCSession>, QBRTCSignalingCallback,
+public class CallActivity extends BaseChatActivity implements QBRTCClientSessionCallbacks, QBRTCSessionStateCallback<QBRTCSession>, QBRTCSignalingCallback,
         OnCallEventsController, IncomeCallFragmentCallbackListener, ConversationFragmentCallbackListener, NetworkConnectionChecker.OnConnectivityChangedListener,
         ScreenShareFragment.OnSharingEvents {
 
@@ -223,13 +223,13 @@ public class CallActivity extends BaseActivity implements QBRTCClientSessionCall
 
         ArrayList<Integer> idsUsersNeedLoad = UsersUtils.getIdsNotLoadedUsers(usersFromDb, allParticipantsOfCall);
         if (!idsUsersNeedLoad.isEmpty()) {
-//            requestExecutor.loadUsersByIds(idsUsersNeedLoad, new QBEntityCallbackImpl<ArrayList<QBUser>>() {
-//                @Override
-//                public void onSuccess(ArrayList<QBUser> result, Bundle params) {
-//                    dbManager.saveAllUsers(result, false);
-//                    needUpdateOpponentsList(result);
-//                }
-//            });
+            requestExecutor.loadUsersByIds(idsUsersNeedLoad, new QBEntityCallbackImpl<ArrayList<QBUser>>() {
+                @Override
+                public void onSuccess(ArrayList<QBUser> result, Bundle params) {
+                    dbManager.saveAllUsers(result, false);
+                    needUpdateOpponentsList(result);
+                }
+            });
         }
     }
 
