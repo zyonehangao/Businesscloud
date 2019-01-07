@@ -33,7 +33,7 @@ public class CoreApp extends Application {
         qbConfigs = CoreConfigUtils.getCoreConfigsOrNull(getQbConfigFileName());
     }
 
-    public   synchronized CoreApp getInstance() {
+    public static synchronized CoreApp getInstance() {
         return instance;
     }
 

@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseActivity
@@ -14,6 +15,7 @@ import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
 import com.cloud.shangwu.businesscloud.mvp.presenter.MainPresenter
 import com.cloud.shangwu.businesscloud.mvp.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.pop_menu.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -23,6 +25,7 @@ import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.ColorEvent
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.event.MessageEvent
+import com.cloud.shangwu.businesscloud.utils.CustomPopWindow
 import com.cloud.shangwu.businesscloud.widget.BNVEffect
 import kotlin.math.log
 
@@ -41,7 +44,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private var mMineFragment: MineFragment? = null
     private var mCompanyFragment: CompanyFragment? = null
     var budle:Bundle?=null
-
+    private var mCustomPopWindow: CustomPopWindow? = null
     private var mLoginType=COMPANY
     private var mLogindata:LoginData?=null
     /**
@@ -81,6 +84,11 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun initView() {
         mPresenter.attachView(this)
+
+
+        iv_black.setOnClickListener{
+            showPopMenu()
+        }
         toolbar.run {
             title = ""
             toolbar_nam.run {
@@ -97,6 +105,46 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
         showFragment(mIndex)
 
+    }
+
+    private fun showPopMenu() {
+        val contentView = LayoutInflater.from(this).inflate(R.layout.pop_menu_item, null)
+        //处理popWindow 显示内容
+        handleLogic(contentView)
+        //创建并显示popWindow
+        mCustomPopWindow = CustomPopWindow.PopupWindowBuilder(this)
+                .setView(contentView)
+                .create()
+                .showAsDropDown(iv_black, 50, 20)
+
+
+    }
+
+    /**
+     * 处理弹出显示内容、点击事件等逻辑
+     * @param contentView
+     */
+    private fun handleLogic(contentView: View) {
+        val listener = View.OnClickListener { v ->
+            if (mCustomPopWindow != null) {
+                mCustomPopWindow?.dissmiss()
+            }
+            var showContent = ""
+            when (v.id) {
+                R.id.menu1 -> showContent = "点击 Item菜单1"
+                R.id.menu2 -> showContent = "点击 Item菜单2"
+                R.id.menu3 -> showContent = "点击 Item菜单3"
+                R.id.menu4 -> showContent = "点击 Item菜单4"
+                R.id.menu5 -> showContent = "点击 Item菜单5"
+            }
+
+            Toast.makeText(this@MainActivity, showContent, Toast.LENGTH_SHORT).show()
+        }
+        contentView.findViewById<View>(R.id.menu1).setOnClickListener(listener)
+        contentView.findViewById<View>(R.id.menu2).setOnClickListener(listener)
+        contentView.findViewById<View>(R.id.menu3).setOnClickListener(listener)
+        contentView.findViewById<View>(R.id.menu4).setOnClickListener(listener)
+        contentView.findViewById<View>(R.id.menu5).setOnClickListener(listener)
     }
 
     override fun initColor() {

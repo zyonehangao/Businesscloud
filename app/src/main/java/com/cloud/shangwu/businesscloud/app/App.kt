@@ -83,7 +83,7 @@ class App : CoreApp() {
     }
 
     fun getSampleConfigs(): SampleConfigs? {
-        return this!!.sampleConfigs
+        return this.sampleConfigs
     }
 
 
@@ -181,8 +181,15 @@ class App : CoreApp() {
 
     fun clearAppCache() {}
 
-//    @Synchronized
-//    fun getQbResRequestExecutor(): QBResRequestExecutor? {
+    @Synchronized
+     fun getQbResRequestExecutor(): QBResRequestExecutor? {
+        this.qbResRequestExecutor= if (this.qbResRequestExecutor == null)
+            QBResRequestExecutor() else this.qbResRequestExecutor
+        return qbResRequestExecutor
+    }
+
+
+//    fun getQbResRequestExecutor(): QBResRequestExecutor {
 //        return if (qbResRequestExecutor == null)
 //            qbResRequestExecutor = QBResRequestExecutor()
 //        else
