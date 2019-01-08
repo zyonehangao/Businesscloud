@@ -43,6 +43,7 @@ data class LoginData(
     val type: Int,
     val uid: Int,
     val username: String,
+    val password: String,
     val userno: Any,
     val wx: Any
 ):Serializable

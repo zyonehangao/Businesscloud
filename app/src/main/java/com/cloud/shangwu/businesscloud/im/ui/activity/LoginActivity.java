@@ -77,29 +77,29 @@ public class LoginActivity extends CoreBaseActivity {
     }
 
     private void login(final QBUser user) {
-        ProgressDialogFragment.show(getSupportFragmentManager(), R.string.dlg_login);
-        ChatHelper.getInstance().login(user, new QBEntityCallback<Void>() {
-            @Override
-            public void onSuccess(Void result, Bundle bundle) {
-                SharedPrefsHelper.getInstance().saveQbUser(user);
-                DialogsActivity.start(LoginActivity.this);
-                finish();
-
-                ProgressDialogFragment.hide(getSupportFragmentManager());
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-                ProgressDialogFragment.hide(getSupportFragmentManager());
-                ErrorUtils.showSnackbar(userListView, R.string.login_chat_login_error, e,
-                        R.string.dlg_retry, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                login(user);
-                            }
-                        });
-            }
-        });
+//        ProgressDialogFragment.show(getSupportFragmentManager(), R.string.dlg_login);
+//        ChatHelper.getInstance().login(user, new QBEntityCallback<Void>() {
+//            @Override
+//            public void onSuccess(Void result, Bundle bundle) {
+//                SharedPrefsHelper.getInstance().saveQbUser(user);
+//                DialogsActivity.start(LoginActivity.this);
+//                finish();
+//
+//                ProgressDialogFragment.hide(getSupportFragmentManager());
+//            }
+//
+//            @Override
+//            public void onError(QBResponseException e) {
+//                ProgressDialogFragment.hide(getSupportFragmentManager());
+//                ErrorUtils.showSnackbar(userListView, R.string.login_chat_login_error, e,
+//                        R.string.dlg_retry, new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                login(user);
+//                            }
+//                        });
+//            }
+//        });
     }
 
     private class OnUserLoginItemClickListener implements AdapterView.OnItemClickListener {

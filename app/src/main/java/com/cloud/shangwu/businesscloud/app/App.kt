@@ -10,19 +10,18 @@ import com.cloud.shangwu.businesscloud.im.models.SampleConfigs
 import com.cloud.shangwu.businesscloud.im.utils.Consts
 import com.cloud.shangwu.businesscloud.im.utils.QBResRequestExecutor
 import com.cloud.shangwu.businesscloud.im.utils.configs.ConfigUtils
+import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper
 import com.cloud.shangwu.businesscloud.utils.DisplayManager
 import com.cloud.shangwu.businesscloud.utils.SettingUtil
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
-import java.util.*
-import kotlin.properties.Delegates
-import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper
 import com.cloud.shangwu.businesscloud.widget.helper.MediaLoader
 import com.quickblox.sample.core.CoreApp
-import com.quickblox.sample.core.utils.ActivityLifecycle
+import com.squareup.leakcanary.LeakCanary
+import com.squareup.leakcanary.RefWatcher
 import com.yanzhenjie.album.Album
 import com.yanzhenjie.album.AlbumConfig
 import java.io.IOException
+import java.util.*
+import kotlin.properties.Delegates
 
 
 /**
@@ -37,13 +36,12 @@ class App : CoreApp() {
 
     private var sampleConfigs: SampleConfigs? = null
 
-    private var qbResRequestExecutor: QBResRequestExecutor? = null
-
     companion object {
-        private val TAG = "App"
 
+        private val TAG = "App"
         var context: Context by Delegates.notNull()
             private set
+
 
         lateinit var instance: Application
 
@@ -52,9 +50,13 @@ class App : CoreApp() {
             return app.refWatcher
         }
 
+        @Volatile
+        private var qbResRequestExecutor: QBResRequestExecutor? = null
+
+        @Synchronized
+        fun getResRequestExecutor(): QBResRequestExecutor? =
+                qbResRequestExecutor ?: QBResRequestExecutor().also { qbResRequestExecutor = it }
     }
-
-
 
     override fun onCreate() {
         super.onCreate()
@@ -85,7 +87,6 @@ class App : CoreApp() {
     fun getSampleConfigs(): SampleConfigs? {
         return this.sampleConfigs
     }
-
 
 
     /**
@@ -131,7 +132,6 @@ class App : CoreApp() {
     }
 
 
-
     private val mActivityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             Log.d(TAG, "onCreated: " + activity.componentName.className)
@@ -163,10 +163,8 @@ class App : CoreApp() {
     }
 
 
-
-
     /** 获取数据库Helper  */
-     fun getSQLHelper(): SQLHelper {
+    fun getSQLHelper(): SQLHelper {
         if (sqlHelper == null)
             sqlHelper = SQLHelper(instance)
         return sqlHelper as SQLHelper
@@ -181,12 +179,13 @@ class App : CoreApp() {
 
     fun clearAppCache() {}
 
-    @Synchronized
-     fun getQbResRequestExecutor(): QBResRequestExecutor? {
-        this.qbResRequestExecutor= if (this.qbResRequestExecutor == null)
-            QBResRequestExecutor() else this.qbResRequestExecutor
-        return qbResRequestExecutor
-    }
+
+//    @Synchronized
+//     fun getQbResRequestExecutor(): QBResRequestExecutor? {
+//        this.qbResRequestExecutor= if (this.qbResRequestExecutor == null)
+//            QBResRequestExecutor() else this.qbResRequestExecutor
+//        return qbResRequestExecutor
+//    }
 
 
 //    fun getQbResRequestExecutor(): QBResRequestExecutor {

@@ -31,7 +31,7 @@ public abstract class BaseChatActivity extends CoreBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        requestExecutor = App.getInstance().getQbResRequestExecutor();
+        requestExecutor = App.Companion.getResRequestExecutor();
         sharedPrefsHelper = SharedPrefsHelper.getInstance();
         googlePlayServicesHelper = new GooglePlayServicesHelper();
     }
@@ -67,12 +67,7 @@ public abstract class BaseChatActivity extends CoreBaseActivity {
             progressDialog.setCanceledOnTouchOutside(false);
 
             // Disable the back button
-            DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    return keyCode == KeyEvent.KEYCODE_BACK;
-                }
-            };
+            DialogInterface.OnKeyListener keyListener = (dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK;
             progressDialog.setOnKeyListener(keyListener);
         }
 

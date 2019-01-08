@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.EventBus
 import com.quickblox.core.exception.QBResponseException
 import com.quickblox.users.model.QBUser
 import com.quickblox.core.QBEntityCallback
+import com.quickblox.core.helper.StringifyArrayList
 import com.quickblox.users.QBUsers
 
 
@@ -212,6 +213,9 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
                 comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username, comRegise!!.phone)
 
         val user = QBUser(comRegise!!.username, comRegise!!.password)
+        val userTags = StringifyArrayList<String>()
+        userTags.add("businesscloud")
+        user.tags=userTags
 
         QBUsers.signUp(user).performAsync(object : QBEntityCallback<QBUser> {
             override fun onSuccess(user: QBUser, args: Bundle) {

@@ -83,8 +83,12 @@ class SplashActivity : BaseActivity() , LoginContract.View{
                 }
 
                 override fun onAnimationEnd(p0: Animation?) {
-                    if (user.isNotEmpty()&&pwd.isNotEmpty())
-                        mPresenter.login(user, pwd, "")else jumpToMain()
+//                    if (user.isEmpty()&&pwd.isEmpty()){
+//                        jumpToRegister()
+//                    }
+//                    if (user.isNotEmpty()&&pwd.isNotEmpty())
+//                    mPresenter.combineLogin(user,pwd,"",this@SplashActivity)else jumpToLogin()
+                    jumpToLogin()
                 }
 
                 override fun onAnimationStart(p0: Animation?) {
@@ -94,6 +98,13 @@ class SplashActivity : BaseActivity() , LoginContract.View{
         layout_splash.startAnimation(alphaAnimation)
     }
 
+    private fun jumpToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish()
+    }
+
     override fun start() {
 
     }
@@ -101,6 +112,13 @@ class SplashActivity : BaseActivity() , LoginContract.View{
 
 
     fun jumpToMain() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish()
+    }
+
+    fun jumpToRegister() {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

@@ -38,7 +38,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
         <activity
             android:name=".mvp.ui.activity.login.SplashActivity"
           >
@@ -83,9 +84,9 @@
             />
         <activity android:name=".mvp.ui.activity.login.UserAgreementActivity"/>
         <activity android:name=".mvp.ui.activity.mine.UserPresentActivity"/>
-        <activity android:name=".mvp.ui.activity.login.MainCompanyActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.RecommendActivity"></activity>
-        <activity android:name=".mvp.ui.activity.login.CreatGroupActivity"></activity>
+        <activity android:name=".mvp.ui.activity.login.MainCompanyActivity" />
+        <activity android:name=".mvp.ui.activity.login.RecommendActivity" />
+        <activity android:name=".mvp.ui.activity.login.CreatGroupActivity" />
 
         <activity
             android:theme="@style/ImAppTheme"
@@ -157,6 +158,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity android:name=".im.ui.activity.OpponentsActivity"
+            android:theme="@style/ImAppTheme"/>
+        <activity android:name=".im.ui.activity.CallActivity"
+            android:theme="@style/ImAppTheme"/>
+        <activity android:name=".im.ui.activity.PermissionsActivity" />
+
+        <service
+            android:name="com.cloud.shangwu.businesscloud.im.service.CallService">
+        </service>
 
     </application>
 

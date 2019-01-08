@@ -17,6 +17,7 @@ import com.cloud.shangwu.businesscloud.im.managers.DialogsManager;
 import com.cloud.shangwu.businesscloud.im.ui.activity.ChatActivity;
 import com.cloud.shangwu.businesscloud.im.ui.activity.DialogActivity;
 import com.cloud.shangwu.businesscloud.im.ui.activity.DialogsActivity;
+import com.cloud.shangwu.businesscloud.im.ui.activity.OpponentsActivity;
 import com.cloud.shangwu.businesscloud.im.ui.activity.SelectUsersActivity;
 import com.cloud.shangwu.businesscloud.im.utils.chat.ChatHelper;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact;
@@ -33,6 +34,7 @@ import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.model.QBUser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,10 +45,12 @@ import java.util.Map;
 public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements DialogsManager.ManagingDialogsCallbacks {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private String[] mContactNames; // 联系人名称字符串数组
+    private List<String> mContactNames; // 联系人名称字符串数组
     private List<String> mContactList; // 联系人名称List（转换成拼音）
     private List<Contact> resultList; // 最终结果（包含分组的字母）
     private List<String> characterList; // 字母List
+    private Intent mIntent;
+    private ArrayList<QBUser> mList;
 
     private int mHeaderCount = 1;
 
@@ -73,22 +77,33 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public ContactAdapter(Context context, String[] contactNames) {
+    public ContactAdapter(Context context, ArrayList<QBUser> list) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        mContactNames = contactNames;
-
-
-        handleContact();
+//        mContactNames = contactNames;
+        mList=list;
+         mIntent=new Intent(context,CreatGroupActivity.class);
+        mContactNames=new ArrayList();
+        handleContact(list);
     }
 
-    private void handleContact() {
-        mContactList = new ArrayList<>();
-        Map<String, String> map = new HashMap<>();
+    private void handleContact(ArrayList<QBUser> list) {
 
-        for (String mContactName : mContactNames) {
-            String pinyin = Utils.getPingYin(mContactName);
-            map.put(pinyin, mContactName);
+//        for (QBUser user: list) {
+//            mContactNames.add(user.getFullName());
+//        }
+        mContactList = new ArrayList<>();
+        Map<String, QBUser> map = new HashMap<>();
+
+//        for (String mContactName : mContactNames) {
+//            String pinyin = Utils.getPingYin(mContactName);
+//            map.put(pinyin, mContactName);
+//            mContactList.add(pinyin);
+//        }
+        for (int i=0;i<list.size();i++){
+            QBUser qbUser = list.get(i);
+            String pinyin = Utils.getPingYin(qbUser.getFullName()==null?qbUser.getLogin():qbUser.getFullName());
+            map.put(pinyin, qbUser);
             mContactList.add(pinyin);
         }
         Collections.sort(mContactList, new ContactComparator());
@@ -102,11 +117,13 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (!characterList.contains(character)) {
                 if (character.hashCode() >= "A".hashCode() && character.hashCode() <= "Z".hashCode()) { // 是字母
                     characterList.add(character);
-                    resultList.add(new Contact(character, ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+                    resultList.add(new Contact(new QBUser(character,""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+
                 } else {
                     if (!characterList.contains("#")) {
                         characterList.add("#");
-                        resultList.add(new Contact("#", ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+//                        resultList.add(new Contact("#", ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+                        resultList.add(new Contact(new QBUser("#",""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
                     }
                 }
             }
@@ -137,15 +154,25 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         } else {
             if (holder instanceof CharacterHolder) {
-                ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getmName());
+                ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getName());
             } else if (holder instanceof ContactHolder) {
-                ((ContactHolder) holder).mTextView.setText(resultList.get(position).getmName());
+                ((ContactHolder) holder).mTextView.setText(resultList.get(position).getName());
                 holder.itemView.setOnClickListener(v -> {
+//                    startGroupChat();
 //                    createChatThenStart();
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("chat",mList);
+                    mIntent.putExtra("users",bundle);
+
                     mContext.startActivity(new Intent(mContext,CreatGroupActivity.class));
                 });
             }
         }
+    }
+
+    private void startGroupChat() {
+        OpponentsActivity.start(mContext, false);
+
     }
 
     @Override
@@ -232,7 +259,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getScrollPosition(String character) {
         if (characterList.contains(character)) {
             for (int i = 0; i < resultList.size(); i++) {
-                if (resultList.get(i).getmName().equals(character)) {
+                if (resultList.get(i).getName().equals(character)) {
                     return i;
                 }
             }

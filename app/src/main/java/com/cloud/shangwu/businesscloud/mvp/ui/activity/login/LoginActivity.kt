@@ -1,17 +1,25 @@
 package com.cloud.shangwu.businesscloud.ui.activity
 
 import android.content.Intent
+import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.util.Log
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
+import com.cloud.shangwu.businesscloud.app.App
 import com.cloud.shangwu.businesscloud.base.BaseActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.event.MessageEvent
 import com.cloud.shangwu.businesscloud.ext.showToast
+import com.cloud.shangwu.businesscloud.im.service.CallService
 import com.cloud.shangwu.businesscloud.im.ui.activity.DialogsActivity
+import com.cloud.shangwu.businesscloud.im.ui.activity.OpponentsActivity
+import com.cloud.shangwu.businesscloud.im.utils.Consts
+import com.cloud.shangwu.businesscloud.im.utils.QBEntityCallbackImpl
+import com.cloud.shangwu.businesscloud.im.utils.QBResRequestExecutor
 import com.cloud.shangwu.businesscloud.im.utils.chat.ChatHelper
 import com.cloud.shangwu.businesscloud.mvp.contract.LoginContract
 import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData
@@ -28,7 +36,13 @@ import org.greenrobot.eventbus.EventBus
 import com.quickblox.core.exception.QBResponseException
 import com.quickblox.users.model.QBUser
 import com.quickblox.core.QBEntityCallback
+
+import com.quickblox.sample.core.utils.Toaster
 import io.reactivex.Single
+import com.quickblox.chat.QBChatService
+import com.quickblox.auth.session.QBSession
+import com.quickblox.auth.QBAuth
+import com.quickblox.core.helper.StringifyArrayList
 
 
 class LoginActivity : BaseActivity(), LoginContract.View {
@@ -49,6 +63,11 @@ class LoginActivity : BaseActivity(), LoginContract.View {
      */
     private var token: String by Preference(Constant.TOKEN_KEY, "")
 
+    /**
+     * token
+     */
+    private var qbuser: QBUser by Preference(Constant.QBUSER_KEY, QBUser())
+
     private val mPresenter: LoginPresenter by lazy {
         LoginPresenter()
     }
@@ -65,6 +84,8 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         mDialog.dismiss()
     }
 
+    protected lateinit var requestExecutor: QBResRequestExecutor
+
     override fun showError(errorMsg: String) {
         showToast(errorMsg)
     }
@@ -76,6 +97,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     override fun enableNetworkTip(): Boolean = false
 
     override fun initData() {
+        requestExecutor = App.getResRequestExecutor()!!
     }
 
     override fun initView() {
@@ -108,14 +130,19 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         pwd = et_password.text.toString()
         token = data.token
 
+
         EventBus.getDefault().postSticky(LoginEvent(isLogin, data))
 
         var bundle = Bundle()
         bundle.putSerializable("login", data)
 
+
+
         JumpUtil.Next(this, MainActivity::class.java, bundle)
         finish()
     }
+
+
 
 
     override fun loginFail() {
@@ -149,8 +176,10 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     private fun login() {
 
         if (validate()) run {
-            //            mPresenter.login(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
-//            val user = QBUser("fang", "12345678")
+
+//                        mPresenter.login(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
+//            val user = QBUser(74725068)
+//            user.password=et_password.text.toString()
 //            ChatHelper.getInstance().login(user, object : QBEntityCallback<Void?> {
 //                override fun onError(p0: QBResponseException?) {
 //                }
@@ -159,9 +188,64 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 //
 //                }
 //            })
-            mPresenter.combineLogin(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
+            mPresenter.combineLogin(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString(),this)
+
+//            loginChat(et_username.text.toString(), et_password.text.toString())
+
         }
 
+    }
+
+    fun loginChat(login:String,password: String){
+        requestExecutor.signInUser(QBUser(login,password), object : QBEntityCallbackImpl<QBUser>() {
+            override fun onSuccess(result: QBUser, params: Bundle) {
+                startLoginService(result)
+                    startOpponentsActivity()
+
+            }
+
+            override fun onError(responseException: QBResponseException) {
+
+                Toaster.longToast(R.string.sign_up_error)
+            }
+        })
+//        startLoginService(QBUser(login,password))
+//        OpponentsActivity.start(this, false)
+//        finish()
+    }
+
+    private fun signInCreatedUser(user: QBUser, deleteCurrentUser: Boolean) {
+        requestExecutor.signInUser(user, object : QBEntityCallbackImpl<QBUser>() {
+            override fun onSuccess(result: QBUser, params: Bundle) {
+                if (deleteCurrentUser) {
+//                    removeAllUserData(result)
+                } else {
+                    startOpponentsActivity()
+                }
+            }
+
+            override fun onError(responseException: QBResponseException) {
+//                hideProgressDialog()
+                Toaster.longToast(R.string.sign_up_error)
+            }
+        })
+    }
+
+    private fun loginToChat(qbUser: QBUser) {
+        qbUser.password = et_password.text.toString()
+        startLoginService(qbUser)
+    }
+
+    private fun startLoginService(qbUser: QBUser) {
+        val tempIntent = Intent(this, CallService::class.java)
+        val pendingIntent = createPendingResult(Consts.EXTRA_LOGIN_RESULT_CODE, tempIntent, 0)
+        Log.e("LoginActivity","startLoginService"  )
+        CallService.start(this, qbUser, pendingIntent)
+    }
+
+    private fun startOpponentsActivity() {
+        OpponentsActivity.start(this@LoginActivity, false)
+        finish()
     }
 
     /**

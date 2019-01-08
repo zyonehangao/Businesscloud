@@ -1,11 +1,20 @@
 package com.cloud.shangwu.businesscloud.im.utils.chat;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.app.App;
 import com.cloud.shangwu.businesscloud.im.models.SampleConfigs;
+import com.cloud.shangwu.businesscloud.im.service.CallService;
+import com.cloud.shangwu.businesscloud.im.utils.ChatPingAlarmManager;
+import com.cloud.shangwu.businesscloud.im.utils.Consts;
+import com.cloud.shangwu.businesscloud.im.utils.SettingsUtil;
+import com.cloud.shangwu.businesscloud.im.utils.WebRtcSessionManager;
 import com.cloud.shangwu.businesscloud.im.utils.qb.QbDialogHolder;
 import com.cloud.shangwu.businesscloud.im.utils.qb.QbDialogUtils;
 import com.cloud.shangwu.businesscloud.im.utils.qb.QbUsersHolder;
@@ -15,6 +24,9 @@ import com.google.gson.Gson;
 import com.quickblox.auth.session.QBSettings;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBRestChatService;
+import com.quickblox.chat.QBSignaling;
+import com.quickblox.chat.QBWebRTCSignaling;
+import com.quickblox.chat.listeners.QBVideoChatSignalingManagerListener;
 import com.quickblox.chat.model.QBAttachment;
 import com.quickblox.chat.model.QBChatDialog;
 import com.quickblox.chat.model.QBChatMessage;
@@ -36,11 +48,14 @@ import com.quickblox.sample.core.utils.Toaster;
 import com.quickblox.sample.core.utils.configs.ConfigParser;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
+import com.quickblox.videochat.webrtc.QBRTCClient;
+import com.quickblox.videochat.webrtc.QBRTCConfig;
 
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.DiscussionHistory;
+import org.jivesoftware.smackx.ping.PingFailedListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +67,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import static org.webrtc.ContextUtils.getApplicationContext;
+
 public class ChatHelper {
     private static final String TAG = ChatHelper.class.getSimpleName();
 
@@ -62,6 +79,7 @@ public class ChatHelper {
     private static ChatHelper instance;
 
     private QBChatService qbChatService;
+    private QBRTCClient rtcClient;
 
     public static synchronized ChatHelper getInstance() {
         if (instance == null) {
@@ -130,25 +148,32 @@ public class ChatHelper {
         qbChatService.removeConnectionListener(listener);
     }
 
-    public void login(final QBUser user, final QBEntityCallback<Void> callback) {
+    public void login(final QBUser user, final QBEntityCallback<Void> callback, Activity activity) {
         // Create REST API session on QuickBlox
         QBUsers.signIn(user).performAsync(new QbEntityCallbackTwoTypeWrapper<QBUser, Void>(callback) {
             @Override
             public void onSuccess(QBUser qbUser, Bundle args) {
                 user.setId(qbUser.getId());
-                loginToChat(user, new QbEntityCallbackWrapper<>(callback));
+                loginToChat(user, new QbEntityCallbackWrapper<>(callback),activity);
+
             }
         });
     }
 
-    public void loginToChat(final QBUser user, final QBEntityCallback<Void> callback) {
+
+
+
+
+    public void loginToChat(final QBUser user, final QBEntityCallback<Void> callback,Activity activity) {
         if (qbChatService.isLoggedIn()) {
             callback.onSuccess(null, null);
             return;
         }
 
         qbChatService.login(user, callback);
+
     }
+
 
     public void join(QBChatDialog chatDialog, final QBEntityCallback<Void> callback) {
         DiscussionHistory history = new DiscussionHistory();

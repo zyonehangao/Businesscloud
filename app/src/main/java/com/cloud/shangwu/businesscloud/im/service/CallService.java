@@ -13,6 +13,10 @@ import com.cloud.shangwu.businesscloud.im.utils.ChatPingAlarmManager;
 import com.cloud.shangwu.businesscloud.im.utils.Consts;
 import com.cloud.shangwu.businesscloud.im.utils.SettingsUtil;
 import com.cloud.shangwu.businesscloud.im.utils.WebRtcSessionManager;
+import com.cloud.shangwu.businesscloud.im.utils.qb.callback.QbEntityCallbackTwoTypeWrapper;
+import com.cloud.shangwu.businesscloud.im.utils.qb.callback.QbEntityCallbackWrapper;
+import com.quickblox.auth.QBAuth;
+import com.quickblox.auth.session.QBSession;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBSignaling;
 import com.quickblox.chat.QBWebRTCSignaling;
@@ -22,6 +26,7 @@ import com.quickblox.chat.listeners.QBVideoChatSignalingManagerListener;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 
+import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
 import com.quickblox.videochat.webrtc.QBRTCConfig;
@@ -45,7 +50,7 @@ public class CallService extends Service {
         intent.putExtra(Consts.EXTRA_COMMAND_TO_SERVICE, Consts.COMMAND_LOGIN);
         intent.putExtra(Consts.EXTRA_QB_USER, qbUser);
         intent.putExtra(Consts.EXTRA_PENDING_INTENT, pendingIntent);
-
+        Log.e(TAG,"qbUser:"+qbUser.getId()+"   pwd  "+qbUser.getPassword());
         context.startService(intent);
     }
 
@@ -78,12 +83,15 @@ public class CallService extends Service {
             currentCommand = intent.getIntExtra(Consts.EXTRA_COMMAND_TO_SERVICE, Consts.COMMAND_NOT_FOUND);
             pendingIntent = intent.getParcelableExtra(Consts.EXTRA_PENDING_INTENT);
             currentUser = (QBUser) intent.getSerializableExtra(Consts.EXTRA_QB_USER);
+            Log.e(TAG,"currentUser:"+currentUser.getId()+"   pwd  "+currentUser.getPassword());
         }
     }
 
     private void startSuitableActions() {
+        Log.e(TAG,"startSuitableActions:");
         if (currentCommand == Consts.COMMAND_LOGIN) {
             startLoginToChat();
+//            startActionsOnSuccessLogin();
         } else if (currentCommand == Consts.COMMAND_LOGOUT) {
             logout();
         }
@@ -101,6 +109,7 @@ public class CallService extends Service {
     }
 
     private void startLoginToChat() {
+        Log.e(TAG,"startLoginToChat:");
         if (!chatService.isLoggedIn()) {
             loginToChat(currentUser);
         } else {
@@ -109,6 +118,35 @@ public class CallService extends Service {
     }
 
     private void loginToChat(QBUser qbUser) {
+        Log.e(TAG,"loginToChat:");
+//        QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
+//            @Override
+//            public void onSuccess(QBUser qbUser, Bundle args) {
+//                qbUser.setId(qbUser.getId());
+//                loginToChat(qbUser, new QbEntityCallbackWrapper<>(callback),activity);
+////                chatService.login(qbUser, new QBEntityCallback<QBUser>() {
+////                    @Override
+////                    public void onSuccess(QBUser qbUser, Bundle bundle) {
+////                        Log.d(TAG, "login onSuccess");
+////                        startActionsOnSuccessLogin();
+////                    }
+////
+////                    @Override
+////                    public void onError(QBResponseException e) {
+////                        Log.d(TAG, "login onError " + e.getMessage());
+////                        sendResultToActivity(false, e.getMessage() != null
+////                                ? e.getMessage()
+////                                : "Login error");
+//////                        startActionsOnSuccessLogin();
+////                    }
+////                });
+//            }
+//
+//            @Override
+//            public void onError(QBResponseException e) {
+//
+//            }
+//        });
         chatService.login(qbUser, new QBEntityCallback<QBUser>() {
             @Override
             public void onSuccess(QBUser qbUser, Bundle bundle) {
@@ -124,6 +162,9 @@ public class CallService extends Service {
                         : "Login error");
             }
         });
+
+
+
     }
 
     private void startActionsOnSuccessLogin() {

@@ -1,20 +1,20 @@
 package com.cloud.shangwu.businesscloud.mvp.model.bean;
 
+import com.quickblox.users.model.QBUser;
+
 import java.io.Serializable;
 
-public class Contact implements Serializable {
-    private String mName;
+public class Contact extends QBUser implements Serializable {
+
+    public QBUser mUser;
     private int mType;
     private boolean isChecked=false;
 
-    public Contact(String name, int type) {
-        mName = name;
+    public Contact(QBUser user, int type) {
+        mUser=user;
         mType = type;
     }
 
-    public String getmName() {
-        return mName;
-    }
 
     public int getmType() {
         return mType;
@@ -23,5 +23,9 @@ public class Contact implements Serializable {
     public boolean getIsChecked(){return  isChecked;}
 
     public void setIsChecked(boolean isChecked){this.isChecked=isChecked;}
+
+    public String getName(){
+        return mUser.getFullName()==null?mUser.getLogin():mUser.getFullName();
+    }
 
 }

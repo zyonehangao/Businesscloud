@@ -35,6 +35,9 @@ public class ConnectivityUtils {
             return true;
         }
 
+
+
+
         return false;
     }
 }

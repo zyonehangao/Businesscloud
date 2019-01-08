@@ -83,30 +83,30 @@ public class SplashActivity extends CoreSplashActivity {
     }
 
     private void loginToChat(final QBUser user) {
-        ProgressDialogFragment.show(getSupportFragmentManager(), R.string.dlg_restoring_chat_session);
-
-        ChatHelper.getInstance().loginToChat(user, new QBEntityCallback<Void>() {
-            @Override
-            public void onSuccess(Void result, Bundle bundle) {
-                Log.v(TAG, "Chat login onSuccess()");
-
-                ProgressDialogFragment.hide(getSupportFragmentManager());
-                DialogsActivity.start(SplashActivity.this);
-                finish();
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-                ProgressDialogFragment.hide(getSupportFragmentManager());
-                Log.w(TAG, "Chat login onError(): " + e);
-                showSnackbarError(findViewById(R.id.layout_root), R.string.error_recreate_session, e,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                loginToChat(user);
-                            }
-                        });
-            }
-        });
+//        ProgressDialogFragment.show(getSupportFragmentManager(), R.string.dlg_restoring_chat_session);
+//
+//        ChatHelper.getInstance().loginToChat(user, new QBEntityCallback<Void>() {
+//            @Override
+//            public void onSuccess(Void result, Bundle bundle) {
+//                Log.v(TAG, "Chat login onSuccess()");
+//
+//                ProgressDialogFragment.hide(getSupportFragmentManager());
+//                DialogsActivity.start(SplashActivity.this);
+//                finish();
+//            }
+//
+//            @Override
+//            public void onError(QBResponseException e) {
+//                ProgressDialogFragment.hide(getSupportFragmentManager());
+//                Log.w(TAG, "Chat login onError(): " + e);
+//                showSnackbarError(findViewById(R.id.layout_root), R.string.error_recreate_session, e,
+//                        new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                loginToChat(user);
+//                            }
+//                        });
+//            }
+//        });
     }
 }

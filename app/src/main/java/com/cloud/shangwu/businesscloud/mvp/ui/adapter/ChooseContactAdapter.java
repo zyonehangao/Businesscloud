@@ -13,6 +13,7 @@ import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ContactComparator;
 import com.cloud.shangwu.businesscloud.utils.Utils;
+import com.quickblox.users.model.QBUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,10 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
         void itemChecked(Contact checkBean, boolean isChecked);
     }
 
+    public Map<Integer,Boolean> getCheckedContact(){
+        return map;
+    }
+
     public void setmCheckListener(CheckItemListener listener){
         this.mCheckListener=listener;
     }
@@ -51,21 +56,23 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
 
-    public ChooseContactAdapter(Context context, String[] contactNames) {
+    public ChooseContactAdapter(Context context,  ArrayList<QBUser> list) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        mContactNames = contactNames;
-
-        handleContact();
+//        mContactNames = contactNames;
+//        mContactNames=new ArrayList();
+        handleContact(list);
     }
 
-    private void handleContact() {
-        mContactList = new ArrayList<>();
-        Map<String, String> map = new HashMap<>();
+    private void handleContact(ArrayList<QBUser> list) {
 
-        for (int i = 0; i < mContactNames.length; i++) {
-            String pinyin = Utils.getPingYin(mContactNames[i]);
-            map.put(pinyin, mContactNames[i]);
+        mContactList = new ArrayList<>();
+        Map<String, QBUser> map = new HashMap<>();
+
+        for (int i=0;i<list.size();i++){
+            QBUser qbUser = list.get(i);
+            String pinyin = Utils.getPingYin(qbUser.getFullName()==null?qbUser.getLogin():qbUser.getFullName());
+            map.put(pinyin, qbUser);
             mContactList.add(pinyin);
         }
         Collections.sort(mContactList, new ContactComparator());
@@ -79,16 +86,17 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (!characterList.contains(character)) {
                 if (character.hashCode() >= "A".hashCode() && character.hashCode() <= "Z".hashCode()) { // 是字母
                     characterList.add(character);
-                    resultList.add(new Contact(character, ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+                    resultList.add(new Contact(new QBUser(character,""), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+
                 } else {
                     if (!characterList.contains("#")) {
                         characterList.add("#");
-                        resultList.add(new Contact("#", ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+                        resultList.add(new Contact(new QBUser("#",""), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
                     }
                 }
             }
 
-            resultList.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
+            resultList.add(new Contact(map.get(name), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
         }
     }
 
@@ -111,10 +119,10 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof HeaderViewHolder){
 
         }else if(holder instanceof CharacterHolder) {
-            ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getmName());
+            ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getName());
         } else if (holder instanceof ContactHolder) {
                  Contact contact = resultList.get(position);
-                ((ContactHolder) holder).mTextView.setText(contact.getmName());
+                ((ContactHolder) holder).mTextView.setText(contact.getName());
                 ((ContactHolder) holder).mTextView.setOnClickListener(view -> {
                     contact.setIsChecked(!contact.getIsChecked());
                     ((ContactHolder) holder).mCheckbox.setChecked(contact.getIsChecked());
@@ -195,7 +203,7 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
     public int getScrollPosition(String character) {
         if (characterList.contains(character)) {
             for (int i = 0; i < resultList.size(); i++) {
-                if (resultList.get(i).getmName().equals(character)) {
+                if (resultList.get(i).getName().equals(character)) {
                     return i;
                 }
             }
