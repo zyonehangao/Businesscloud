@@ -144,6 +144,8 @@ dependencies {
     implementation "com.github.orangegangsters:swipy:$rootProject.swipyVersion@aar"
 
     implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:$rootProject.qbSdkVersion"
+
+    compile 'com.ilike:voicerecorder:1.0.2'
 }
 
 //apply from: "../artifacts.gradle"

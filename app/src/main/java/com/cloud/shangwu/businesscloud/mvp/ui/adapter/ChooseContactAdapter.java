@@ -2,6 +2,7 @@ package com.cloud.shangwu.businesscloud.mvp.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private Map<Integer,Boolean> map=new HashMap<>();// 存放已被选中的CheckBox
 
+    private List<Contact> mContacts=new ArrayList<>();
+
     private CheckItemListener mCheckListener;
 
     public interface CheckItemListener {
@@ -41,6 +44,10 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public Map<Integer,Boolean> getCheckedContact(){
         return map;
+    }
+
+    public List<Contact> getCheckedContacts(){
+        return mContacts;
     }
 
     public void setmCheckListener(CheckItemListener listener){
@@ -61,6 +68,7 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
         mLayoutInflater = LayoutInflater.from(context);
 //        mContactNames = contactNames;
 //        mContactNames=new ArrayList();
+        Log.i("test","size"+list.size());
         handleContact(list);
     }
 
@@ -136,8 +144,10 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if(isChecked==true){
                             map.put(position,true);
+                            mContacts.add(resultList.get(position));
                         }else {
                             map.remove(position);
+                            mContacts.remove(mContacts.size()-1);
                         }
                     }
                 });

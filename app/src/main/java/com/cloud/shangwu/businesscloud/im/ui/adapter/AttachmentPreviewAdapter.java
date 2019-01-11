@@ -35,6 +35,7 @@ public class AttachmentPreviewAdapter extends BaseListAdapter<File> {
 
     private Map<File, QBAttachment> fileQBAttachmentMap;
     private Map<File, Integer> fileUploadProgressMap;
+    private Context mContext;
 
     private OnAttachmentCountChangedListener onAttachmentCountChangedListener;
     private OnAttachmentUploadErrorListener onAttachmentUploadErrorListener;
@@ -43,6 +44,7 @@ public class AttachmentPreviewAdapter extends BaseListAdapter<File> {
                                     OnAttachmentCountChangedListener countChangedListener,
                                     OnAttachmentUploadErrorListener errorListener) {
         super(context);
+        mContext=context;
         fileQBAttachmentMap = Collections.synchronizedMap(new HashMap<File, QBAttachment>());
         fileUploadProgressMap = Collections.synchronizedMap(new HashMap<File, Integer>());
         onAttachmentCountChangedListener = countChangedListener;

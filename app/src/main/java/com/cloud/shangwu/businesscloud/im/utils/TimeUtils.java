@@ -23,4 +23,13 @@ public class TimeUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.getDefault());
         return Long.parseLong(dateFormat.format(new Date(milliseconds)));
     }
+
+    /**
+     * get current time in milliseconds
+     *
+     * @return
+     */
+    public static long getCurrentTimeInLong() {
+        return System.currentTimeMillis();
+    }
 }

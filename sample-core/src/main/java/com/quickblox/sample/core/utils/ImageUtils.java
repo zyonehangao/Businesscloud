@@ -9,6 +9,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import com.quickblox.sample.core.BuildConfig;
 import com.quickblox.sample.core.CoreApp;
@@ -134,7 +135,8 @@ public class ImageUtils {
     private static Uri getValidUri(File file, Context context) {
         Uri outputUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            String authority = context.getPackageName() + ".provider";
+            String authority = "com.cloud.shangwu.businesscloud" + ".provider";
+            Log.e("ImageUtils","authority ="+authority);
             outputUri = FileProvider.getUriForFile(context, authority, file);
         } else {
             outputUri = Uri.fromFile(file);

@@ -58,7 +58,7 @@
         <provider
 
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.cloud.shangwu.businesscloud.fileprovider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -167,6 +167,7 @@
         <service
             android:name="com.cloud.shangwu.businesscloud.im.service.CallService">
         </service>
+        <service android:name="com.cloud.shangwu.businesscloud.im.service.PlayService"/>
 
     </application>
 

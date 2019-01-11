@@ -45,14 +45,19 @@ import java.util.Map;
 public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements DialogsManager.ManagingDialogsCallbacks {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private List<String> mContactNames; // 联系人名称字符串数组
+    private ArrayList mContactNames; // 联系人名称字符串数组
     private List<String> mContactList; // 联系人名称List（转换成拼音）
     private List<Contact> resultList; // 最终结果（包含分组的字母）
     private List<String> characterList; // 字母List
     private Intent mIntent;
     private ArrayList<QBUser> mList;
+    private ArrayList<Contact> contacts;
 
     private int mHeaderCount = 1;
+
+    public ArrayList<Contact> getContacts(){
+        return contacts;
+    }
 
 
     @Override
@@ -84,6 +89,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mList=list;
          mIntent=new Intent(context,CreatGroupActivity.class);
         mContactNames=new ArrayList();
+        contacts=new ArrayList<>();
         handleContact(list);
     }
 
@@ -127,7 +133,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             }
-
+            contacts.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
             resultList.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
         }
     }

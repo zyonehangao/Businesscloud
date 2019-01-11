@@ -1,5 +1,6 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
@@ -133,7 +134,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             when (v.id) {
                 R.id.menu1 -> showContent = "点击 Item菜单1"
                 R.id.menu2 -> showContent = "点击 Item菜单2"
-                R.id.menu3 -> showContent = "点击 Item菜单3"
+                R.id.menu3 -> toGroupChat()
                 R.id.menu4 -> showContent = "点击 Item菜单4"
                 R.id.menu5 -> showContent = "点击 Item菜单5"
             }
@@ -145,6 +146,16 @@ class MainActivity : BaseActivity(), MainContract.View {
         contentView.findViewById<View>(R.id.menu3).setOnClickListener(listener)
         contentView.findViewById<View>(R.id.menu4).setOnClickListener(listener)
         contentView.findViewById<View>(R.id.menu5).setOnClickListener(listener)
+    }
+
+    private fun toGroupChat() {
+//        var qbuser = mContatsFragment?.getQbuser()
+
+
+        var intent=Intent(this,CreatGroupActivity::class.java)
+//        intent.putParcelableArrayListExtra("users",qbuser)
+
+        startActivity(intent)
     }
 
     override fun initColor() {

@@ -1,8 +1,13 @@
 package com.cloud.shangwu.businesscloud.im.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -12,21 +17,30 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.cloud.shangwu.businesscloud.R;
+import com.cloud.shangwu.businesscloud.im.models.MessageBean;
+import com.cloud.shangwu.businesscloud.im.service.PlayService;
 import com.cloud.shangwu.businesscloud.im.ui.adapter.AttachmentPreviewAdapter;
 import com.cloud.shangwu.businesscloud.im.ui.adapter.ChatAdapter;
 import com.cloud.shangwu.businesscloud.im.ui.widget.AttachmentPreviewAdapterView;
+import com.cloud.shangwu.businesscloud.im.ui.widget.VoiceRecorderView;
+import com.cloud.shangwu.businesscloud.im.utils.AppCache;
+import com.cloud.shangwu.businesscloud.im.utils.TimeUtils;
 import com.cloud.shangwu.businesscloud.im.utils.chat.ChatHelper;
 import com.cloud.shangwu.businesscloud.im.utils.qb.PaginationHistoryListener;
 import com.cloud.shangwu.businesscloud.im.utils.qb.QbChatDialogMessageListenerImp;
 import com.cloud.shangwu.businesscloud.im.utils.qb.QbDialogHolder;
 import com.cloud.shangwu.businesscloud.im.utils.qb.QbDialogUtils;
 import com.cloud.shangwu.businesscloud.im.utils.qb.VerboseQbChatConnectionListener;
+
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.model.QBAttachment;
 import com.quickblox.chat.model.QBChatDialog;
@@ -79,6 +93,11 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
     private ChatMessageListener chatMessageListener;
     private boolean checkAdapterInit;
 
+    protected VoiceRecorderView voiceRecorderView;
+    private List<MessageBean> voices;
+    PlayServiceConnection mPlayServiceConnection;
+    private ImageButton tvRecorder;
+
     public static void startForResult(Activity activity, int code, QBChatDialog dialogId) {
         Intent intent = new Intent(activity, ChatActivity.class);
         intent.putExtra(ChatActivity.EXTRA_DIALOG_ID, dialogId);
@@ -95,6 +114,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
         Log.v(TAG, "deserialized dialog = " + qbChatDialog);
         qbChatDialog.initForChat(QBChatService.getInstance());
 
+        voices = new ArrayList<>();
         initViews();
         initMessagesRecyclerView();
 
@@ -281,6 +301,10 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
         new ImagePickHelper().pickAnImage(this, REQUEST_CODE_ATTACHMENT);
     }
 
+    public void onVoiceClick(View view){
+
+    }
+
     public void showMessage(QBChatMessage message) {
         if (isAdapterConnected()) {
             chatAdapter.add(message);
@@ -301,8 +325,42 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
         unShownMessages.add(message);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initViews() {
       //  actionBar.setDisplayHomeAsUpEnabled(true);
+        Intent intent = new Intent();
+        intent.setClass(this, PlayService.class);
+        mPlayServiceConnection = new PlayServiceConnection();
+        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+        voiceRecorderView =  findViewById(R.id.voice_recorder);
+
+        voiceRecorderView.setShowMoveUpToCancelHint("松开手指，取消发送");
+        voiceRecorderView.setShowReleaseToCancelHint("手指上滑，取消发送");
+        tvRecorder = (ImageButton) findViewById(R.id.button_chat_voice);
+        tvRecorder.setOnTouchListener((v, event) -> {
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (AppCache.getPlayService().isPlaying) {
+                    AppCache.getPlayService().stopPlayVoiceAnimation2();
+                }
+            }
+
+            return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new VoiceRecorderView.EaseVoiceRecorderCallback() {
+
+                @Override
+                public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
+                    Log.e("voiceFilePath=", voiceFilePath + "  time = " + voiceTimeLength);
+                    //   sendVoiceMessage(voiceFilePath, voiceTimeLength);
+                    MessageBean bean = new MessageBean();
+                    bean.path = voiceFilePath;
+                    bean.msg = "image";
+                    bean.second = voiceTimeLength;
+                    bean.time = TimeUtils.getCurrentTimeInLong();
+                    voices.add(bean);
+//                    adapter.notifyDataSetChanged();
+                }
+            });
+        });
 
         messageEditText = _findViewById(R.id.edit_chat_message);
         progressBar = _findViewById(R.id.progress_chat);
@@ -603,4 +661,18 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
             loadChatHistory();
         }
     }
+
+    private class PlayServiceConnection implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            final PlayService playService = ((PlayService.PlayBinder) service).getService();
+            Log.e("onServiceConnected----", "onServiceConnected");
+            AppCache.setPlayService(playService);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+    }
+
 }

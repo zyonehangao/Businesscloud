@@ -31,6 +31,7 @@ class ContatsFragment : BaseFragment() {
     private var mAdapter: ContactAdapter? = null
     private var contact :MutableList<Contact>?=null
 
+
     private val EXTRA_QB_DIALOG = "qb_dialog"
 
     companion object {
@@ -83,4 +84,5 @@ class ContatsFragment : BaseFragment() {
             }
         })
     }
+
 }
