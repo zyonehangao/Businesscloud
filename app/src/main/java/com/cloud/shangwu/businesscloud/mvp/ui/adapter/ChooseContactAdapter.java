@@ -14,7 +14,7 @@ import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ContactComparator;
 import com.cloud.shangwu.businesscloud.utils.Utils;
-import com.quickblox.users.model.QBUser;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +63,7 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
 
-    public ChooseContactAdapter(Context context,  ArrayList<QBUser> list) {
+    public ChooseContactAdapter(Context context,  ArrayList<String> list) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
 //        mContactNames = contactNames;
@@ -72,16 +72,16 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
         handleContact(list);
     }
 
-    private void handleContact(ArrayList<QBUser> list) {
+    private void handleContact(ArrayList<String> list) {
 
         mContactList = new ArrayList<>();
-        Map<String, QBUser> map = new HashMap<>();
+        Map<String, Contact> map = new HashMap<>();
 
         for (int i=0;i<list.size();i++){
-            QBUser qbUser = list.get(i);
-            String pinyin = Utils.getPingYin(qbUser.getFullName()==null?qbUser.getLogin():qbUser.getFullName());
-            map.put(pinyin, qbUser);
-            mContactList.add(pinyin);
+//            QBUser qbUser = list.get(i);
+//            String pinyin = Utils.getPingYin(qbUser.getFullName()==null?qbUser.getLogin():qbUser.getFullName());
+//            map.put(pinyin, qbUser);
+//            mContactList.add(pinyin);
         }
         Collections.sort(mContactList, new ContactComparator());
 
@@ -94,17 +94,17 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (!characterList.contains(character)) {
                 if (character.hashCode() >= "A".hashCode() && character.hashCode() <= "Z".hashCode()) { // 是字母
                     characterList.add(character);
-                    resultList.add(new Contact(new QBUser(character,""), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+//                    resultList.add(new Contact(new QBUser(character,""), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
 
                 } else {
                     if (!characterList.contains("#")) {
                         characterList.add("#");
-                        resultList.add(new Contact(new QBUser("#",""), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+//                        resultList.add(new Contact(new QBUser("#",""), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
                     }
                 }
             }
 
-            resultList.add(new Contact(map.get(name), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
+//            resultList.add(new Contact(map.get(name), ContactAdapter.ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
         }
     }
 
@@ -127,10 +127,10 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof HeaderViewHolder){
 
         }else if(holder instanceof CharacterHolder) {
-            ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getName());
+//            ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getName());
         } else if (holder instanceof ContactHolder) {
                  Contact contact = resultList.get(position);
-                ((ContactHolder) holder).mTextView.setText(contact.getName());
+//                ((ContactHolder) holder).mTextView.setText(contact.getName());
                 ((ContactHolder) holder).mTextView.setOnClickListener(view -> {
                     contact.setIsChecked(!contact.getIsChecked());
                     ((ContactHolder) holder).mCheckbox.setChecked(contact.getIsChecked());
@@ -213,9 +213,9 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<RecyclerView.View
     public int getScrollPosition(String character) {
         if (characterList.contains(character)) {
             for (int i = 0; i < resultList.size(); i++) {
-                if (resultList.get(i).getName().equals(character)) {
-                    return i;
-                }
+//                if (resultList.get(i).getName().equals(character)) {
+//                    return i;
+//                }
             }
         }
 

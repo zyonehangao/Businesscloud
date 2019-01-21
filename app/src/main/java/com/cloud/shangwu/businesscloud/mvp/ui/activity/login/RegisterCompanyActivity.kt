@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.cloud.shangwu.businesscloud.R
+import com.cloud.shangwu.businesscloud.app.App
 import com.cloud.shangwu.businesscloud.base.BaseSwipeBackActivity
 import com.cloud.shangwu.businesscloud.constant.Constant
 import com.cloud.shangwu.businesscloud.event.LoginEvent
@@ -25,11 +26,11 @@ import com.cloud.shangwu.businesscloud.utils.Validator
 import kotlinx.android.synthetic.main.activity_registercompany.*
 import kotlinx.android.synthetic.main.title_register.*
 import org.greenrobot.eventbus.EventBus
-import com.quickblox.core.exception.QBResponseException
-import com.quickblox.users.model.QBUser
-import com.quickblox.core.QBEntityCallback
-import com.quickblox.core.helper.StringifyArrayList
-import com.quickblox.users.QBUsers
+import com.inscripts.interfaces.Callbacks
+import org.json.JSONObject
+
+
+
 
 
 
@@ -212,18 +213,13 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
         mRegisterPresenter.registerCompany(comRegise!!.companyName, comRegise!!.password, comRegise!!.area, 0,
                 comRegise!!.type, comRegise!!.email, comRegise!!.position, comRegise!!.username, comRegise!!.phone)
 
-        val user = QBUser(comRegise!!.username, comRegise!!.password)
-        val userTags = StringifyArrayList<String>()
-        userTags.add("businesscloud")
-        user.tags=userTags
+        App.cometChat.createUser(this, comRegise!!.username, comRegise!!.companyName, "", "", "", object : Callbacks {
+            override fun successCallback(jsonObject: JSONObject) {
 
-        QBUsers.signUp(user).performAsync(object : QBEntityCallback<QBUser> {
-            override fun onSuccess(user: QBUser, args: Bundle) {
-                // success
             }
 
-            override fun onError(error: QBResponseException) {
-                // error
+            override fun failCallback(jsonObject: JSONObject) {
+
             }
         })
     }

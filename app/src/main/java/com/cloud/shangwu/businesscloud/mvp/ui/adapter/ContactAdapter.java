@@ -13,26 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cloud.shangwu.businesscloud.R;
-import com.cloud.shangwu.businesscloud.im.managers.DialogsManager;
-import com.cloud.shangwu.businesscloud.im.ui.activity.ChatActivity;
-import com.cloud.shangwu.businesscloud.im.ui.activity.DialogActivity;
-import com.cloud.shangwu.businesscloud.im.ui.activity.DialogsActivity;
-import com.cloud.shangwu.businesscloud.im.ui.activity.OpponentsActivity;
-import com.cloud.shangwu.businesscloud.im.ui.activity.SelectUsersActivity;
-import com.cloud.shangwu.businesscloud.im.utils.chat.ChatHelper;
+
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ContactComparator;
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.CreatGroupActivity;
 import com.cloud.shangwu.businesscloud.utils.Utils;
-import com.quickblox.chat.QBChatService;
-import com.quickblox.chat.QBSystemMessagesManager;
-import com.quickblox.chat.exception.QBChatException;
-import com.quickblox.chat.listeners.QBSystemMessageListener;
-import com.quickblox.chat.model.QBChatDialog;
-import com.quickblox.chat.model.QBChatMessage;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
-import com.quickblox.users.model.QBUser;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements DialogsManager.ManagingDialogsCallbacks {
+public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private ArrayList mContactNames; // 联系人名称字符串数组
@@ -50,7 +36,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<Contact> resultList; // 最终结果（包含分组的字母）
     private List<String> characterList; // 字母List
     private Intent mIntent;
-    private ArrayList<QBUser> mList;
+
     private ArrayList<Contact> contacts;
 
     private int mHeaderCount = 1;
@@ -60,21 +46,6 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    @Override
-    public void onDialogCreated(QBChatDialog chatDialog) {
-
-    }
-
-    @Override
-    public void onDialogUpdated(String chatDialog) {
-
-    }
-
-    @Override
-    public void onNewDialogLoaded(QBChatDialog chatDialog) {
-
-    }
-
     public enum ITEM_TYPE {
         ITEM_TYPE_CHARACTER,
         ITEM_TYPE_CONTACT,
@@ -82,36 +53,36 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public ContactAdapter(Context context, ArrayList<QBUser> list) {
+    public ContactAdapter(Context context, ArrayList<String> list) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
 //        mContactNames = contactNames;
-        mList=list;
+
          mIntent=new Intent(context,CreatGroupActivity.class);
         mContactNames=new ArrayList();
         contacts=new ArrayList<>();
         handleContact(list);
     }
 
-    private void handleContact(ArrayList<QBUser> list) {
+    private void handleContact(ArrayList<String> list) {
 
 //        for (QBUser user: list) {
 //            mContactNames.add(user.getFullName());
 //        }
         mContactList = new ArrayList<>();
-        Map<String, QBUser> map = new HashMap<>();
+        Map<String, Contact> map = new HashMap<>();
 
 //        for (String mContactName : mContactNames) {
 //            String pinyin = Utils.getPingYin(mContactName);
 //            map.put(pinyin, mContactName);
 //            mContactList.add(pinyin);
 //        }
-        for (int i=0;i<list.size();i++){
-            QBUser qbUser = list.get(i);
-            String pinyin = Utils.getPingYin(qbUser.getFullName()==null?qbUser.getLogin():qbUser.getFullName());
-            map.put(pinyin, qbUser);
-            mContactList.add(pinyin);
-        }
+//        for (int i=0;i<list.size();i++){
+//            QBUser qbUser = list.get(i);
+//            String pinyin = Utils.getPingYin(qbUser.getFullName()==null?qbUser.getLogin():qbUser.getFullName());
+//            map.put(pinyin, qbUser);
+//            mContactList.add(pinyin);
+//        }
         Collections.sort(mContactList, new ContactComparator());
 
         resultList = new ArrayList<>();
@@ -123,18 +94,18 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (!characterList.contains(character)) {
                 if (character.hashCode() >= "A".hashCode() && character.hashCode() <= "Z".hashCode()) { // 是字母
                     characterList.add(character);
-                    resultList.add(new Contact(new QBUser(character,""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+//                    resultList.add(new Contact(new QBUser(character,""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
 
                 } else {
                     if (!characterList.contains("#")) {
                         characterList.add("#");
 //                        resultList.add(new Contact("#", ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
-                        resultList.add(new Contact(new QBUser("#",""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+//                        resultList.add(new Contact(new QBUser("#",""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
                     }
                 }
             }
-            contacts.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
-            resultList.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
+//            contacts.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
+//            resultList.add(new Contact(map.get(name), ITEM_TYPE.ITEM_TYPE_CONTACT.ordinal()));
         }
     }
 
@@ -160,14 +131,14 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         } else {
             if (holder instanceof CharacterHolder) {
-                ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getName());
+//                ((CharacterHolder) holder).mTextView.setText(resultList.get(position).getName());
             } else if (holder instanceof ContactHolder) {
-                ((ContactHolder) holder).mTextView.setText(resultList.get(position).getName());
+//                ((ContactHolder) holder).mTextView.setText(resultList.get(position).getName());
                 holder.itemView.setOnClickListener(v -> {
 //                    startGroupChat();
 //                    createChatThenStart();
                     Bundle bundle=new Bundle();
-                    bundle.putSerializable("chat",mList);
+//                    bundle.putSerializable("chat",mList);
                     mIntent.putExtra("users",bundle);
 
                     mContext.startActivity(new Intent(mContext,CreatGroupActivity.class));
@@ -176,10 +147,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    private void startGroupChat() {
-        OpponentsActivity.start(mContext, false);
 
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -197,41 +165,6 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         return resultList == null ? 0 : resultList.size();
-    }
-
-    /**
-     * create chat
-     */
-    private void createChatThenStart() {
-
-
-//        Integer id =72298876;
-//        List<QBUser> list = new ArrayList<>();
-//        QBUser user = new QBUser(id);
-//        QBUser user1 = new QBUser(71870789);
-//        list.add(user);
-//        list.add(user1);
-//      //  list.add(ChatHelper.getCurrentUser());
-//        ChatHelper.getInstance().createDialogWithSelectedUsers(list, new QBEntityCallback<QBChatDialog>() {
-//            @Override
-//            public void onSuccess(QBChatDialog qbChatDialog, Bundle bundle) {
-//                Log.d("CREATE-CHAT", "onSuccess");
-//
-//                Intent intent = new Intent(mContext, ChatActivity.class);
-//                intent.putExtra(ChatActivity.EXTRA_DIALOG_ID, qbChatDialog);
-//                mContext.startActivity(intent);
-//
-//            }
-//
-//            @Override
-//            public void onError(QBResponseException e) {
-//
-//            }
-//        });
-        Intent intent=new Intent(mContext, DialogActivity.class);
-        mContext.startActivity(intent);
-
-
     }
 
 
@@ -265,9 +198,9 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getScrollPosition(String character) {
         if (characterList.contains(character)) {
             for (int i = 0; i < resultList.size(); i++) {
-                if (resultList.get(i).getName().equals(character)) {
-                    return i;
-                }
+//                if (resultList.get(i).getName().equals(character)) {
+//                    return i;
+//                }
             }
         }
 

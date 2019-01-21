@@ -3,18 +3,15 @@ package com.cloud.shangwu.businesscloud.mvp.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.quickblox.users.model.QBUser;
 
-import java.io.Serializable;
 
-public class Contact extends QBUser implements Parcelable {
+public class Contact  implements Parcelable {
 
-    public QBUser mUser;
+
     private int mType;
     private boolean isChecked=false;
 
-    public Contact(QBUser user, int type) {
-        mUser=user;
+    public Contact( int type) {
         mType = type;
     }
 
@@ -44,13 +41,7 @@ public class Contact extends QBUser implements Parcelable {
 
     public void setIsChecked(boolean isChecked){this.isChecked=isChecked;}
 
-    public String getName(){
-        return mUser.getFullName()==null?mUser.getLogin():mUser.getFullName();
-    }
 
-    public QBUser getmUser(){
-        return mUser;
-    }
 
     @Override
     public int describeContents() {

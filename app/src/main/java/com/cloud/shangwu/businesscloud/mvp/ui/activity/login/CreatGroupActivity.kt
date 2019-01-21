@@ -10,21 +10,14 @@ import android.view.View
 
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseActivity
-import com.cloud.shangwu.businesscloud.im.ui.activity.ChatActivity
-import com.cloud.shangwu.businesscloud.im.ui.adapter.CheckboxUsersAdapter
-import com.cloud.shangwu.businesscloud.im.utils.chat.ChatHelper
-import com.cloud.shangwu.businesscloud.im.utils.qb.QbDialogHolder
+
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ChooseContactAdapter
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ContactAdapter
 
 import com.cloud.shangwu.businesscloud.widget.DividerItemDecoration
 import com.cloud.shangwu.businesscloud.widget.LetterView
-import com.quickblox.chat.model.QBChatDialog
-import com.quickblox.core.QBEntityCallback
-import com.quickblox.core.exception.QBResponseException
-import com.quickblox.users.QBUsers
-import com.quickblox.users.model.QBUser
+
 import kotlinx.android.synthetic.main.activity_creatgroup.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.ArrayList
@@ -37,7 +30,7 @@ class CreatGroupActivity : BaseActivity() {
     private var mAdapter: ChooseContactAdapter? = null
 
     //选中后的数据
-    private var checkedList: MutableList<QBUser>? = null
+
     private val isSelectAll: Boolean = false
 
     private var isProcessingResultInProgress: Boolean = false
@@ -91,25 +84,7 @@ class CreatGroupActivity : BaseActivity() {
     }
 
     private fun beginChat() {
-        var checkedContact = mAdapter?.checkedContacts
-        checkedList= mutableListOf()
-        for (a in checkedContact!!) {
-            checkedList!!.add(a.mUser)
-        }
-        ChatHelper.getInstance().createDialogWithSelectedUsers(checkedList, object : QBEntityCallback<QBChatDialog> {
-            override fun onSuccess(qbChatDialog: QBChatDialog, bundle: Bundle) {
-                Log.d("CREATE-CHAT", "onSuccess")
 
-                val intent = Intent(this@CreatGroupActivity, ChatActivity::class.java)
-                intent.putExtra(ChatActivity.EXTRA_DIALOG_ID, qbChatDialog)
-                startActivity(intent)
-
-            }
-
-            override fun onError(e: QBResponseException) {
-
-            }
-        })
     }
 
     override fun start() {
@@ -121,31 +96,7 @@ class CreatGroupActivity : BaseActivity() {
         tags.add("businesscloud")
 
 //
-        QBUsers.getUsersByTags(tags, null).performAsync(object : QBEntityCallback<ArrayList<QBUser>> {
-            override fun onSuccess(result: ArrayList<QBUser>, params: Bundle) {
 
-                mAdapter = ChooseContactAdapter(this@CreatGroupActivity, result)
-
-                contact_list.layoutManager = layoutManager
-                contact_list.addItemDecoration(DividerItemDecoration(this@CreatGroupActivity, DividerItemDecoration.VERTICAL_LIST))
-                contact_list.adapter = mAdapter
-
-
-                letter_view!!.setCharacterListener(object : LetterView.CharacterClickListener {
-                    override fun clickCharacter(character: String) {
-                        layoutManager!!.scrollToPositionWithOffset(mAdapter!!.getScrollPosition(character), 0)
-                    }
-
-                    override fun clickArrow() {
-                        layoutManager!!.scrollToPositionWithOffset(0, 0)
-                    }
-                })
-            }
-
-            override fun onError(e: QBResponseException) {
-
-            }
-        })
     }
 
 

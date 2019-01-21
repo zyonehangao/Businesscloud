@@ -1,40 +1,44 @@
 package com.cloud.shangwu.businesscloud.app
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
-import com.cloud.shangwu.businesscloud.im.models.SampleConfigs
-import com.cloud.shangwu.businesscloud.im.utils.Consts
-import com.cloud.shangwu.businesscloud.im.utils.QBResRequestExecutor
-import com.cloud.shangwu.businesscloud.im.utils.configs.ConfigUtils
 import com.cloud.shangwu.businesscloud.mvp.model.db.SQLHelper
 import com.cloud.shangwu.businesscloud.utils.DisplayManager
 import com.cloud.shangwu.businesscloud.utils.SettingUtil
 import com.cloud.shangwu.businesscloud.widget.helper.MediaLoader
-import com.quickblox.sample.core.CoreApp
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.yanzhenjie.album.Album
 import com.yanzhenjie.album.AlbumConfig
+import cometchat.inscripts.com.cometchatcore.coresdk.CometChat
 import java.io.IOException
 import java.util.*
 import kotlin.properties.Delegates
+import com.inscripts.interfaces.Callbacks
+import android.R.attr.apiKey
+import org.json.JSONObject
 
 
 /**
  * Created by chengxiaofen on 2018/4/21.
  */
-class App : CoreApp() {
+class App : Application() {
 
     private var refWatcher: RefWatcher? = null
 
 
     private var sqlHelper: SQLHelper? = null
 
-    private var sampleConfigs: SampleConfigs? = null
+
+    private var  licenseKey :String= "COMETCHAT-BQOKW-XKMT0-99PV2-UZKSR"
+    private var  apiKey :String = "52411x8eb5e86c6302b88ad1bc0cec76cab8a1"
 
     companion object {
 
@@ -43,21 +47,18 @@ class App : CoreApp() {
             private set
 
 
+        @SuppressLint("StaticFieldLeak")
         lateinit var instance: Application
+        lateinit var cometChat: CometChat
 
         fun getRefWatcher(context: Context): RefWatcher? {
             val app = context.applicationContext as App
             return app.refWatcher
         }
 
-        @Volatile
-        private var qbResRequestExecutor: QBResRequestExecutor? = null
-
-        @Synchronized
-        fun getResRequestExecutor(): QBResRequestExecutor? =
-                qbResRequestExecutor ?: QBResRequestExecutor().also { qbResRequestExecutor = it }
     }
 
+    @RequiresApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -71,21 +72,16 @@ class App : CoreApp() {
                 .setLocale(Locale.getDefault())
                 .build()
         )
+        cometChat = CometChat.getInstance(context)
+        cometChat.initializeCometChat("", licenseKey, apiKey, true, object : Callbacks {
+            override fun successCallback(jsonObject: JSONObject) {
 
-        initSampleConfigs()
-    }
+            }
 
-    private fun initSampleConfigs() {
-        try {
-            sampleConfigs = ConfigUtils.getSampleConfigs(Consts.SAMPLE_CONFIG_FILE_NAME)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+            override fun failCallback(jsonObject: JSONObject) {
 
-    }
-
-    fun getSampleConfigs(): SampleConfigs? {
-        return this.sampleConfigs
+            }
+        })
     }
 
 
@@ -177,21 +173,4 @@ class App : CoreApp() {
         super.onTerminate()
     }
 
-    fun clearAppCache() {}
-
-
-//    @Synchronized
-//     fun getQbResRequestExecutor(): QBResRequestExecutor? {
-//        this.qbResRequestExecutor= if (this.qbResRequestExecutor == null)
-//            QBResRequestExecutor() else this.qbResRequestExecutor
-//        return qbResRequestExecutor
-//    }
-
-
-//    fun getQbResRequestExecutor(): QBResRequestExecutor {
-//        return if (qbResRequestExecutor == null)
-//            qbResRequestExecutor = QBResRequestExecutor()
-//        else
-//            qbResRequestExecutor
-//    }
 }

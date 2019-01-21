@@ -1,1 +1,1 @@
-include ':app', ':matisse', ':library', ':sample-core'
+include ':app', ':library'

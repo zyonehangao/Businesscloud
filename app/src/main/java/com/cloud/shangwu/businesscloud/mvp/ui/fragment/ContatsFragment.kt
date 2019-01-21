@@ -7,7 +7,7 @@ import com.cloud.shangwu.businesscloud.base.BaseFragment
 import com.cloud.shangwu.businesscloud.widget.LetterView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.cloud.shangwu.businesscloud.im.ui.adapter.CheckboxUsersAdapter
+
 import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.CreatGroupActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.RegisterActivity
@@ -15,11 +15,7 @@ import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ChooseContactAdapter
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ContactAdapter
 import com.cloud.shangwu.businesscloud.utils.JumpUtil
 import com.cloud.shangwu.businesscloud.widget.DividerItemDecoration
-import com.quickblox.chat.model.QBChatDialog
-import com.quickblox.core.QBEntityCallback
-import com.quickblox.core.exception.QBResponseException
-import com.quickblox.users.QBUsers
-import com.quickblox.users.model.QBUser
+
 import kotlinx.android.synthetic.main.fragment_contant.*
 import java.util.ArrayList
 
@@ -54,35 +50,8 @@ class ContatsFragment : BaseFragment() {
     }
 
     private fun loadUsersFromQb() {
-        val tags = ArrayList<String>()
-        tags.add("businesscloud")
-
-//
-        QBUsers.getUsersByTags(tags, null).performAsync(object : QBEntityCallback<ArrayList<QBUser>> {
-            override fun onSuccess(result: ArrayList<QBUser>, params: Bundle) {
-
-                mAdapter = ContactAdapter(activity, result)
-
-                contact_list.layoutManager = layoutManager
-                contact_list.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST))
-                contact_list.adapter = mAdapter
 
 
-                letter_view!!.setCharacterListener(object : LetterView.CharacterClickListener {
-                    override fun clickCharacter(character: String) {
-                        layoutManager!!.scrollToPositionWithOffset(mAdapter!!.getScrollPosition(character), 0)
-                    }
-
-                    override fun clickArrow() {
-                        layoutManager!!.scrollToPositionWithOffset(0, 0)
-                    }
-                })
-            }
-
-            override fun onError(e: QBResponseException) {
-
-            }
-        })
     }
 
 }

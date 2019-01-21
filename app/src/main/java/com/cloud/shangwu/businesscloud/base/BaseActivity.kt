@@ -1,12 +1,12 @@
 package com.cloud.shangwu.businesscloud.base
 
-import android.content.Context
-import android.content.IntentFilter
+import android.annotation.SuppressLint
+import android.content.*
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import android.os.Bundle
+import android.os.*
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by chenxz on 2018/4/21.
  */
 abstract class BaseActivity : AppCompatActivity() {
+
 
     /**
      * check login
@@ -111,6 +112,11 @@ abstract class BaseActivity : AppCompatActivity() {
         start()
         initListener()
     }
+
+
+
+
+
 
     override fun onResume() {
         // 动态注册网络变化广播
@@ -260,5 +266,7 @@ abstract class BaseActivity : AppCompatActivity() {
             mWindowManager.removeView(mTipView)
         }
     }
+
+
 
 }
