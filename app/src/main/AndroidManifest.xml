@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.cloud.shangwu.businesscloud">
+    package="com.cloud.shangwu.businesscloud"
+
+    >
 
     <permission
         android:name="com.cloud.shangwu.businesscloud.permission.C2D_MESSAGE"
@@ -59,6 +61,22 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="fc1bdfd19d2b0be3282f9adcbad59d2ed9fb221c" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="inscripts_cc.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="15" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.cloud.shangwu.businesscloud.im.models" />
         <provider
 
             android:name="android.support.v4.content.FileProvider"
@@ -102,6 +120,12 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <service
+            android:name="com.cloud.shangwu.businesscloud.im.services.CCSubscribeService"
+            android:enabled="true"
+            android:exported="true"/>
+        <activity android:name=".im.activity.CCSingleChatActivity" />
+        <activity android:name=".mvp.ui.activity.login.CreatGroupsActivity"/>
 
     </application>
 

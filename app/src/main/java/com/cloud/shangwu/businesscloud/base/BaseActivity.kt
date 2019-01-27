@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    public val TAG = BaseActivity::class.java!!.getSimpleName()
 
     /**
      * check login

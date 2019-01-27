@@ -23,6 +23,15 @@ import java.util.*
 import kotlin.properties.Delegates
 import com.inscripts.interfaces.Callbacks
 import android.R.attr.apiKey
+import android.text.TextUtils
+import com.cloud.shangwu.businesscloud.im.models.*
+import com.inscripts.helpers.PreferenceHelper
+import com.inscripts.keys.PreferenceKeys
+import com.inscripts.orm.SugarContext
+import com.inscripts.orm.SugarDb
+import com.inscripts.orm.SugarRecord
+import com.inscripts.utils.Logger
+import cometchat.inscripts.com.cometchatcore.coresdk.MessageSDK
 import org.json.JSONObject
 
 
@@ -35,7 +44,6 @@ class App : Application() {
 
 
     private var sqlHelper: SQLHelper? = null
-
 
     private var  licenseKey :String= "COMETCHAT-BQOKW-XKMT0-99PV2-UZKSR"
     private var  apiKey :String = "52411x8eb5e86c6302b88ad1bc0cec76cab8a1"
@@ -82,6 +90,14 @@ class App : Application() {
 
             }
         })
+
+        SugarContext.init(context)
+        val clearData = PreferenceHelper.get(PreferenceKeys.DataKeys.CLEAR_USER_DATA)
+        Logger.error(TAG, "Clear data = " + clearData)
+        if (!TextUtils.isEmpty(clearData) && clearData == "1") {
+            clearDataBase()
+            PreferenceHelper.save(PreferenceKeys.DataKeys.CLEAR_USER_DATA, "0")
+        }
     }
 
 
@@ -166,11 +182,21 @@ class App : Application() {
         return sqlHelper as SQLHelper
     }
 
+
     /** 摧毁应用进程时候调用  */
     override fun onTerminate() {
+        SugarContext.terminate()
         if (sqlHelper != null)
             sqlHelper!!.close()
         super.onTerminate()
+    }
+
+    private fun clearDataBase() {
+        SugarRecord.deleteAll(OneOnOneMessage::class.java!!)
+        SugarRecord.deleteAll(Groups::class.java!!)
+        SugarRecord.deleteAll(Conversation::class.java!!)
+        SugarRecord.deleteAll(GroupMessage::class.java!!)
+        SugarRecord.deleteAll(Status::class.java!!)
     }
 
 }

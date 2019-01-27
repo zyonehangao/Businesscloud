@@ -11,7 +11,7 @@ import android.text.TextUtils
  * Created by chengxiaofen on 2018/6/9.
  * 对话框辅助类,需要自己调用show方法
  */
-object DialogUtil {
+ object DialogUtil {
 
     /**
      * 获取一个Dialog

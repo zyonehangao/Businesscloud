@@ -138,5 +138,7 @@
     <dimen name="item_height">136dp</dimen>
     <dimen name="margin_common">1dp</dimen>
 
+    <dimen name="timestampsize">10sp</dimen>
+
 
 </resources>

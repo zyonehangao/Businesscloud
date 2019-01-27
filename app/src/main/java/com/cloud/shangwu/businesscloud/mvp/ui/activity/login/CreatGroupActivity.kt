@@ -2,25 +2,24 @@ package com.cloud.shangwu.businesscloud.mvp.ui.activity.login
 
 
 
-import android.content.Intent
-import android.os.Bundle
+
+import android.database.sqlite.SQLiteDatabase
+
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.view.View
+
 
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseActivity
 
-import com.cloud.shangwu.businesscloud.mvp.model.bean.Contact
-import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ChooseContactAdapter
-import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ContactAdapter
 
-import com.cloud.shangwu.businesscloud.widget.DividerItemDecoration
-import com.cloud.shangwu.businesscloud.widget.LetterView
+import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ChooseContactAdapter
+
+
+
+import com.inscripts.orm.SugarDb
 
 import kotlinx.android.synthetic.main.activity_creatgroup.*
 import kotlinx.android.synthetic.main.toolbar.*
-import java.util.ArrayList
 
 
 class CreatGroupActivity : BaseActivity() {
@@ -28,6 +27,7 @@ class CreatGroupActivity : BaseActivity() {
     private var contactNames: Array<String>? = null
     private var layoutManager: LinearLayoutManager? = null
     private var mAdapter: ChooseContactAdapter? = null
+    private var db: SQLiteDatabase? = null
 
     //选中后的数据
 
@@ -92,10 +92,8 @@ class CreatGroupActivity : BaseActivity() {
     }
 
     private fun loadUsersFromQb() {
-        val tags = ArrayList<String>()
-        tags.add("businesscloud")
+        db= SugarDb.getInstance(this).getWritableDatabase()
 
-//
 
     }
 
