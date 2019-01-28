@@ -1291,20 +1291,20 @@ public class CCGroupChatActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.cc_chatroom_menu, menu);
-
-        if (grpAudioCallState == FeatureState.INVISIBLE) {
-            menu.findItem(R.id.custom_action_audio_call).setVisible(false);
-        }
-
-        if (grpAvCallState == FeatureState.INVISIBLE) {
-            menu.findItem(R.id.custom_action_video_call).setVisible(false);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.cc_chatroom_menu, menu);
+//
+//        if (grpAudioCallState == FeatureState.INVISIBLE) {
+//            menu.findItem(R.id.custom_action_audio_call).setVisible(false);
+//        }
+//
+//        if (grpAvCallState == FeatureState.INVISIBLE) {
+//            menu.findItem(R.id.custom_action_video_call).setVisible(false);
+//        }
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

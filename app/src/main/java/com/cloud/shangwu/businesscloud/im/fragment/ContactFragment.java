@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
@@ -80,15 +81,16 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
     private LinearLayoutManager layoutManager;
     private SQLiteDatabase db;
     private ArrayList<Contact> contacts;
-    private final int FINISH=0;
+    private final int FINISH=3;
     private ContactAdapter mAdapter;
     private LetterView mLetterView;
     private Context mContext;
     private RelativeLayout layout;
 
 
+
     @SuppressLint("HandlerLeak")
-    private android.os.Handler handler=new android.os.Handler(){
+    private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
@@ -149,11 +151,11 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
         mContext=getContext();
         contacts=new ArrayList<>();
         db= SugarDb.getInstance(mContext).getWritableDatabase();
-        loadUsersFromQb();
+//        loadUsersFromQb();
         cometChat = CometChat.getInstance(getContext());
         grpNoContacts = view.findViewById(R.id.grpNoContacts);
         tvNoContacts = view.findViewById(R.id.tvNoContacts);
-        layout=view.findViewById(R.id.progress_bar);
+//        layout=view.findViewById(R.id.progress_bar);
         contactRecyclerView = view.findViewById(R.id.contacts_recycler_view);
         contactRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         contactRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -422,7 +424,15 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
                         String avatarUrl = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_AVATAR_URL));
                         int unReadCount = cursor.getInt(cursor.getColumnIndex(Contact.COLUMN_UNREAD_COUNT));
                         String status = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_STATUS));
-                        contacts.add(new Contact(id,name,statsMes,avatarUrl,unReadCount,status));
+                        Contact contact=new Contact();
+                        contact.contactId=id;
+                        contact.name=name;
+                        contact.statusMessage=statsMes;
+                        contact.avatarURL=avatarUrl;
+                        contact.unreadCount=unReadCount;
+                        contact.status=status;
+
+                        contacts.add(contact);
                     }while(cursor.moveToNext());
                 }
                 cursor.close();

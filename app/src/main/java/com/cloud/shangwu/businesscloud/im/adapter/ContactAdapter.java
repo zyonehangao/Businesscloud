@@ -1,5 +1,6 @@
 package com.cloud.shangwu.businesscloud.im.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloud.shangwu.businesscloud.R;
+import com.cloud.shangwu.businesscloud.im.activity.GroupListActivity;
 import com.cloud.shangwu.businesscloud.im.models.Contact;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ContactComparator;
 import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.CreatGroupActivity;
@@ -115,13 +117,19 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (!characterList.contains(character)) {
                 if (character.hashCode() >= "A".hashCode() && character.hashCode() <= "Z".hashCode()) { // 是字母
                     characterList.add(character);
-                    resultList.add(new Contact(character,ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+                    Contact contact=new Contact();
+                    contact.name=character;
+                    contact.type=ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal();
+                    resultList.add(contact);
 //                    resultList.add(new Contact(new QBUser(character,""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
 
                 } else {
                     if (!characterList.contains("#")) {
                         characterList.add("#");
-                        resultList.add(new Contact("#",ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
+                        Contact contact=new Contact();
+                        contact.name="#";
+                        contact.type=ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal();
+                        resultList.add(contact);
 //                        resultList.add(new Contact(new QBUser("#",""),ITEM_TYPE.ITEM_TYPE_CHARACTER.ordinal()));
                     }
                 }
@@ -150,10 +158,14 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder contactItemHolder, int i) {
+        if ( i==0){
+            context.startActivity(new Intent(context,GroupListActivity.class));
+            ((Activity)context).finish();
+        }
 
             if (contactItemHolder instanceof CharacterHolder) {
                 ((CharacterHolder) contactItemHolder).mTextView.setText(resultList.get(i).name);
-                ((CharacterHolder) contactItemHolder).mTextView.setClickable(false);
+//                ((CharacterHolder) contactItemHolder).mTextView.setClickable(false);
             } else if (contactItemHolder instanceof ContactItemHolder) {
                 Contact contact = resultList.get(i);
 
@@ -203,8 +215,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ((ContactItemHolder) contactItemHolder).view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        contact.setIsSelect(!contact.isSelect);
-                        ((ContactItemHolder) contactItemHolder).isSelect.setChecked(contact.isSelect);
+//                        contact.setIsSelect(!contact.isSelect);
+//                        ((ContactItemHolder) contactItemHolder).isSelect.setChecked(contact.isSelect);
                         if (null != mCheckListener) {
                             mCheckListener.itemChecked(contact, ((ContactItemHolder) contactItemHolder).isSelect.isChecked());
                         }
@@ -246,6 +258,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else {
             //内容View
             return resultList.get(position).getType();
+//            return ITEM_TYPE.ITEM_TYPE_HEADER.ordinal();
         }
 
     }

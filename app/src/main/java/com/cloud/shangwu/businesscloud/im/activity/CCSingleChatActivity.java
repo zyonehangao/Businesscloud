@@ -2769,4 +2769,6 @@ public class CCSingleChatActivity extends AppCompatActivity implements View.OnCl
             Logger.error(TAG, "onRetryClicked: message not present in database");
         }
     }
+
+
 }

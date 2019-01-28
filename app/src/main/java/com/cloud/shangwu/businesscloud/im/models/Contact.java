@@ -35,7 +35,7 @@ public class Contact extends SugarRecord {
     public static final String COLUMN_AVATAR_URL = "avatar_url";
     public static final String COLUMN_STATUS = "status";
     public static final String TYPE="type";
-    public static final String SELECT="select";
+    public static final String ISSELECT="isselect";
     public Contact setType(int type){
         this.type=type;
         return this;
@@ -50,22 +50,23 @@ public class Contact extends SugarRecord {
     }
 
     public Contact(Long contactId,String name,String statusMessage,String avatarURL,int unreadCount,String status){
+        super();
         this.avatarURL=avatarURL;
         this.contactId=contactId;
         this.name=name;
         this.statusMessage=statusMessage;
         this.unreadCount=unreadCount;
         this.status=status;
-
     }
 
     public Contact(String name,int type){
+        super();
         this.name=name;
         this.type=type;
     }
 
     public Contact(){
-
+        super();
     }
 
     @Column(name = COLUMN_CONTACT_ID, unique = true, notNull = true)
@@ -90,7 +91,8 @@ public class Contact extends SugarRecord {
 
     @Column(name = TYPE)
     public int type;
-    @Column(name = SELECT)
+
+    @Column(name = ISSELECT)
     public boolean isSelect;
 
 

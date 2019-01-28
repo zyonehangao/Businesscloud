@@ -157,7 +157,6 @@
 
 
                 <ImageButton
-                    android:visibility="gone"
                     android:id="@+id/buttonSendVoice"
                     android:layout_width="40dp"
                     android:layout_height="40dp"

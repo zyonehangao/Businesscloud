@@ -70,7 +70,7 @@
             android:value="inscripts_cc.db" />
         <meta-data
             android:name="VERSION"
-            android:value="15" />
+            android:value="1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -126,6 +126,7 @@
             android:exported="true"/>
         <activity android:name=".im.activity.CCSingleChatActivity" />
         <activity android:name=".mvp.ui.activity.login.CreatGroupsActivity"/>
+        <activity android:name=".im.activity.CCGroupChatActivity"/>
 
     </application>
 
