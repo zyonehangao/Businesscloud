@@ -26,8 +26,7 @@ import cometchat.inscripts.com.cometchatcore.coresdk.CometChat;
 
 
 
-public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter.GroupItemHolder> implements
-        StickyHeaderAdapter<GroupListAdapter.GroupHeaderItemHolder> {
+public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter.GroupItemHolder>  {
 
     private static final String TAG = GroupListAdapter.class.getSimpleName();
     private Context context;
@@ -42,8 +41,8 @@ public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter
             this.cursor.close();
         }
         this.cursor = c;
-        cometChat = CometChat.getInstance(context);
-        primaryColor = (int) cometChat.getCCSetting(new CCSettingMapper(SettingType.UI_SETTINGS, SettingSubType.COLOR_PRIMARY));
+//        cometChat = CometChat.getInstance(context);
+//        primaryColor = (int) cometChat.getCCSetting(new CCSettingMapper(SettingType.UI_SETTINGS, SettingSubType.COLOR_PRIMARY));
     }
 
     public void closeCursor(){
@@ -54,15 +53,15 @@ public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter
 
     @Override
     public void onBindViewHolder(GroupListAdapter.GroupItemHolder groupItemHolder, Cursor cursor) {
-        boolean recentChatEnabled = (boolean)cometChat.getCCSetting(new CCSettingMapper(SettingType.FEATURE, SettingSubType.RECENT_CHAT_ENABLED));
+//        boolean recentChatEnabled = (boolean)cometChat.getCCSetting(new CCSettingMapper(SettingType.FEATURE, SettingSubType.RECENT_CHAT_ENABLED));
 
         int memberCount = cursor.getInt(cursor.getColumnIndex(Groups.MEMBER_COUNT));
         int groupType = cursor.getInt(cursor.getColumnIndex(Groups.TYPE));
         Logger.error(TAG,"MEMBER_COUNT : "+memberCount);
-        if(recentChatEnabled) {
+//        if(recentChatEnabled) {
             groupItemHolder.unreadCount.setVisibility(View.INVISIBLE);
-        }
-        else{
+//        }
+//        else{
             int unreadCount = cursor.getInt(cursor.getColumnIndex(Groups.COLUMN_UNREAD_COUNT));
 
             if (0 == unreadCount) {
@@ -70,14 +69,15 @@ public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter
             } else {
                 GradientDrawable drawable = (GradientDrawable) groupItemHolder.unreadCount.getBackground();
                 //drawable.setColor(Color.parseColor(PreferenceHelper.get(PreferenceKeys.Colors.COLOR_PRIMARY)));
-                drawable.setColor(primaryColor);
+//                drawable.setColor(primaryColor);
                 groupItemHolder.unreadCount.setVisibility(View.VISIBLE);
                 groupItemHolder.unreadCount.setText(String.valueOf(unreadCount));
             }
-        }
+//        }
         groupItemHolder.container.setTag(R.string.group_id,cursor.getLong(cursor.getColumnIndex(Groups.COLUMN_GROUP_ID)));
         groupItemHolder.chatroomNameField.setText(Html.fromHtml(cursor.getString(cursor.getColumnIndex(Groups.COLUMN_NAME))));
-        groupItemHolder.imageviewchatroomAvatar.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
+//        groupItemHolder.chatroomNameField.setTextColor(android.graphics.Color.RED);
+//        groupItemHolder.imageviewchatroomAvatar.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
         groupItemHolder.usersOnline.setText(String.valueOf(memberCount));
         if(groupType == 1)
             groupItemHolder.protectedStatus.setVisibility(View.VISIBLE);
@@ -85,7 +85,7 @@ public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter
 
     @Override
     public GroupListAdapter.GroupItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_list_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_list_item_bc, parent, false);
         return new GroupListAdapter.GroupItemHolder(v);
     }
 
@@ -93,28 +93,28 @@ public class GroupListAdapter extends RecyclerViewCursorAdapter<GroupListAdapter
     /**   Header View Methods      **/
 
 
-    @Override
-    public long getHeaderId(int position) {
-        return getGroupByPosition(position).status;
-    }
-
-    @Override
-    public GroupHeaderItemHolder onCreateHeaderViewHolder(ViewGroup parent) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_list_header, parent, false);
-        return new GroupHeaderItemHolder(view);
-    }
-    @Override
-    public void onBindHeaderViewHolder(GroupHeaderItemHolder viewholder, int position ,long key) {
-        int status = getGroupByPosition(position).status;
-        if(status == 0){
-            String langOtherGroup = (String)cometChat.getCCSetting(new CCSettingMapper(SettingType.LANGUAGE, SettingSubType.LANG_OTHER_GROUP));
-            viewholder.txtGroupStatus.setText(langOtherGroup);
-        }
-        else{
-            String langJoinedGroup = (String)cometChat.getCCSetting(new CCSettingMapper(SettingType.LANGUAGE, SettingSubType.LANG_JOINED_GROUP));
-            viewholder.txtGroupStatus.setText(langJoinedGroup);
-        }
-    }
+//    @Override
+//    public long getHeaderId(int position) {
+//        return getGroupByPosition(position).status;
+//    }
+//
+//    @Override
+//    public GroupHeaderItemHolder onCreateHeaderViewHolder(ViewGroup parent) {
+//        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_list_header, parent, false);
+//        return new GroupHeaderItemHolder(view);
+//    }
+//    @Override
+//    public void onBindHeaderViewHolder(GroupHeaderItemHolder viewholder, int position ,long key) {
+//        int status = getGroupByPosition(position).status;
+//        if(status == 0){
+//            String langOtherGroup = (String)cometChat.getCCSetting(new CCSettingMapper(SettingType.LANGUAGE, SettingSubType.LANG_OTHER_GROUP));
+//            viewholder.txtGroupStatus.setText(langOtherGroup);
+//        }
+//        else{
+//            String langJoinedGroup = (String)cometChat.getCCSetting(new CCSettingMapper(SettingType.LANGUAGE, SettingSubType.LANG_JOINED_GROUP));
+//            viewholder.txtGroupStatus.setText(langJoinedGroup);
+//        }
+//    }
 
     static class GroupItemHolder extends RecyclerView.ViewHolder {
 

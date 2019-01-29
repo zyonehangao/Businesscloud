@@ -61,7 +61,7 @@ public class CreatGroupsActivity extends BaseActivity implements LetterView.Char
                         mAdapter=new ContactAdapter(CreatGroupsActivity.this,data);
                         mRecycle.setAdapter(mAdapter);
                     Toast.makeText(CreatGroupsActivity.this,"finish",Toast.LENGTH_SHORT).show();
-                        mLetterView.setCharacterListener(CreatGroupsActivity.this);
+
 
                     break;
                 default:
@@ -89,7 +89,7 @@ public class CreatGroupsActivity extends BaseActivity implements LetterView.Char
         mLetterView=findViewById(R.id.letter_view);
         back=findViewById(R.id.iv_black);
         back.setOnClickListener(this);
-
+        mLetterView.setCharacterListener(CreatGroupsActivity.this);
     }
 
     @Override

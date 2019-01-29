@@ -3,13 +3,10 @@ package com.cloud.shangwu.businesscloud.im.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloud.shangwu.businesscloud.R;
-import com.cloud.shangwu.businesscloud.im.activity.GroupListActivity;
+import com.cloud.shangwu.businesscloud.im.activity.GroupsActivity;
 import com.cloud.shangwu.businesscloud.im.models.Contact;
 import com.cloud.shangwu.businesscloud.mvp.model.bean.ContactComparator;
-import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.CreatGroupActivity;
-import com.cloud.shangwu.businesscloud.mvp.ui.adapter.ChooseContactAdapter;
 import com.cloud.shangwu.businesscloud.utils.Utils;
 import com.inscripts.custom.RoundedImageView;
 import com.inscripts.enums.SettingSubType;
@@ -159,8 +154,11 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder contactItemHolder, int i) {
         if ( i==0){
-            context.startActivity(new Intent(context,GroupListActivity.class));
-            ((Activity)context).finish();
+            contactItemHolder.itemView.setOnClickListener(v -> {
+                context.startActivity(new Intent(context,GroupsActivity.class));
+                ((Activity)context).finish();
+            });
+
         }
 
             if (contactItemHolder instanceof CharacterHolder) {
@@ -290,9 +288,9 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getScrollPosition(String character) {
         if (characterList.contains(character)) {
             for (int i = 0; i < resultList.size(); i++) {
-//                if (resultList.get(i).getName().equals(character)) {
-//                    return i;
-//                }
+                if (resultList.get(i).name.equals(character)) {
+                    return i;
+                }
             }
         }
 

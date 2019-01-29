@@ -127,6 +127,7 @@
         <activity android:name=".im.activity.CCSingleChatActivity" />
         <activity android:name=".mvp.ui.activity.login.CreatGroupsActivity"/>
         <activity android:name=".im.activity.CCGroupChatActivity"/>
+        <activity android:name=".im.activity.GroupsActivity"/>
 
     </application>
 
