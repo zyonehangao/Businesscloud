@@ -3744,7 +3744,7 @@ public class OneOnOneMessageAdapter extends RecyclerViewCursorAdapter<RecyclerVi
         if(str.length() == 7){
             str = "0"+str;
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         try {
             Date date = dateFormat.parse(str);
             dateItemHolder.txtMessageDate.setText(CommonUtils.getFormattedDate(date.getTime()));

@@ -28,6 +28,7 @@ import com.cloud.shangwu.businesscloud.event.ColorEvent
 import com.cloud.shangwu.businesscloud.event.LoginEvent
 import com.cloud.shangwu.businesscloud.event.MessageEvent
 import com.cloud.shangwu.businesscloud.im.Keys.BroadCastReceiverKeys
+import com.cloud.shangwu.businesscloud.im.activity.GroupsActivity
 import com.cloud.shangwu.businesscloud.im.fragment.ContactFragment
 import com.cloud.shangwu.businesscloud.im.helpers.CCMessageHelper
 import com.cloud.shangwu.businesscloud.im.helpers.CCSubcribe
@@ -416,7 +417,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             }
             var showContent = ""
             when (v.id) {
-                R.id.menu1 -> showContent = "点击 Item菜单1"
+                R.id.menu1 -> toGroupsChat()
                 R.id.menu2 -> showContent = "点击 Item菜单2"
                 R.id.menu3 -> toGroupChat()
                 R.id.menu4 -> showContent = "点击 Item菜单4"
@@ -430,6 +431,13 @@ class MainActivity : BaseActivity(), MainContract.View {
         contentView.findViewById<View>(R.id.menu3).setOnClickListener(listener)
         contentView.findViewById<View>(R.id.menu4).setOnClickListener(listener)
         contentView.findViewById<View>(R.id.menu5).setOnClickListener(listener)
+    }
+
+    private fun toGroupsChat() {
+        var intent=Intent(this,GroupsActivity::class.java)
+//        intent.putParcelableArrayListExtra("users",qbuser)
+
+        startActivity(intent)
     }
 
     private fun toGroupChat() {
