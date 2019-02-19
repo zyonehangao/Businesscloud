@@ -568,7 +568,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
 
                 if (mContatsFragment == null) {
-                    mContatsFragment = ContactFragment()
+                    mContatsFragment = ContactFragment.newInstance(mLogindata)
                     transaction.add(R.id.container, mContatsFragment!!, "contats")
                 } else {
                     transaction.show(mContatsFragment!!)

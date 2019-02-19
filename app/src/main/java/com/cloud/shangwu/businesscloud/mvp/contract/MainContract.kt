@@ -12,11 +12,13 @@ interface MainContract {
 
     interface View : IView {
         fun showLogoutSuccess(success: Boolean)
+
     }
 
     interface Presenter : IPresenter<View> {
 
         fun logout()
+
 
     }
 

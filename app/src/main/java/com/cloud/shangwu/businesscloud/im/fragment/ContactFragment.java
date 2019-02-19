@@ -1,8 +1,6 @@
 package com.cloud.shangwu.businesscloud.im.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -28,10 +25,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cloud.shangwu.businesscloud.R;
 import com.cloud.shangwu.businesscloud.im.Keys.BroadCastReceiverKeys;
@@ -40,8 +35,10 @@ import com.cloud.shangwu.businesscloud.im.adapter.ContactAdapter;
 import com.cloud.shangwu.businesscloud.im.adapter.ContactListAdapter;
 import com.cloud.shangwu.businesscloud.im.models.Contact;
 import com.cloud.shangwu.businesscloud.im.models.Conversation;
-import com.cloud.shangwu.businesscloud.mvp.ui.activity.login.CreatGroupsActivity;
-import com.cloud.shangwu.businesscloud.utils.DialogUtil;
+import com.cloud.shangwu.businesscloud.mvp.contract.ContactsFragmentContract;
+import com.cloud.shangwu.businesscloud.mvp.model.ContactsFragmentPresenter;
+import com.cloud.shangwu.businesscloud.mvp.model.bean.Friend;
+import com.cloud.shangwu.businesscloud.mvp.model.bean.LoginData;
 import com.cloud.shangwu.businesscloud.widget.LetterView;
 import com.inscripts.custom.RecyclerTouchListener;
 import com.inscripts.enums.SettingSubType;
@@ -59,6 +56,9 @@ import com.inscripts.utils.SessionData;
 import com.inscripts.utils.StaticMembers;
 
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +66,8 @@ import cometchat.inscripts.com.cometchatcore.coresdk.CometChat;
 
 
 
-public class ContactFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,SearchView.OnQueryTextListener, LetterView.CharacterClickListener {
+public class ContactFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,SearchView.OnQueryTextListener,
+        LetterView.CharacterClickListener, ContactsFragmentContract.View {
     private static final String TAG = ContactFragment.class.getSimpleName();
     private final int CONTACTS_LOADER = 1,CONTACTS_SEARCH_LOADER = 2;
     private ContactListAdapter contactListAdapter;
@@ -86,7 +87,8 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
     private LetterView mLetterView;
     private Context mContext;
     private RelativeLayout layout;
-
+    private ContactsFragmentPresenter mPresenter;
+    private LoginData data;
 
 
     @SuppressLint("HandlerLeak")
@@ -115,13 +117,27 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
         }
     };
 
+
     public ContactFragment() {
         // Required empty public constructor
     }
 
+
+
+
     public static ContactFragment newInstance(String param1, String param2) {
         ContactFragment fragment = new ContactFragment();
         return fragment;
+    }
+
+    public static ContactFragment newInstance(LoginData data) {
+        ContactFragment fragment = new ContactFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable("data",data);
+        fragment.setArguments(args);
+
+    return fragment;
     }
 
     @Override
@@ -142,6 +158,8 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
             }
         };
 
+         data = (LoginData) getArguments().getSerializable("data");
+
     }
 
     @Override
@@ -159,6 +177,9 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
         contactRecyclerView = view.findViewById(R.id.contacts_recycler_view);
         contactRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         contactRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        mPresenter = new ContactsFragmentPresenter();
+        mPresenter.attachView(this);
 
         if (getLoaderManager().getLoader(CONTACTS_LOADER) == null) {
             getLoaderManager().initLoader(CONTACTS_LOADER, null, this);
@@ -279,7 +300,7 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
             getActivity().registerReceiver(broadcastReceiver,
                     new IntentFilter(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST));
         }
-
+        mPresenter.getFriends(data.getUid());
     }
 
     @Override
@@ -291,7 +312,11 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.detachView();
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -454,6 +479,31 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void clickArrow() {
+
+    }
+
+    @Override
+    public void onGetFriends(@NotNull List<Friend> list) {
+        Log.e(TAG,"onGetFriends:"+list.get(0));
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(@NotNull String errorMsg) {
 
     }
 }

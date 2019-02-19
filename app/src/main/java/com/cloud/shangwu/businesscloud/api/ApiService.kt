@@ -239,4 +239,15 @@ interface ApiService {
 
     @POST("/business/userLabel/add/{uid}")
     abstract fun addUid(@Body body: RequestBody): Observable<HttpResult<LoginData>>
+
+    /**
+     *获取好友接口
+     * @param type
+     *
+     */
+
+    @GET("/business//friends/list/{uid}")
+    fun getFriends(
+            @Path("uid") uid: Int
+    ): Observable<BaseResult<Friend>>
 }
