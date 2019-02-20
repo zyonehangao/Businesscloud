@@ -662,6 +662,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         mDynamicFragment = null
         mMineFragment = null
         mCompanyFragment = null
+        App.cometChat.unsubscribe()
 
     }
 }

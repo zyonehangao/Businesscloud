@@ -215,7 +215,7 @@ class RegisterCompanyActivity : BaseSwipeBackActivity(), RegisterPersonalContrac
 
         App.cometChat.createUser(this, comRegise!!.username, comRegise!!.companyName, "", "", "", object : Callbacks {
             override fun successCallback(jsonObject: JSONObject) {
-
+                Log.e(TAG,"createUser successCallback")
             }
 
             override fun failCallback(jsonObject: JSONObject) {

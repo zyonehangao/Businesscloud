@@ -157,7 +157,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         bundle.putSerializable("login", data)
 
         JumpUtil.Next(this, MainActivity::class.java, bundle)
-        finish()
+//        finish()
     }
 
 
@@ -196,7 +196,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         if (validate()) run {
 
             mPresenter.login(et_username.text.toString(), et_password.text.toString(), invitation_code.text.toString())
-            App.cometChat.loginWithUID(this@LoginActivity, et_username.text.toString(), object : Callbacks {
+            App.cometChat.loginWithUID(this@LoginActivity, "SUPERHERO1", object : Callbacks {
                 override fun successCallback(jsonObject: JSONObject) {
                     Log.d("LoginActivity", "Login Success : " + jsonObject.toString())
                     Toast.makeText(this@LoginActivity, jsonObject.toString(), Toast.LENGTH_LONG).show()
@@ -244,303 +244,303 @@ class LoginActivity : BaseActivity(), LoginContract.View {
      */
     private fun launchChat( id: String) {
 
-        App.cometChat.launchCometChat(this@LoginActivity, true, object : LaunchCallbacks {
-            override fun successCallback(jsonObject: JSONObject) {
-                Log.d(TAG, "Launch Success : " + jsonObject.toString())
-            }
-
-            override fun failCallback(jsonObject: JSONObject) {
+//        App.cometChat.launchCometChat(this@LoginActivity, true, object : LaunchCallbacks {
+//            override fun successCallback(jsonObject: JSONObject) {
+//                Log.d(TAG, "Launch Success : " + jsonObject.toString())
+//            }
+//
+//            override fun failCallback(jsonObject: JSONObject) {
 //                Log.d(TAG, "Launch Fail : " + jsonObject.toString())
-            }
-
-            override fun userInfoCallback(jsonObject: JSONObject) {
+//            }
+//
+//            override fun userInfoCallback(jsonObject: JSONObject) {
 //                Log.d(TAG, "User Info Received : " + jsonObject.toString())
-            }
-
-            override fun chatroomInfoCallback(jsonObject: JSONObject) {
+//            }
+//
+//            override fun chatroomInfoCallback(jsonObject: JSONObject) {
 //                Log.d(TAG, "Chatroom Info Received : " + jsonObject.toString())
-            }
-
-            override fun onMessageReceive(jsonObject: JSONObject) {
+//            }
+//
+//            override fun onMessageReceive(jsonObject: JSONObject) {
 //                Log.d(TAG, "Message Received : " + jsonObject.toString())
-            }
-
-            override fun error(jsonObject: JSONObject) {
+//            }
+//
+//            override fun error(jsonObject: JSONObject) {
 //                Log.d(TAG, "Error : " + jsonObject.toString())
-            }
-
-            override fun onWindowClose(jsonObject: JSONObject) {
+//            }
+//
+//            override fun onWindowClose(jsonObject: JSONObject) {
 //                Log.d(TAG, "Chat Window Closed : " + jsonObject.toString())
-            }
-
-            override fun onLogout() {
-//                Log.d(TAG, "Logout")
-            }
-        })
-
-//        App.cometChat.subscribe(true, object :SubscribeCallbacks {
-//            override fun gotOnlineList(jsonObject: JSONObject) {
-//                var jsonObject = jsonObject
-//                Logger.error(TAG, "deleteBuddy : " + jsonObject)
-//                if (jsonObject.has("message")) {
-//                    jsonObject = JSONObject()
-//                }
-//
-//                Contact.updateAllContacts(jsonObject)
-//            }
-//
-//            override fun gotBotList(jsonObject: JSONObject) {
-//                //                Logger.error(TAG,"gotBotList = "+jsonObject);
-//                //                Bot.updateAllBots(jsonObject);
-//            }
-//
-//            override fun gotRecentChatsList(jsonObject: JSONObject) {
-//                Logger.error(TAG, "gotRecentChatsList  :  " + jsonObject.toString())
-//                CCMessageHelper.processRecentChatList(jsonObject)
-//            }
-//
-//            override fun onError(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onError = " + jsonObject)
-//            }
-//
-//            override fun onMessageReceived(jsonObject: JSONObject) {
-//                Logger.error(TAG, "on Message Receive = " + jsonObject)
-//                if (PreferenceHelper.contains(PreferenceKeys.UserKeys.SINGLE_CHAT_FIREBASE_CHANNEL)!!) {
-//                    if (!PreferenceHelper.contains("SUBSCRIBED")) {
-//                        FirebaseMessaging.getInstance().subscribeToTopic(PreferenceHelper.get(PreferenceKeys.UserKeys.SINGLE_CHAT_FIREBASE_CHANNEL))
-//                    } else {
-//                        PreferenceHelper.save("SUBSCRIBED", 1)
-//                    }
-//                }
-//                try {
-//                    if (jsonObject.has("count")) {
-//                        val jsonArray = jsonObject.getJSONArray("Messages")
-//                        for (i in 0 until jsonArray.length()) {
-//                            CCMessageHelper.processOneOnOneMessage(jsonArray.getJSONObject(i))
-//                        }
-//                    } else {
-//                        CCMessageHelper.processOneOnOneMessage(jsonObject)
-//                    }
-//                    val messageIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                    messageIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                    PreferenceHelper.getContext().sendBroadcast(messageIntent)
-//
-//                    val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                    iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
-//                    PreferenceHelper.getContext().sendBroadcast(iintent)
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
-//            }
-//
-//            override fun gotProfileInfo(jsonObject: JSONObject?) {
-//                Logger.error(TAG, "gotProfileInfo = " + jsonObject!!)
-//                if (null != jsonObject && CommonUtils.isJSONValid(jsonObject.toString())) {
-//                    val data = SessionData.getInstance()
-//                    data.update(jsonObject)
-//                }
-//            }
-//
-//            override fun gotAnnouncement(jsonObject: JSONObject) {
-//                Logger.error(TAG, "gotAnnouncement = " + jsonObject)
-//            }
-//
-//            override fun onAVChatMessageReceived(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onAVChatMessageReceived = " + jsonObject)
-//                CCMessageHelper.processOneOnOneMessage(jsonObject)
-//
-//                val messageIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                messageIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                PreferenceHelper.getContext().sendBroadcast(messageIntent)
-//
-//                val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
-//                PreferenceHelper.getContext().sendBroadcast(iintent)
-//            }
-//
-//            override fun onActionMessageReceived(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onActionMessageReceived = " + jsonObject)
-//                try {
-//                    val action = jsonObject.getString("action")
-//                    val fromid = jsonObject.getString("from")
-//
-//                    if (fromid != null && action == "typing_start") {
-//                        val isTypingIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.IS_TYPING, 1)
-//                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
-//                        PreferenceHelper.getContext().sendBroadcast(isTypingIntent)
-//
-//                        val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.IS_TYPING, 1)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
-//                        PreferenceHelper.getContext().sendBroadcast(iintent)
-//                    } else if (fromid != null && action == "typing_stop") {
-//                        val isTypingIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.STOP_TYPING, 1)
-//                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
-//                        PreferenceHelper.getContext().sendBroadcast(isTypingIntent)
-//
-//                        val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.STOP_TYPING, 1)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
-//                        PreferenceHelper.getContext().sendBroadcast(iintent)
-//                    } else if (action == "message_deliverd") {
-//                        val msgId = jsonObject.getString("message_id")
-//                        val msg = OneOnOneMessage.findByRemoteId(msgId)
-//                        if (msg != null && msg!!.self === 1) {
-//                            if (msg!!.messagetick !== CometChatKeys.MessageTypeKeys.MESSAGE_READ) {
-//                                msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_DELIVERD
-//                                msg!!.save()
-//
-//                                val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.DELIVERED_MESSAGE, 1)
-//                                PreferenceHelper.getContext().sendBroadcast(iintent)
-//                            }
-//                        } else {
-//                            App.cometChat.savePendingDeliveredMessages(msgId)
-//                        }
-//
-//                    } else if (action == "message_read") {
-//                        val msgId = jsonObject.getString("message_id")
-//                        val msg = OneOnOneMessage.findById(msgId)
-//
-//                        Logger.error(TAG, "msg = " + msg!!)
-//                        if (msg != null && msg!!.self === 1) {
-//
-//                            msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
-//                            msg!!.save()
-//
-//                            val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.READ_MESSAGE, 1)
-//                            PreferenceHelper.getContext().sendBroadcast(iintent)
-//                        } else {
-//                            Timer().schedule(object : TimerTask() {
-//                                override fun run() {
-//                                    val msg = OneOnOneMessage.findByRemoteId(msgId)
-//                                    if (msg != null && msg!!.self === 1) {
-//                                        if (msg != null && msg!!.self === 1) {
-//                                            msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
-//                                            msg!!.save()
-//
-//                                            val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
-//                                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.READ_MESSAGE, 1)
-//                                            PreferenceHelper.getContext().sendBroadcast(iintent)
-//                                        }
-//                                    }
-//                                }
-//                            }, 3000)
-//                        }
-//                    }
-//
-//
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
-//            }
-//
-//            override fun onGroupMessageReceived(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onGroupMessageReceived = " + jsonObject)
-//                try {
-//                    if (jsonObject.has("count")) {
-//                        val jsonArray = jsonObject.getJSONArray("Messages")
-//                        Logger.error(TAG, "Grp message JsonArray = " + jsonArray)
-//                        Logger.error(TAG, "Grp message JsonArray length = " + jsonArray.length())
-//                        for (i in 0 until jsonArray.length()) {
-//                            Logger.error(TAG, "Grp message process called for " + i)
-//                            CCMessageHelper.processGroupMessage(jsonArray.getJSONObject(i))
-//                        }
-//                    } else {
-//                        CCMessageHelper.processGroupMessage(jsonObject)
-//                    }
-//
-//                    val messageBroadCast = Intent(BroadCastReceiverKeys.GROUP_MESSAGE_DATA_UPDATED_BROADCAST)
-//                    messageBroadCast.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                    PreferenceHelper.getContext().sendBroadcast(messageBroadCast)
-//
-//                    val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                    iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
-//                    PreferenceHelper.getContext().sendBroadcast(iintent)
-//
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
-//            }
-//
-//            override fun onGroupsError(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onGroupsError = " + jsonObject)
-//            }
-//
-//            override fun onLeaveGroup(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onLeaveGroup = " + jsonObject)
-//            }
-//
-//            override fun gotGroupList(groupList: JSONObject) {
-//                Logger.error(TAG, "gotGroupList = " + groupList)
-//                Groups.updateAllGroups(groupList)
-//            }
-//
-//            override fun gotGroupMembers(jsonObject: JSONObject) {
-//                Logger.error(TAG, "gotGroupMembers = " + jsonObject)
-//            }
-//
-//            override fun onGroupAVChatMessageReceived(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onChatroomAVChatMessageReceived = " + jsonObject)
-//                CCMessageHelper.processGroupMessage(jsonObject)
-//
-//                val messageBroadCast = Intent(BroadCastReceiverKeys.GROUP_MESSAGE_DATA_UPDATED_BROADCAST)
-//                messageBroadCast.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
-//                PreferenceHelper.getContext().sendBroadcast(messageBroadCast)
-//
-//                val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
-//                PreferenceHelper.getContext().sendBroadcast(iintent)
-//            }
-//
-//            override fun onGroupActionMessageReceived(jsonObject: JSONObject) {
-//                Logger.error(TAG, "onChatroomActionMessageReceived = " + jsonObject)
-//                try {
-//                    val action_type = jsonObject.getString("action_type")
-//                    val chatRoomId = jsonObject.getString("chatroom_id")
-//                    if (action_type == "10") {
-//                        val finishGroupChatIntent = Intent(BroadCastReceiverKeys.FINISH_GROUP_ACTIVITY)
-//                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.GROUP_ID, chatRoomId)
-//                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.KICKED, BroadCastReceiverKeys.IntentExtrasKeys.KICKED)
-//                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_GROUP_LIST_KEY, 1)
-//                        PreferenceHelper.getContext().sendBroadcast(finishGroupChatIntent)
-//                    } else if (action_type == "11") {
-//                        val finishGroupChatIntent = Intent(BroadCastReceiverKeys.FINISH_GROUP_ACTIVITY)
-//                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.GROUP_ID, chatRoomId)
-//                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.BANNED, BroadCastReceiverKeys.IntentExtrasKeys.BANNED)
-//                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_GROUP_LIST_KEY, 1)
-//                        PreferenceHelper.getContext().sendBroadcast(finishGroupChatIntent)
-//                    } else if (action_type == "14") {
-//                        Groups.insertNewGroup(jsonObject.getJSONObject("group"))
-//                        if (jsonObject.getJSONObject("group").has("push_channel")) {
-//                            Logger.error(TAG, "onGroupActionMessageReceived: push_channel: " + jsonObject.getJSONObject("group").getString("push_channel"))
-//                            FirebaseMessaging.getInstance().subscribeToTopic(jsonObject.getJSONObject("group").getString("push_channel"))
-//                        }
-//                        val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
-//                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_CONTACT_LIST_KEY, 1)
-//                        PreferenceHelper.getContext().sendBroadcast(iintent)
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
 //            }
 //
 //            override fun onLogout() {
-//                Logger.error(TAG, "onLogout")
+//                Log.d(TAG, "Logout")
 //            }
 //        })
+
+        App.cometChat.subscribe(true, object :SubscribeCallbacks {
+            override fun gotOnlineList(jsonObject: JSONObject) {
+                var jsonObject = jsonObject
+                Logger.error(TAG, "deleteBuddy : " + jsonObject)
+                if (jsonObject.has("message")) {
+                    jsonObject = JSONObject()
+                }
+
+                Contact.updateAllContacts(jsonObject)
+            }
+
+            override fun gotBotList(jsonObject: JSONObject) {
+                //                Logger.error(TAG,"gotBotList = "+jsonObject);
+                //                Bot.updateAllBots(jsonObject);
+            }
+
+            override fun gotRecentChatsList(jsonObject: JSONObject) {
+                Logger.error(TAG, "gotRecentChatsList  :  " + jsonObject.toString())
+                CCMessageHelper.processRecentChatList(jsonObject)
+            }
+
+            override fun onError(jsonObject: JSONObject) {
+                Logger.error(TAG, "onError = " + jsonObject)
+            }
+
+            override fun onMessageReceived(jsonObject: JSONObject) {
+                Logger.error(TAG, "on Message Receive = " + jsonObject)
+                if (PreferenceHelper.contains(PreferenceKeys.UserKeys.SINGLE_CHAT_FIREBASE_CHANNEL)!!) {
+                    if (!PreferenceHelper.contains("SUBSCRIBED")) {
+                        FirebaseMessaging.getInstance().subscribeToTopic(PreferenceHelper.get(PreferenceKeys.UserKeys.SINGLE_CHAT_FIREBASE_CHANNEL))
+                    } else {
+                        PreferenceHelper.save("SUBSCRIBED", 1)
+                    }
+                }
+                try {
+                    if (jsonObject.has("count")) {
+                        val jsonArray = jsonObject.getJSONArray("Messages")
+                        for (i in 0 until jsonArray.length()) {
+                            CCMessageHelper.processOneOnOneMessage(jsonArray.getJSONObject(i))
+                        }
+                    } else {
+                        CCMessageHelper.processOneOnOneMessage(jsonObject)
+                    }
+                    val messageIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                    messageIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                    PreferenceHelper.getContext().sendBroadcast(messageIntent)
+
+                    val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                    iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
+                    PreferenceHelper.getContext().sendBroadcast(iintent)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+            }
+
+            override fun gotProfileInfo(jsonObject: JSONObject?) {
+                Logger.error(TAG, "gotProfileInfo = " + jsonObject!!)
+                if (null != jsonObject && CommonUtils.isJSONValid(jsonObject.toString())) {
+                    val data = SessionData.getInstance()
+                    data.update(jsonObject)
+                }
+            }
+
+            override fun gotAnnouncement(jsonObject: JSONObject) {
+                Logger.error(TAG, "gotAnnouncement = " + jsonObject)
+            }
+
+            override fun onAVChatMessageReceived(jsonObject: JSONObject) {
+                Logger.error(TAG, "onAVChatMessageReceived = " + jsonObject)
+                CCMessageHelper.processOneOnOneMessage(jsonObject)
+
+                val messageIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                messageIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                PreferenceHelper.getContext().sendBroadcast(messageIntent)
+
+                val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
+                PreferenceHelper.getContext().sendBroadcast(iintent)
+            }
+
+            override fun onActionMessageReceived(jsonObject: JSONObject) {
+                Logger.error(TAG, "onActionMessageReceived = " + jsonObject)
+                try {
+                    val action = jsonObject.getString("action")
+                    val fromid = jsonObject.getString("from")
+
+                    if (fromid != null && action == "typing_start") {
+                        val isTypingIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.IS_TYPING, 1)
+                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
+                        PreferenceHelper.getContext().sendBroadcast(isTypingIntent)
+
+                        val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.IS_TYPING, 1)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
+                        PreferenceHelper.getContext().sendBroadcast(iintent)
+                    } else if (fromid != null && action == "typing_stop") {
+                        val isTypingIntent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.STOP_TYPING, 1)
+                        isTypingIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
+                        PreferenceHelper.getContext().sendBroadcast(isTypingIntent)
+
+                        val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.STOP_TYPING, 1)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.CONTACT_ID, fromid)
+                        PreferenceHelper.getContext().sendBroadcast(iintent)
+                    } else if (action == "message_deliverd") {
+                        val msgId = jsonObject.getString("message_id")
+                        val msg = OneOnOneMessage.findByRemoteId(msgId)
+                        if (msg != null && msg!!.self === 1) {
+                            if (msg!!.messagetick !== CometChatKeys.MessageTypeKeys.MESSAGE_READ) {
+                                msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_DELIVERD
+                                msg!!.save()
+
+                                val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.DELIVERED_MESSAGE, 1)
+                                PreferenceHelper.getContext().sendBroadcast(iintent)
+                            }
+                        } else {
+                            App.cometChat.savePendingDeliveredMessages(msgId)
+                        }
+
+                    } else if (action == "message_read") {
+                        val msgId = jsonObject.getString("message_id")
+                        val msg = OneOnOneMessage.findById(msgId)
+
+                        Logger.error(TAG, "msg = " + msg!!)
+                        if (msg != null && msg!!.self === 1) {
+
+                            msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
+                            msg!!.save()
+
+                            val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.READ_MESSAGE, 1)
+                            PreferenceHelper.getContext().sendBroadcast(iintent)
+                        } else {
+                            Timer().schedule(object : TimerTask() {
+                                override fun run() {
+                                    val msg = OneOnOneMessage.findByRemoteId(msgId)
+                                    if (msg != null && msg!!.self === 1) {
+                                        if (msg != null && msg!!.self === 1) {
+                                            msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
+                                            msg!!.save()
+
+                                            val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
+                                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                                            iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.READ_MESSAGE, 1)
+                                            PreferenceHelper.getContext().sendBroadcast(iintent)
+                                        }
+                                    }
+                                }
+                            }, 3000)
+                        }
+                    }
+
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+            }
+
+            override fun onGroupMessageReceived(jsonObject: JSONObject) {
+                Logger.error(TAG, "onGroupMessageReceived = " + jsonObject)
+                try {
+                    if (jsonObject.has("count")) {
+                        val jsonArray = jsonObject.getJSONArray("Messages")
+                        Logger.error(TAG, "Grp message JsonArray = " + jsonArray)
+                        Logger.error(TAG, "Grp message JsonArray length = " + jsonArray.length())
+                        for (i in 0 until jsonArray.length()) {
+                            Logger.error(TAG, "Grp message process called for " + i)
+                            CCMessageHelper.processGroupMessage(jsonArray.getJSONObject(i))
+                        }
+                    } else {
+                        CCMessageHelper.processGroupMessage(jsonObject)
+                    }
+
+                    val messageBroadCast = Intent(BroadCastReceiverKeys.GROUP_MESSAGE_DATA_UPDATED_BROADCAST)
+                    messageBroadCast.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                    PreferenceHelper.getContext().sendBroadcast(messageBroadCast)
+
+                    val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                    iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
+                    PreferenceHelper.getContext().sendBroadcast(iintent)
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+            }
+
+            override fun onGroupsError(jsonObject: JSONObject) {
+                Logger.error(TAG, "onGroupsError = " + jsonObject)
+            }
+
+            override fun onLeaveGroup(jsonObject: JSONObject) {
+                Logger.error(TAG, "onLeaveGroup = " + jsonObject)
+            }
+
+            override fun gotGroupList(groupList: JSONObject) {
+                Logger.error(TAG, "gotGroupList = " + groupList)
+                Groups.updateAllGroups(groupList)
+            }
+
+            override fun gotGroupMembers(jsonObject: JSONObject) {
+                Logger.error(TAG, "gotGroupMembers = " + jsonObject)
+            }
+
+            override fun onGroupAVChatMessageReceived(jsonObject: JSONObject) {
+                Logger.error(TAG, "onChatroomAVChatMessageReceived = " + jsonObject)
+                CCMessageHelper.processGroupMessage(jsonObject)
+
+                val messageBroadCast = Intent(BroadCastReceiverKeys.GROUP_MESSAGE_DATA_UPDATED_BROADCAST)
+                messageBroadCast.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
+                PreferenceHelper.getContext().sendBroadcast(messageBroadCast)
+
+                val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_RECENT_LIST_KEY, 1)
+                PreferenceHelper.getContext().sendBroadcast(iintent)
+            }
+
+            override fun onGroupActionMessageReceived(jsonObject: JSONObject) {
+                Logger.error(TAG, "onChatroomActionMessageReceived = " + jsonObject)
+                try {
+                    val action_type = jsonObject.getString("action_type")
+                    val chatRoomId = jsonObject.getString("chatroom_id")
+                    if (action_type == "10") {
+                        val finishGroupChatIntent = Intent(BroadCastReceiverKeys.FINISH_GROUP_ACTIVITY)
+                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.GROUP_ID, chatRoomId)
+                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.KICKED, BroadCastReceiverKeys.IntentExtrasKeys.KICKED)
+                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_GROUP_LIST_KEY, 1)
+                        PreferenceHelper.getContext().sendBroadcast(finishGroupChatIntent)
+                    } else if (action_type == "11") {
+                        val finishGroupChatIntent = Intent(BroadCastReceiverKeys.FINISH_GROUP_ACTIVITY)
+                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.GROUP_ID, chatRoomId)
+                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.BANNED, BroadCastReceiverKeys.IntentExtrasKeys.BANNED)
+                        finishGroupChatIntent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_GROUP_LIST_KEY, 1)
+                        PreferenceHelper.getContext().sendBroadcast(finishGroupChatIntent)
+                    } else if (action_type == "14") {
+                        Groups.insertNewGroup(jsonObject.getJSONObject("group"))
+                        if (jsonObject.getJSONObject("group").has("push_channel")) {
+                            Logger.error(TAG, "onGroupActionMessageReceived: push_channel: " + jsonObject.getJSONObject("group").getString("push_channel"))
+                            FirebaseMessaging.getInstance().subscribeToTopic(jsonObject.getJSONObject("group").getString("push_channel"))
+                        }
+                        val iintent = Intent(BroadCastReceiverKeys.LIST_DATA_UPDATED_BROADCAST)
+                        iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.REFRESH_CONTACT_LIST_KEY, 1)
+                        PreferenceHelper.getContext().sendBroadcast(iintent)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+            }
+
+            override fun onLogout() {
+                Logger.error(TAG, "onLogout")
+            }
+        })
 
 
 
