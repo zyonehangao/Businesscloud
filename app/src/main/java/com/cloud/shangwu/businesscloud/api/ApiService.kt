@@ -4,7 +4,6 @@ import com.cloud.shangwu.businesscloud.mvp.model.bean.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -19,7 +18,7 @@ interface ApiService {
     fun login(@Field("username") username: String,
               @Field("password") password: String,
               @Field("invitedCode") invitedCode: String
-              ): Observable<HttpResult<LoginData>>
+    ): Observable<HttpResult<LoginData>>
 
 
     /**
@@ -33,23 +32,23 @@ interface ApiService {
     @POST("/pass/save")
     @FormUrlEncoded
     fun register(@Field("username") username: String,
-                           @Field("type") type: String,
-                           @Field("telephone") telephone: String,
-                           @Field("password") password: String,
-                           @Field("area") area: String,
-                           @Field("email") email: String,
-                           @Field("position") position: String,
-                           @Field("portrait") portrait: String,
-                           @Field("personalCode") personalCode: String,
-                           @Field("label") label: String,
-                           @Field("invitedCode") invitedCode: String,
-                           @Field("intro") intro: String,
-                           @Field("impact") impact: String,
-                           @Field("hobbys") hobbys: String,
-                           @Field("goal") goal: String,
-                           @Field("companyName") companyName: String,
-                           @Field("clan") clan: String,
-                           @Field("businessScope") businessScope: String
+                 @Field("type") type: String,
+                 @Field("telephone") telephone: String,
+                 @Field("password") password: String,
+                 @Field("area") area: String,
+                 @Field("email") email: String,
+                 @Field("position") position: String,
+                 @Field("portrait") portrait: String,
+                 @Field("personalCode") personalCode: String,
+                 @Field("label") label: String,
+                 @Field("invitedCode") invitedCode: String,
+                 @Field("intro") intro: String,
+                 @Field("impact") impact: String,
+                 @Field("hobbys") hobbys: String,
+                 @Field("goal") goal: String,
+                 @Field("companyName") companyName: String,
+                 @Field("clan") clan: String,
+                 @Field("businessScope") businessScope: String
     ): Observable<HttpResult<LoginData>>
 
     /**
@@ -63,12 +62,12 @@ interface ApiService {
     @POST("/business/pass/save")
     @FormUrlEncoded
     fun userRegister(@Field("username") username: String,
-                           @Field("password") password: String,
-                           @Field("email") email: String,
-                           @Field("area") area: String,
-                            @Field("pid") pid: String,
-                            @Field("type") type: String,
-                           @Field("code") position: String,
+                     @Field("password") password: String,
+                     @Field("email") email: String,
+                     @Field("area") area: String,
+                     @Field("pid") pid: String,
+                     @Field("type") type: String,
+                     @Field("code") position: String,
                      @Field("clan") clan: String,
                      @Field("name") name: String,
                      @Field("telephone") telephone: String
@@ -86,13 +85,13 @@ interface ApiService {
     @POST("/business/pass/save")
     @FormUrlEncoded
     fun registerCompany(@Field("companyName") companyName: String,
-                 @Field("password") password: String,
-                 @Field("area") area: String,
-                 @Field("pid") pid: Int,
-                 @Field("type") type: Int,
-                 @Field("email") email: String,
-                 @Field("position") position: String,
-                 @Field("username") username: String,
+                        @Field("password") password: String,
+                        @Field("area") area: String,
+                        @Field("pid") pid: Int,
+                        @Field("type") type: Int,
+                        @Field("email") email: String,
+                        @Field("position") position: String,
+                        @Field("username") username: String,
                         @Field("telephone") telephone: String
     ): Observable<HttpResult<LoginData>>
 
@@ -116,7 +115,7 @@ interface ApiService {
     @GET("/business/pass/sms")
 
     fun sms(@Field("phone") phone: String
-                 ): Observable<HttpResult<LoginData>>
+    ): Observable<HttpResult<LoginData>>
 
     /**
      *获取短信码
@@ -130,7 +129,7 @@ interface ApiService {
             @Field("userName") userName: String,
             @Field("oldPassword") oldPassword: String,
             @Field("newPassword") newPassword: String
-                 ): Observable<HttpResult<LoginData>>
+    ): Observable<HttpResult<LoginData>>
 
     /**
      *添加爱好
@@ -143,7 +142,8 @@ interface ApiService {
     fun HobbyUpdate(
             @Path("hid") hid: String,
             @Field("label") label: String
-                 ): Observable<HttpResult<LoginData>>
+    ): Observable<HttpResult<LoginData>>
+
     /**
      *忘记密码
      * @param username
@@ -156,7 +156,7 @@ interface ApiService {
             @Field("username") userName: String,
             @Field("password") oldPassword: String,
             @Field("code") newPassword: String
-                 ): Observable<HttpResult<LoginData>>
+    ): Observable<HttpResult<LoginData>>
 
     /**上传图片
      *
@@ -179,8 +179,8 @@ interface ApiService {
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
 //    fun upload1(@Body file:RequestBody): Observable<HttpResult<LoginData>>
 //     fun upload1(@PartMap  file:MultipartBody.Part ): Observable<HttpResult<LoginData>>
-    fun uploadImage(@Part("file") description:RequestBody ,
-                    @Part file:MultipartBody.Part ):
+    fun uploadImage(@Part("file") description: RequestBody,
+                    @Part file: MultipartBody.Part):
             Observable<HttpResult<LoginData>>
 
 
@@ -228,12 +228,12 @@ interface ApiService {
     @POST("/business/country/{countryId}/label/update/{lid}")
     fun saveLabel(
             @Path("countryId") countryId: Int,
-            @Path("lid") lid:Int,
+            @Path("lid") lid: Int,
             @Query("context") context: String,
-            @Query("ishot") ishot:Int,
-            @Query("lid") id:Int,
-            @Query("state") state:Int,
-            @Query("type") type:Int
+            @Query("ishot") ishot: Int,
+            @Query("lid") id: Int,
+            @Query("state") state: Int,
+            @Query("type") type: Int
     ): Observable<HttpResult<LabelHot>>
 
 
@@ -250,4 +250,25 @@ interface ApiService {
     fun getFriends(
             @Path("uid") uid: Int
     ): Observable<BaseResult<Friend>>
+
+    /**
+     * 待办事项
+     */
+    @GET("/business/friends/toDoList")
+    fun toDoList(
+            @Query("page") page: Int,
+            @Query("size") size: Int,
+            @Query("uid") uid: String
+    ): Observable<ToDoListBean>
+
+
+    /**
+     * 是否同意添加好友
+     */
+    @GET("business/friends/{uid}/add")
+    fun addFriends(
+            @Path("uid") uid: String,
+            @Query("fuid") fuid: Int,
+            @Query("status") status: Int
+    ): Observable<HttpResult<Friend>>
 }

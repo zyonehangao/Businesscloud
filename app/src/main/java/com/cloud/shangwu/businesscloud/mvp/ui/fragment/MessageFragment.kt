@@ -1,12 +1,15 @@
 package com.cloud.shangwu.businesscloud.mvp.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.cloud.shangwu.businesscloud.R
 import com.cloud.shangwu.businesscloud.base.BaseFragment
 import com.cloud.shangwu.businesscloud.event.MessageEvent
+import com.cloud.shangwu.businesscloud.mvp.ui.activity.message.ToDoListActivity
 import com.cloud.shangwu.businesscloud.mvp.ui.adapter.MessageAdapter
 import kotlinx.android.synthetic.main.fragment_message.*
 import org.greenrobot.eventbus.Subscribe
@@ -14,8 +17,9 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.ArrayList
 
 class MessageFragment : BaseFragment() {
-    var Liist:MutableList<String> = ArrayList()
-    var messageAdapter :MessageAdapter ?=null
+    var Liist: MutableList<String> = ArrayList()
+    var messageAdapter: MessageAdapter? = null
+
     companion object {
         fun getInstance(): MessageFragment = MessageFragment()
     }
@@ -34,6 +38,13 @@ class MessageFragment : BaseFragment() {
         }
         messageAdapter = MessageAdapter(Liist)
         val inflate = View.inflate(activity, R.layout.message_heard, null)
+        val ll_todo = inflate.findViewById<LinearLayout>(R.id.ll_todo)
+        ll_todo.setOnClickListener {
+           //待处理事项
+           var  intent = Intent()
+            intent.setClass(activity,ToDoListActivity::class.java)
+            startActivity(intent)
+        }
         recycler_view?.run {
             layoutManager = LinearLayoutManager(activity)
             adapter = messageAdapter
@@ -42,7 +53,6 @@ class MessageFragment : BaseFragment() {
             }
         }
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.POSTING)
@@ -73,3 +83,5 @@ class MessageFragment : BaseFragment() {
         Log.e("Async", Thread.currentThread().name)
     }
 }
+
+

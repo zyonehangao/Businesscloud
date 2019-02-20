@@ -21,6 +21,7 @@ object Constant {
     const val TODO_DONE = "todo_done"
     const val TODO_DATA = "Data"
     const val OK = 200
+    const  val  UID ="uid"
 
     /**
      * url key

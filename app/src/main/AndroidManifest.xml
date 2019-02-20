@@ -128,7 +128,7 @@
         <activity android:name=".mvp.ui.activity.login.CreatGroupsActivity"/>
         <activity android:name=".im.activity.CCGroupChatActivity"/>
         <activity android:name=".im.activity.GroupsActivity"/>
-
+        <activity android:name=".mvp.ui.activity.message.ToDoListActivity"/>
     </application>
 
 </manifest>

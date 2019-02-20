@@ -57,6 +57,6 @@ fun Fragment.showSnackMsg(msg: String) {
  * 格式化当前日期
  */
 fun formatCurrentDate(): String {
-    val formatter = SimpleDateFormat("yyyy-MM-dd")
+    val formatter = SimpleDateFormat("yyyy-MM-ToDoListActivity")
     return formatter.format(Date())
 }

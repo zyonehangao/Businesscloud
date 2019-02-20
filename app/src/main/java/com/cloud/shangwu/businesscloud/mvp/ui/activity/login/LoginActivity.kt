@@ -85,8 +85,9 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     private var token: String by Preference(Constant.TOKEN_KEY, "")
 
     /**
-     * token
+     * uid
      */
+    private var uid: String by Preference(Constant.UID, "")
 
 
     private val mPresenter: LoginPresenter by lazy {
@@ -149,7 +150,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         pwd = et_password.text.toString()
         token = data.token
         mdata=data
-
+        uid=(data.uid).toString()
         EventBus.getDefault().postSticky(LoginEvent(isLogin, data))
 
         var bundle = Bundle()

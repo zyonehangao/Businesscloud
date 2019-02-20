@@ -19,16 +19,18 @@ apply plugin: 'io.fabric'
 repositories {
     google()
     maven { url 'https://maven.fabric.io/public' }
-//    maven {
-//        url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"
-//    }
+    //    maven {
+    maven {
+      url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"
+    }
+    //    }
     flatDir { dirs 'libs' }
 }
 
 //def qbSdkVersion =  ' 3.9.0 '
 
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    compileSdkVersion 28
     buildToolsVersion '28.0.2'
     flavorDimensions rootProject.dimensionDefault
     useLibrary 'org.apache.http.legacy'
@@ -66,12 +68,12 @@ android {
         disable 'CheckResult'
     }
 
-    dexOptions {
-        dexInProcess true
-        preDexLibraries true
-        javaMaxHeapSize "4g"
-        incremental true
-    }
+//    dexOptions {
+//        dexInProcess true
+//        preDexLibraries true
+//        javaMaxHeapSize "4g"
+//        incremental true
+//    }
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -107,14 +109,18 @@ dependencies {
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["design"]
+
     //Ui
     implementation rootProject.ext.dependencies["PickerView"]
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+
     //    implementation rootProject.ext.dependencies["anko"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
     //    leakcanary
     debugImplementation rootProject.ext.dependencies["leakcanary-debug"]
     releaseImplementation rootProject.ext.dependencies["leakcanary-release"]
+
     //    http
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["retrofit"]
@@ -122,6 +128,7 @@ dependencies {
     implementation rootProject.ext.dependencies["adapter-rxjava2"]
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+
     //rx
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
@@ -135,58 +142,68 @@ dependencies {
     implementation rootProject.ext.dependencies["okhttp3LoggerInterceptor"]
     implementation rootProject.ext.dependencies["logger"]
     implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
+
     //九宫格
     implementation 'com.github.donkingliang:LabelsView:1.4.1'
     implementation 'com.yanzhenjie:album:2.1.2'
     implementation 'id.zelory:compressor:2.1.0'
+
     //标签控件
-//    implementation 'co.lujun:androidtagview:1.0.3'
+
+    //    implementation 'co.lujun:androidtagview:1.0.3'
     implementation 'com.hyman:flowlayout-lib:1.1.2'
+
     //搜索控件
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
     implementation 'co.lujun:androidtagview:1.0.3'
     implementation 'com.hyman:flowlayout-lib:1.1.2'
-//    compile project(path: ':library')
 
-//    implementation(project(":sample-core"))
+    //    compile project(path: ':library')
 
-//    implementation "com.quickblox:quickblox-android-sdk-chat:$rootProject.qbSdkVersion"
-//    implementation "com.quickblox:quickblox-android-sdk-content:$rootProject.qbSdkVersion"
-//    implementation "com.quickblox:chat-message-adapter:$rootProject.qbChatAdapterVersion"
+    //    implementation(project(":sample-core"))
 
+    //    implementation "com.quickblox:quickblox-android-sdk-chat:$rootProject.qbSdkVersion"
+
+    //    implementation "com.quickblox:quickblox-android-sdk-content:$rootProject.qbSdkVersion"
+
+    //    implementation "com.quickblox:chat-message-adapter:$rootProject.qbChatAdapterVersion"
     implementation "com.timehop.stickyheadersrecyclerview:library:$rootProject.stickylistheadersVersion@aar"
     implementation "com.github.orangegangsters:swipy:$rootProject.swipyVersion@aar"
 
-//    implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:$rootProject.qbSdkVersion"
+    //    implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:$rootProject.qbSdkVersion"
 
-//    compile 'com.ilike:voicerecorder:1.0.2'
-//    compile(name:'sinch-android-rtc', version:'+', ext:'aar')
-    compile 'com.inscripts:CometChat:7.26.0'
-//    compile 'com.inscripts:CometChatUI:7.26.0'
-    compile 'com.inscripts:CometChat:7.22.0'
-    compile 'com.android.support:multidex:1.0.3'
-    compile 'com.android.support:appcompat-v7:27.1.1'
-    compile 'com.android.support:design:27.1.1'
-    compile 'com.android.support:support-v4:27.1.1'
-    compile 'com.android.support:recyclerview-v7:27.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.1.2'
-    compile ('org.apache.httpcomponents:httpcore:4.3.3',{
+    //    compile 'com.ilike:voicerecorder:1.0.2'
+
+    //    compile(name:'sinch-android-rtc', version:'+', ext:'aar')
+    implementation 'com.inscripts:CometChat:7.26.0'
+
+    //    compile 'com.inscripts:CometChatUI:7.26.0'
+    implementation 'com.inscripts:CometChat:7.22.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation('org.apache.httpcomponents:httpcore:4.3.3', {
         exclude module: 'httpclient'
         exclude module: 'commons-logging'
     })
-    compile ('org.apache.httpcomponents:httpmime:4.3.3',{
+    implementation('org.apache.httpcomponents:httpmime:4.3.3', {
         exclude module: 'httpclient'
         exclude module: 'commons-logging'
     })
-    compile 'com.splitwise:tokenautocomplete:1.3.3'
-    compile 'com.google.firebase:firebase-messaging:17.3.0'
-    compile 'com.google.firebase:firebase-database:16.0.1'
-    compile 'com.google.firebase:firebase-auth:16.0.3'
-    compile 'com.google.firebase:firebase-ads:15.0.1'
-    compile 'org.jsoup:jsoup:1.8.1'
-    testCompile 'junit:junit:4.12'
-    compile 'io.sentry:sentry-android:1.7.5'
-    compile 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.splitwise:tokenautocomplete:1.3.3'
+    implementation 'com.google.firebase:firebase-messaging:17.3.0'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.3'
+    implementation 'com.google.firebase:firebase-ads:15.0.1'
+    implementation 'org.jsoup:jsoup:1.8.1'
+    testImplementation 'junit:junit:4.12'
+    implementation 'io.sentry:sentry-android:1.7.5'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
 }
 
 //apply from: "../artifacts.gradle"
