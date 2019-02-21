@@ -42,7 +42,7 @@ public class ToDoListActivity extends BaseActivity implements ToDoListContract.V
 
     private RecyclerView mRl_view;
     private int num = 0;  //总数
-    private int count = 10; //每次返回个数
+    private int count = 15; //每次返回个数
     private int page = 1;
 
     private ToDoListPresenter mPresenter;

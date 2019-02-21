@@ -129,6 +129,7 @@
         <activity android:name=".im.activity.CCGroupChatActivity"/>
         <activity android:name=".im.activity.GroupsActivity"/>
         <activity android:name=".mvp.ui.activity.message.ToDoListActivity"/>
+        <activity android:name=".mvp.ui.activity.message.AddFriendsActivity"/>
     </application>
 
 </manifest>
