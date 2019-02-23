@@ -221,10 +221,10 @@ class MainActivity : BaseActivity(), MainContract.View {
                     } else if (action == "message_deliverd") {
                         val msgId = jsonObject.getString("message_id")
                         val msg = OneOnOneMessage.findByRemoteId(msgId)
-                        if (msg != null && msg!!.self === 1) {
-                            if (msg!!.messagetick !== CometChatKeys.MessageTypeKeys.MESSAGE_READ) {
-                                msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_DELIVERD
-                                msg!!.save()
+                        if (msg != null && msg.self === 1) {
+                            if (msg.messagetick !== CometChatKeys.MessageTypeKeys.MESSAGE_READ) {
+                                msg.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_DELIVERD
+                                msg.save()
 
                                 val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
                                 iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
@@ -240,10 +240,10 @@ class MainActivity : BaseActivity(), MainContract.View {
                         val msg = OneOnOneMessage.findById(msgId)
 
                         Logger.error(TAG, "msg = " + msg!!)
-                        if (msg != null && msg!!.self === 1) {
+                        if (msg != null && msg.self === 1) {
 
-                            msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
-                            msg!!.save()
+                            msg.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
+                            msg.save()
 
                             val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
                             iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
@@ -253,10 +253,10 @@ class MainActivity : BaseActivity(), MainContract.View {
                             Timer().schedule(object : TimerTask() {
                                 override fun run() {
                                     val msg = OneOnOneMessage.findByRemoteId(msgId)
-                                    if (msg != null && msg!!.self === 1) {
-                                        if (msg != null && msg!!.self === 1) {
-                                            msg!!.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
-                                            msg!!.save()
+                                    if (msg != null && msg.self === 1) {
+                                        if (msg != null && msg.self === 1) {
+                                            msg.messagetick = CometChatKeys.MessageTypeKeys.MESSAGE_READ
+                                            msg.save()
 
                                             val iintent = Intent(BroadCastReceiverKeys.MESSAGE_DATA_UPDATED_BROADCAST)
                                             iintent.putExtra(BroadCastReceiverKeys.IntentExtrasKeys.NEW_MESSAGE, 1)
@@ -372,6 +372,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 Logger.error(TAG, "onLogout")
             }
         })
+
         iv_black.setOnClickListener{
             showPopMenu()
         }

@@ -168,7 +168,7 @@ public class ContactFragment extends Fragment implements LoaderManager.LoaderCal
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         mContext=getContext();
         contacts=new ArrayList<>();
-        db= SugarDb.getInstance(mContext).getWritableDatabase();
+//        db= SugarDb.getInstance(mContext).getWritableDatabase();
 //        loadUsersFromQb();
         cometChat = CometChat.getInstance(getContext());
         grpNoContacts = view.findViewById(R.id.grpNoContacts);
