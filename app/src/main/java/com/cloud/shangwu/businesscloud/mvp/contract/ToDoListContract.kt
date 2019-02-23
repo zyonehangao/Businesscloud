@@ -9,7 +9,7 @@ interface ToDoListContract {
         fun getList(data: ToDoListBean,isRrefrsh: Boolean)
         fun getError()
 
-        //添加好友
+        //是否同意添加好友
         fun  addFriends(message: Int);
     }
 

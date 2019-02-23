@@ -35,10 +35,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.uid;
 
 
-public class ToDoListActivity extends BaseActivity implements ToDoListContract.View {
+public class ToDoListActivity extends BaseActivity implements ToDoListContract.View{
 
     private RecyclerView mRl_view;
     private int num = 0;  //总数
@@ -66,7 +65,7 @@ public class ToDoListActivity extends BaseActivity implements ToDoListContract.V
     public void initView() {
         mRl_view = (RecyclerView) findViewById(R.id.rlView);
         mRefreshLayout = (SmartRefreshLayout) findViewById(R.id.refresh);
-        mAdapter = new ToDoListAdapter(R.layout.item_todolist, mList);
+        mAdapter = new ToDoListAdapter(this, mList);
         SharedPreferences sharedPreferences = getSharedPreferences("businesscloud", MODE_PRIVATE);
         mUid = sharedPreferences.getString(Constant.UID, "");
         mRl_view.setLayoutManager(new LinearLayoutManager(this));
@@ -78,9 +77,7 @@ public class ToDoListActivity extends BaseActivity implements ToDoListContract.V
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                if (mList != null) {
-                    mList.clear();
-                }
+
                 page = 1;
                 mPresenter.getToDoList(page, count, mUid, true);
                 mRefreshLayout.finishRefresh(1500);
@@ -96,48 +93,49 @@ public class ToDoListActivity extends BaseActivity implements ToDoListContract.V
             }
         });
 
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.iv_del) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
-                    builder.setTitle("提示")
-                            .setMessage("是否拒绝添加好友？")
-                            .setPositiveButton("拒绝", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //拒绝添加
-                                    ToDoListBean.DataBean.ListBean item = (ToDoListBean.DataBean.ListBean) adapter.getItem(position);
-                                    mPresenter.addFriends(mUid, item.getUid(), 0);
-                                }
-                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
 
-                } else if (view.getId() == R.id.iv_choose) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
-                    builder.setTitle("提示")
-                            .setMessage("是否同意添加好友？")
-                            .setPositiveButton("同意", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //同意添加
-                                    ToDoListBean.DataBean.ListBean item = (ToDoListBean.DataBean.ListBean) adapter.getItem(position);
-                                    mPresenter.addFriends(mUid, item.getUid(), 2);
-                                }
-                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
-
-                }
-            }
-        });
+//        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//            @Override
+//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+//                if (view.getId() == R.id.iv_del) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
+//                    builder.setTitle("提示")
+//                            .setMessage("是否拒绝添加好友？")
+//                            .setPositiveButton("拒绝", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    //拒绝添加
+//                                    ToDoListBean.DataBean.ListBean item = (ToDoListBean.DataBean.ListBean) adapter.getItem(position);
+//                                    mPresenter.addFriends(mUid, item.getUid(), 0);
+//                                }
+//                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    }).show();
+//
+//                } else if (view.getId() == R.id.iv_choose) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
+//                    builder.setTitle("提示")
+//                            .setMessage("是否同意添加好友？")
+//                            .setPositiveButton("同意", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    //同意添加
+//                                    ToDoListBean.DataBean.ListBean item = (ToDoListBean.DataBean.ListBean) adapter.getItem(position);
+//                                    mPresenter.addFriends(mUid, item.getUid(), 2);
+//                                }
+//                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    }).show();
+//
+//                }
+//            }
+//        });
     }
 
 
@@ -158,16 +156,57 @@ public class ToDoListActivity extends BaseActivity implements ToDoListContract.V
                 if (mList.size() >= num) {
                     mRefreshLayout.finishLoadMoreWithNoMoreData();
                 } else {
-                    mRefreshLayout.finishLoadMore(1500, true, true);
+                    mRefreshLayout.finishLoadMore(1500);
                 }
 
             } else {
-
+                if (mList != null) {
+                    mList.clear();
+                }
                 mList.addAll(data.getData().getList());
                 mAdapter.notifyDataSetChanged();
             }
 
         }
+        mAdapter.setListener(new ToDoListAdapter.onClickListener() {
+            @Override
+            public void onChoose(int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
+                    builder.setTitle("提示")
+                            .setMessage("是否同意添加好友？")
+                            .setPositiveButton("同意", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //同意添加
+                                    mPresenter.addFriends(mUid, position, 2);
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            }
+
+            @Override
+            public void onDel(int position) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
+                    builder.setTitle("提示")
+                            .setMessage("是否拒绝添加好友？")
+                            .setPositiveButton("拒绝", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //拒绝添加
+                                    mPresenter.addFriends(mUid, position, 0);
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            }
+        });
     }
 
 
@@ -205,4 +244,6 @@ public class ToDoListActivity extends BaseActivity implements ToDoListContract.V
             Toast.makeText(this, "操作成功", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

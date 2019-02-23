@@ -271,4 +271,28 @@ interface ApiService {
             @Query("fuid") fuid: Int,
             @Query("status") status: Int
     ): Observable<HttpResult<Friend>>
+
+
+    /**
+     * 搜索用户
+     */
+    @GET("business/friends/search")
+    fun searchUser(
+            @Query("page") page: Int,
+            @Query("size") size: Int,
+            @Query("queryStr") queryStr: String
+    ): Observable<ToDoListBean>
+
+
+    /**
+     * 发送添加好友信息
+     */
+    @POST("business/friends/{uid}/add/msg")
+    @FormUrlEncoded
+    fun sendFriendsMessage(
+            @Path("uid") uid: String,
+            @Field("client") client :String,
+            @Field("fuid") fuid: String,
+            @Field("msg") msg:String
+    ): Observable<HttpResult<Friend>>
 }
